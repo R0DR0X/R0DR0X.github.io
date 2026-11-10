@@ -1,0 +1,432 @@
+{
+  "meta": {
+    "name": "Iván Rodrigo Pianto Antón",
+    "headline": {
+      "es": "Ingeniero de software full stack · Arquitecto de sistemas de IA · Tech lead",
+      "en": "Full stack software engineer · AI systems architect · Tech lead"
+    },
+    "location": { "es": "Piura, Perú", "en": "Piura, Peru" },
+    "email": "rodrigopianto2005@gmail.com",
+    "github": "R0DR0X",
+    "updated": "2026-11"
+  },
+  "about": {
+    "es": "Construyo software que resuelve operaciones reales: ERPs multi-tenant, plataformas de e-commerce con agentes de IA, herramientas de ingeniería civil y modelos de riesgo hidrológico. Combino formación en ingeniería civil con arquitectura full stack, y trabajo con disciplina: especificaciones antes que código, pruebas primero, revisión adversarial y métricas honestas.",
+    "en": "I build software for real operations: multi-tenant ERPs, e-commerce platforms run by AI agents, civil-engineering tools and hydrological risk models. I combine a civil-engineering background with full stack architecture, and I work with discipline: specs before code, tests first, adversarial review and honest metrics."
+  },
+  "stats": [
+    { "value": "13,223", "label": { "es": "pruebas en el gate de despliegue de un ERP multi-tenant", "en": "tests in the release gate of a multi-tenant ERP" } },
+    { "value": "20,491", "label": { "es": "anuncios analizados con IA por USD 25.53", "en": "ads analyzed with AI for USD 25.53" } },
+    { "value": "147k", "label": { "es": "estampillas en un catálogo reconstruido por scraping", "en": "stamps in a catalog rebuilt by scraping" } },
+    { "value": "25,290", "label": { "es": "tramos de río en una corrida nacional de peligro de inundación", "en": "river reaches in a national flood-hazard run" } }
+  ],
+  "areas": [
+    { "id": "software", "title": { "es": "Plataformas y SaaS", "en": "Platforms and SaaS" } },
+    { "id": "ai", "title": { "es": "IA y agentes", "en": "AI and agents" } },
+    { "id": "engineering", "title": { "es": "Ingeniería y ciencia de datos", "en": "Engineering and data science" } },
+    { "id": "other", "title": { "es": "Web, negocio y otros", "en": "Web, business and more" } }
+  ],
+  "projects": [
+    {
+      "id": "erp-traceability",
+      "area": "software",
+      "featured": true,
+      "period": { "es": "2024 – hoy", "en": "2024 – present" },
+      "title": { "es": "ERP y trazabilidad multi-tenant para agroexportación", "en": "Multi-tenant ERP and traceability for agro-export" },
+      "context": { "es": "Exportadora pesquera peruana, a través de una empresa de software", "en": "Peruvian seafood exporter, through a software company" },
+      "role": { "es": "Tech lead y arquitecto", "en": "Tech lead and architect" },
+      "summary": {
+        "es": "Plataforma SaaS que cubre acopio, producción, almacén, comercio exterior y facturación electrónica. Un panel web, una app móvil offline y bots de WhatsApp trabajan sobre el mismo backend.",
+        "en": "SaaS platform covering intake, production, warehouse, foreign trade and e-invoicing. A web panel, an offline mobile app and WhatsApp bots work on the same backend."
+      },
+      "highlights": [
+        { "es": "Motor documental con extracción por IA, reglas de validación y semáforo de revisión humana; app móvil offline-first con cola SQLite.", "en": "Document engine with AI extraction, validation rules and a human-review traffic light; offline-first mobile app with an SQLite queue." },
+        { "es": "Comercio exterior completo: proformas, contenedores, propuesta automática de packing, tablero Kanban y carga histórica de 240 proformas (~USD 49.9M).", "en": "Full foreign-trade area: proformas, containers, automatic packing proposals, a Kanban board and a historical load of 240 proformas (~USD 49.9M)." },
+        { "es": "Producción con kardex por lote, trazabilidad GS1 y mermas conciliadas con el Excel de planta (457 guías importadas sin rechazos).", "en": "Production with batch kardex, GS1 traceability and shrinkage reconciled against the plant's Excel (457 waste guides imported with zero rejections)." },
+        { "es": "Facturación electrónica SUNAT (facturas, boletas, notas y guías de remisión) mediante un adaptador desacoplado.", "en": "SUNAT e-invoicing (invoices, receipts, credit/debit notes and dispatch guides) through a decoupled adapter." },
+        { "es": "Bots de WhatsApp que registran llegadas y emiten proformas por texto o audio, en producción desde agosto de 2026.", "en": "WhatsApp bots that log arrivals and issue proformas from text or voice notes, in production since August 2026." },
+        { "es": "Gate de despliegue con 13,223 pruebas, observabilidad con Prometheus y Grafana, e infraestructura reducida a ~USD 83/mes.", "en": "Release gate with 13,223 tests, Prometheus and Grafana observability, and infrastructure cut to ~USD 83/month." }
+      ],
+      "stack": ["NestJS", "Fastify", "PostgreSQL 17", "Drizzle", "Redis", "BullMQ", "Next.js 16", "React 19", "Expo", "n8n", "Gemini", "Whisper", "Docker", "GitHub Actions", "Prometheus", "Grafana"]
+    },
+    {
+      "id": "ecommerce-platform",
+      "area": "ai",
+      "featured": true,
+      "period": { "es": "2024 – hoy", "en": "2024 – present" },
+      "title": { "es": "Plataforma de e-commerce operada por agentes de IA", "en": "E-commerce platform run by AI agents" },
+      "context": { "es": "Startup de e-commerce latinoamericana", "en": "Latin American e-commerce startup" },
+      "role": { "es": "Lead full stack y arquitecto de producto", "en": "Lead full stack developer and product architect" },
+      "summary": {
+        "es": "Plataforma para vendedores directos con pago contra entrega: investigación de mercado, estrategia de oferta, creativos, landings, pedidos y ventas asistidas por IA.",
+        "en": "Platform for direct-to-consumer, cash-on-delivery sellers: market research, offer strategy, creatives, landing pages, orders and AI-assisted sales."
+      },
+      "highlights": [
+        { "es": "v1: pipeline de 11 agentes de IA en DAG con 2 checkpoints humanos que valida un producto y produce avatar, competencia, branding, copy, creativos y landing en ~30–45 min.", "en": "v1: an 11-agent AI pipeline (DAG) with 2 human checkpoints that validates a product and produces avatar, competitors, branding, copy, creatives and a landing page in ~30–45 min." },
+        { "es": "v2: reconstrucción como SaaS multi-tenant en más de 20 cambios encadenados: identidad, billing por créditos, motor financiero, landings, publicación, pedidos y envíos.", "en": "v2: rebuilt as a multi-tenant SaaS in 20+ chained changes: identity, credit-based billing, financial engine, landing pages, publishing, orders and shipments." },
+        { "es": "CRM de WhatsApp con vendedora de IA que entiende audio y fotos, seguimientos automáticos, integración con courier y control del gasto en IA.", "en": "WhatsApp CRM with an AI sales agent that understands voice notes and photos, automatic follow-ups, courier integration and AI spend control." },
+        { "es": "Estudio creativo automatizado: 17 anuncios del día 1 con QA de audio (−14 LUFS) y render reducido de 346 a 199 s por anuncio.", "en": "Automated creative studio: 17 day-one ads with audio QA (−14 LUFS) and render time cut from 346 to 199 s per ad." },
+        { "es": "Suites de hasta 2,120 pruebas más E2E con Playwright, y revisión adversarial doble antes de cada merge.", "en": "Suites of up to 2,120 tests plus Playwright E2E, and a blind dual review before every merge." }
+      ],
+      "stack": ["Next.js 16", "React 19", "TypeScript", "PostgreSQL", "Cloudflare Workers", "D1", "R2", "OpenRouter", "Anthropic API", "Whisper", "Remotion", "Playwright", "Vitest", "Mercado Pago"]
+    },
+    {
+      "id": "ad-intelligence",
+      "area": "ai",
+      "featured": true,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Radar de nichos: inteligencia de anuncios con IA", "en": "Niche radar: AI ad-market intelligence" },
+      "context": { "es": "Módulo de la plataforma de e-commerce", "en": "Module of the e-commerce platform" },
+      "role": { "es": "Arquitecto y desarrollador", "en": "Architect and developer" },
+      "summary": {
+        "es": "Recolecta anuncios públicos por nicho y país, extrae señales con OCR, CLIP y Whisper, las etiqueta con LLMs y rankea los anuncios ganadores con un score de supervivencia.",
+        "en": "Collects public ads by niche and country, extracts signals with OCR, CLIP and Whisper, labels them with LLMs and ranks winning ads with a survival score."
+      },
+      "highlights": [
+        { "es": "Recolector paralelo de 20–30 workers: 923–1,717 anuncios por minuto frente a 68 en secuencial.", "en": "Parallel collector with 20–30 workers: 923–1,717 ads per minute versus 68 sequentially." },
+        { "es": "20,491 anuncios analizados por USD 25.53 y 62,581 frases agrupadas por USD 0.40.", "en": "20,491 ads analyzed for USD 25.53 and 62,581 phrases clustered for USD 0.40." },
+        { "es": "Ranking por supervivencia Kaplan–Meier y transcripción en VMs spot (10 videos por USD 0.0048).", "en": "Kaplan–Meier survival ranking and transcription on spot VMs (10 videos for USD 0.0048)." },
+        { "es": "Arquitectura hexagonal, aislamiento multi-tenant y despliegue con backup y script de rollback.", "en": "Hexagonal architecture, multi-tenant isolation and deployment with backup and a rollback script." }
+      ],
+      "stack": ["Python 3.13", "FastAPI", "Huey", "DuckDB", "Parquet", "CLIP", "Whisper", "OCR", "OpenRouter", "GCP spot VMs", "ECharts"]
+    },
+    {
+      "id": "construction-platform",
+      "area": "engineering",
+      "featured": true,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Plataforma para una constructora: compras, presupuestos y licitaciones", "en": "Construction company platform: procurement, estimating and tenders" },
+      "context": { "es": "Contratista de construcción del norte del Perú", "en": "Construction contractor in northern Peru" },
+      "role": { "es": "Ingeniero y desarrollador", "en": "Engineer and developer" },
+      "summary": {
+        "es": "Plataforma interna y motores que cubren compras, presupuestos, expedientes de licitación y control de obras, más un asistente de IA para los ingenieros.",
+        "en": "Internal platform and engines covering procurement, cost estimating, tender packages and works control, plus an AI assistant for the engineers."
+      },
+      "highlights": [
+        { "es": "Plataforma interna con proveedores validados contra un padrón de 18.5M de RUC, solicitudes de cotización, comparativo de precios y 13 plantillas corporativas.", "en": "Internal platform with suppliers validated against a registry of 18.5M tax IDs, requests for quotation, price comparison and 13 corporate templates." },
+        { "es": "Lectura de facturas de compra: XML UBL, QR, texto y extracción con LLM, con asignación automática a obras (63 casos cubiertos).", "en": "Purchase-invoice reading: UBL XML, QR, text and LLM extraction, with automatic assignment to works (63 cases covered)." },
+        { "es": "Motor de APU y metrados con predictor jerárquico: 13.8% de error mediano en conjuntos ciegos, sobre un corpus de 888 obras públicas.", "en": "Unit-price and quantity-takeoff engine with a hierarchical predictor: 13.8% median error on blind sets, over a corpus of 888 public works." },
+        { "es": "Portal de obras con valor ganado (CPI, EAC) y expediente de calidad; más de 10 cotizaciones en dos semanas, de hasta S/ 237k, leyendo planos DWG/DXF.", "en": "Works portal with earned value (CPI, EAC) and a quality dossier; 10+ quotes in two weeks, up to S/ 237k, read from DWG/DXF drawings." },
+        { "es": "Asistente de WhatsApp para los ingenieros con reglas fuera del modelo, notas de voz y tareas en sandbox.", "en": "WhatsApp assistant for the engineers, with rules outside the model, voice notes and sandboxed jobs." }
+      ],
+      "stack": ["Python", "FastAPI", "SQLAlchemy", "PostgreSQL", "Alpine.js", "LibreOffice headless", "ezdxf", "Playwright", "faster-whisper", "systemd", "Cloudflare Tunnel"]
+    },
+    {
+      "id": "road-intelligence",
+      "area": "engineering",
+      "featured": true,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Inteligencia vial para el Perú", "en": "Road intelligence platform for Peru" },
+      "context": { "es": "Proyecto propio", "en": "Own project" },
+      "role": { "es": "Ingeniero y desarrollador", "en": "Engineer and developer" },
+      "summary": {
+        "es": "Tránsito, pavimentos, corredores urbanos y costos de obras viales sobre datos abiertos, con un diseño modular por país.",
+        "en": "Traffic, pavements, urban corridors and road-work costs on open data, with a modular per-country design."
+      },
+      "highlights": [
+        { "es": "Dimensionamiento de mercado con datos abiertos de contrataciones públicas: la consultoría vial mueve ≈ S/ 450M al año.", "en": "Market sizing from open public-procurement data: road consultancy is worth ≈ S/ 450M a year." },
+        { "es": "Modelo de tránsito nacional (143k km de red, 253 zonas, ODME contra 73 peajes): error en tiempos típicos de 55.6% a 13.0%.", "en": "National traffic model (143k km network, 253 zones, ODME against 73 toll stations): typical travel-time error from 55.6% to 13.0%." },
+        { "es": "Corredores urbanos de 12 ciudades calibrados con un MAPE fuera de muestra de 6.6% por tipo de día.", "en": "Urban corridors for 12 cities calibrated to a 6.6% out-of-sample MAPE by day type." },
+        { "es": "Motor de costos y soluciones con backtesting sobre expedientes reales y reglas pre-registradas; motor normativo con 355 pruebas.", "en": "Cost and solutions engine backtested on real project files with pre-registered rules; norms engine with 355 tests." },
+        { "es": "Visor web 3D y documentos técnicos DOCX generados automáticamente.", "en": "3D web viewer and automatically generated DOCX technical documents." }
+      ],
+      "stack": ["Python", "FastAPI", "OSMnx", "AequilibraE", "scikit-learn", "MapLibre", "Chart.js", "python-docx", "pytest"]
+    },
+    {
+      "id": "flood-warning",
+      "area": "engineering",
+      "featured": true,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Alerta temprana de inundaciones y huaicos", "en": "Flood and debris-flow early warning" },
+      "context": { "es": "Proyecto propio, piloto en Piura", "en": "Own project, piloted in Piura" },
+      "role": { "es": "Ingeniero y científico de datos", "en": "Engineer and data scientist" },
+      "summary": {
+        "es": "Sistema de alerta temprana basado en impactos para el Perú, desde la lluvia pronosticada hasta umbrales en puentes y tramos de río.",
+        "en": "Impact-based early warning system for Peru, from forecast rainfall to thresholds at bridges and river reaches."
+      },
+      "highlights": [
+        { "es": "Pipeline lluvia por ensamble → caudal con LSTM → umbrales de Gumbel en 6 puentes: NSE 0.793 frente a 0.597 de la línea base y Brier skill 0.60.", "en": "Ensemble rainfall → LSTM discharge → Gumbel thresholds at 6 bridges: NSE 0.793 versus 0.597 for the baseline, and a Brier skill score of 0.60." },
+        { "es": "Corrida nacional sobre 25,290 tramos de río con control de calidad automático.", "en": "National run over 25,290 river reaches with an automatic quality gate." },
+        { "es": "Validación honesta: la regla clásica de 20 mm no tenía skill (POD 0.03–0.16); el nuevo modelo de huaicos logró TSS 0.81 en un set 2025–26 bloqueado.", "en": "Honest validation: the classic 20 mm rule had no skill (POD 0.03–0.16); the new debris-flow model reached TSS 0.81 on a locked 2025–26 set." },
+        { "es": "LSTM regional sobre 136 cuencas con ruteo (KGE de 0.17 a 0.52) y visor web público.", "en": "Regional LSTM over 136 basins with routing (KGE from 0.17 to 0.52) and a public web viewer." }
+      ],
+      "stack": ["Python", "PyTorch", "ECMWF ENS", "GloFAS", "PISCO", "CHIRPS", "HydroBASINS", "FastAPI"]
+    },
+    {
+      "id": "meeting-copilot",
+      "area": "ai",
+      "featured": true,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Copiloto de reuniones con reconocimiento de voz local", "en": "Live meeting copilot with on-device speech recognition" },
+      "context": { "es": "Producto propio", "en": "Own product" },
+      "role": { "es": "Autor y arquitecto", "en": "Author and architect" },
+      "summary": {
+        "es": "Escucha la reunión en vivo, transcribe en la CPU y marca preguntas abiertas y conflictos con decisiones previas. Productizado con cuentas, suscripciones y un cliente MCP.",
+        "en": "Listens to a meeting live, transcribes on the CPU and flags open questions and conflicts with earlier decisions. Productized with accounts, subscriptions and an MCP client."
+      },
+      "highlights": [
+        { "es": "ASR en streaming en CPU con factor de tiempo real de 0.18–0.21, validado en una reunión real de 2 h 23 min.", "en": "Streaming ASR on CPU with a 0.18–0.21 real-time factor, validated on a real 2 h 23 min meeting." },
+        { "es": "Detectó y corrigió un use-after-free en el detector de voz que corrompía el 5.5% de las marcas de tiempo.", "en": "Found and fixed a use-after-free in the voice detector that corrupted 5.5% of timestamps." },
+        { "es": "Tres lentes: búsqueda semántica, preguntas sugeridas y conflictos contra un registro de 22 decisiones; benchmark de 7 modelos.", "en": "Three lenses: semantic matching, suggested questions and conflicts against a ledger of 22 decisions; 7-model benchmark." },
+        { "es": "Login con Google, tokens de API guardados solo como hash, suscripciones y cliente MCP público; de 150 a 652 pruebas sin warnings.", "en": "Google login, API tokens stored only as hashes, subscriptions and a public MCP client; from 150 to 652 tests with zero warnings." }
+      ],
+      "stack": ["Python", "FastAPI", "ONNX Runtime", "sherpa-onnx", "Silero VAD", "e5 embeddings", "SQLite", "MCP", "Playwright"]
+    },
+    {
+      "id": "agent-cockpit",
+      "area": "ai",
+      "featured": true,
+      "period": { "es": "2025 – hoy", "en": "2025 – present" },
+      "title": { "es": "Cockpit móvil para agentes de código (open source)", "en": "Mobile cockpit for AI coding agents (open source)" },
+      "context": { "es": "Proyecto open source propio", "en": "Own open-source project" },
+      "role": { "es": "Autor y arquitecto", "en": "Author and architect" },
+      "summary": {
+        "es": "Terminal y chat móvil para dirigir agentes de código que corren en tu propia computadora: transcripciones, aprobación de herramientas, notificaciones y relay cifrado.",
+        "en": "Mobile terminal and chat to drive coding agents running on your own computer: transcripts, tool approvals, notifications and an encrypted relay."
+      },
+      "highlights": [
+        { "es": "Monorepo con protocolo compartido validado con zod, daemon con WebSocket y tmux, PWA y app nativa con Expo.", "en": "Monorepo with a zod-validated shared protocol, a WebSocket and tmux daemon, a PWA and a native Expo app." },
+        { "es": "Emparejamiento por QR con cifrado de extremo a extremo (Noise IKpsk2) y relay en contenedor con push autoalojado.", "en": "QR pairing with end-to-end encryption (Noise IKpsk2) and a containerized relay with self-hosted push." },
+        { "es": "Panel de git, PRs y CI, diagnóstico del host, temas y layout adaptable para tablet y escritorio.", "en": "Git, PR and CI panel, host diagnostics, themes and an adaptive tablet and desktop layout." },
+        { "es": "Más de 2,600 pruebas entre paquetes (servidor 889, móvil 1,530, protocolo 231).", "en": "2,600+ tests across packages (server 889, mobile 1,530, protocol 231)." }
+      ],
+      "stack": ["TypeScript", "React", "Expo", "React Native", "Vite", "xterm.js", "node-pty", "WebSocket", "Noise protocol", "Docker", "nginx", "Playwright"]
+    },
+    {
+      "id": "stamp-platform",
+      "area": "software",
+      "featured": false,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Plataforma y marketplace para coleccionistas de estampillas", "en": "Stamp collector platform and marketplace" },
+      "context": { "es": "Proyecto propio", "en": "Own project" },
+      "role": { "es": "Desarrollador full stack", "en": "Full stack developer" },
+      "summary": {
+        "es": "Catálogo de ~147k estampillas, subastas en tiempo real, cuentas de coleccionista y enriquecimiento con IA, todo en el edge.",
+        "en": "Catalog of ~147k stamps, real-time auctions, collector accounts and AI enrichment, all on the edge."
+      },
+      "highlights": [
+        { "es": "Catálogo de 10k a ~147.5k estampillas con un scraper en dos fases: persistencia de 0% a 95.4% y cobertura de imágenes de 97.6%.", "en": "Catalog grown from 10k to ~147.5k stamps with a two-phase scraper: persistence from 0% to 95.4% and 97.6% image coverage." },
+        { "es": "Subastas con pujas atómicas y concurrencia optimista; búsqueda e identificación por vectores.", "en": "Auctions with atomic bids and optimistic concurrency; vector search and identification." },
+        { "es": "Hardening de seguridad: se eliminó un endpoint SQL público y se corrigieron SSRF, suplantación de pujas y pre-secuestro de cuentas OAuth.", "en": "Security hardening: removed a public SQL endpoint and fixed SSRF, bid impersonation and OAuth account pre-hijacking." }
+      ],
+      "stack": ["Next.js 16", "Cloudflare Workers", "D1", "R2", "Vectorize", "Workers AI", "Playwright", "Vitest", "n8n"]
+    },
+    {
+      "id": "personal-finance",
+      "area": "software",
+      "featured": false,
+      "period": { "es": "2025 – hoy", "en": "2025 – present" },
+      "title": { "es": "Motor de finanzas personales para agentes de IA", "en": "Personal finance engine for AI agents" },
+      "context": { "es": "Proyecto propio", "en": "Own project" },
+      "role": { "es": "Autor", "en": "Author" },
+      "summary": {
+        "es": "Libro contable de línea de comandos que un agente de IA puede operar: importa correos bancarios y estados de cuenta, deduplica, clasifica y presupuesta.",
+        "en": "Command-line ledger that an AI agent can operate: imports bank emails and statements, deduplicates, classifies and budgets."
+      },
+      "highlights": [
+        { "es": "Parsers de correos bancarios y estados de cuenta PDF/XLSX con deduplicación bidireccional.", "en": "Parsers for bank emails and PDF/XLSX statements with two-way deduplication." },
+        { "es": "Presupuesto por sobres semanales, clasificador softmax con guardas, patrimonio neto y tipo de cambio.", "en": "Weekly envelope budgeting, a softmax classifier with guards, net worth and FX." },
+        { "es": "Dashboard local protegido (Origin, Sec-Fetch-Site, CSP y escritor único); 212 pruebas.", "en": "Hardened local dashboard (Origin, Sec-Fetch-Site, CSP and single writer); 212 tests." }
+      ],
+      "stack": ["Python", "SQLite", "openpyxl", "Gmail API", "pytest", "uv"]
+    },
+    {
+      "id": "personal-agent",
+      "area": "ai",
+      "featured": false,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Asistente personal de IA y automatizaciones", "en": "Personal AI assistant and automations" },
+      "context": { "es": "Uso propio", "en": "Personal use" },
+      "role": { "es": "Autor", "en": "Author" },
+      "summary": {
+        "es": "Asistente en Telegram que corre como servicio, con skills propias, monitores programados y control de sesiones de agentes de código.",
+        "en": "Telegram assistant running as a service, with custom skills, scheduled monitors and control of coding-agent sessions."
+      },
+      "highlights": [
+        { "es": "Skill que emite un comprobante tributario recurrente por automatización de navegador, con doble guarda (confirmación + token de un solo uso) tras un incidente real.", "en": "Skill that issues a recurring tax receipt through browser automation, with a double guard (confirmation + single-use token) added after a real incident." },
+        { "es": "Supervisor de sesiones de agentes vía hooks y tmux; la primera versión salió con 182 pruebas.", "en": "Agent-session supervisor through hooks and tmux; the first version shipped with 182 tests." },
+        { "es": "Ruteo de modelos por costo y latencia con cadena de fallback, memoria persistente y un tope de 3 mensajes proactivos al día.", "en": "Model routing by cost and latency with a fallback chain, persistent memory and a cap of 3 proactive messages a day." }
+      ],
+      "stack": ["Python", "Telegram Bot API", "systemd", "cron", "tmux", "Chrome DevTools Protocol", "OpenRouter", "SQLite"]
+    },
+    {
+      "id": "genmedia-mcp",
+      "area": "ai",
+      "featured": false,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Servidor MCP para generar imágenes y video con IA", "en": "MCP server for AI image and video generation" },
+      "context": { "es": "Fork local de un proyecto open source", "en": "Local fork of an open-source project" },
+      "role": { "es": "Mantenedor", "en": "Maintainer" },
+      "summary": {
+        "es": "Servidor MCP que opera una app web de generación con IA mediante Chrome DevTools Protocol y que usan varios agentes.",
+        "en": "MCP server that drives a web-based AI generation app through the Chrome DevTools Protocol, shared by several agents."
+      },
+      "highlights": [
+        { "es": "Compilador de prompts de video y generación end-to-end verificada con una prueba pagada aprobada de antemano.", "en": "Video prompt compiler and end-to-end generation verified with a pre-approved paid test." },
+        { "es": "Reparación completa tras un cambio de interfaz: de 5 funciones operativas y 8 rotas a 18 y 0; 235 pruebas.", "en": "Full repair after a UI change: from 5 working and 8 broken functions to 18 and 0; 235 tests." },
+        { "es": "No se publicó upstream porque un mapa de selectores contenía datos personales.", "en": "Kept out of upstream because a selector map contained personal data." }
+      ],
+      "stack": ["Node.js", "Playwright", "Chrome DevTools Protocol", "MCP", "systemd", "Xvfb"]
+    },
+    {
+      "id": "roblox-game",
+      "area": "other",
+      "featured": false,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Juego de carreras con combate vehicular para Roblox", "en": "Vehicular-combat racing game for Roblox" },
+      "context": { "es": "Proyecto propio, inspirado en un clásico del cine de culto", "en": "Own project, inspired by a cult film" },
+      "role": { "es": "Diseñador y desarrollador", "en": "Designer and developer" },
+      "summary": {
+        "es": "Juego construido desde el código en Linux, con diseño de sistemas, economía y multijugador competitivo.",
+        "en": "Game built code-first on Linux, with systems design, an economy and competitive multiplayer."
+      },
+      "highlights": [
+        { "es": "Documento de diseño con 36 decisiones registradas, hoja de balance y economía.", "en": "Design document with 36 logged decisions, plus a balance and economy sheet." },
+        { "es": "12 fases: progresión, arsenal, historia, ranked, monetización, live ops, localización y accesibilidad.", "en": "12 phases: progression, arsenal, story, ranked play, monetization, live ops, localization and accessibility." },
+        { "es": "Servidor autoritativo y 921 pruebas unitarias con lint, formato y tipos limpios.", "en": "Server-authoritative design and 921 unit tests with clean lint, formatting and types." }
+      ],
+      "stack": ["Luau", "Rojo", "Lune", "selene", "StyLua", "luau-lsp", "Roblox Studio MCP"]
+    },
+    {
+      "id": "exporter-web-bi",
+      "area": "other",
+      "featured": false,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Web, BI y análisis de procesos para una exportadora", "en": "Web, BI and process analysis for an exporter" },
+      "context": { "es": "Exportadora peruana de productos marinos congelados", "en": "Peruvian frozen-seafood exporter" },
+      "role": { "es": "Desarrollador y analista", "en": "Developer and analyst" },
+      "summary": {
+        "es": "Sitio corporativo B2B, dashboard ejecutivo y relevamiento de la operación de planta para especificar el módulo de producción.",
+        "en": "B2B corporate website, executive dashboard and a survey of plant operations to specify the production module."
+      },
+      "highlights": [
+        { "es": "Sitio B2B guiado por datos: diagrama SVG interactivo de cortes, globo animado de rutas de exportación y catálogo con filtros.", "en": "Data-driven B2B site: interactive SVG cutting diagram, animated export-route globe and a filterable catalog." },
+        { "es": "Dashboard ejecutivo de 12 pestañas: ventas FOB, mercados, precios, inventario, rentabilidad, cuentas por cobrar y documentos de comercio exterior.", "en": "12-tab executive dashboard: FOB sales, markets, prices, inventory, profitability, receivables and foreign-trade documents." },
+        { "es": "Ingeniería inversa de la operación en Excel (~306k fórmulas, Power Query y 991 líneas de VBA) y mapeo de procesos desde 10 audios transcritos (~60k palabras).", "en": "Reverse-engineered the Excel-run operation (~306k formulas, Power Query and 991 lines of VBA) and mapped processes from 10 transcribed recordings (~60k words)." }
+      ],
+      "stack": ["Next.js", "Tailwind", "Framer Motion", "Python", "Streamlit", "pandas", "Plotly", "Power Query", "VBA", "Whisper"]
+    },
+    {
+      "id": "company-website",
+      "area": "other",
+      "featured": false,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Sitio corporativo bilingüe con SEO y medios generados con IA", "en": "Bilingual company website with SEO and AI-generated media" },
+      "context": { "es": "Empresa peruana de software e IA", "en": "Peruvian software and AI company" },
+      "role": { "es": "Desarrollador web", "en": "Web developer" },
+      "summary": {
+        "es": "Sitio de marca y landing de cliente con posicionamiento en buscadores y en motores de IA.",
+        "en": "Brand site and client landing page positioned for search engines and AI answer engines."
+      },
+      "highlights": [
+        { "es": "Landing de cliente reconstruida desde mockups, con imágenes generadas por IA en WebP y logo vectorizado.", "en": "Client landing page rebuilt from mockups, with AI-generated WebP images and a vectorized logo." },
+        { "es": "SEO de marca con JSON-LD, blog ES/EN (3 + 3 artículos) y video promocional de 26 s con marcado VideoObject.", "en": "Brand SEO with JSON-LD, an ES/EN blog (3 + 3 articles) and a 26 s promo video with VideoObject markup." }
+      ],
+      "stack": ["HTML", "CSS", "JavaScript", "JSON-LD", "ffmpeg", "Cloudflare Workers"]
+    },
+    {
+      "id": "ad-tracker",
+      "area": "other",
+      "featured": false,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Automatización de un tracker publicitario", "en": "Ad-tracker automation" },
+      "context": { "es": "Cliente de e-commerce en Perú", "en": "E-commerce client in Peru" },
+      "role": { "es": "Desarrollador", "en": "Developer" },
+      "summary": {
+        "es": "Llena el tracker de anuncios del cliente a partir de las hojas diarias del media buyer.",
+        "en": "Fills the client's ad tracker from the media buyer's daily sheets."
+      },
+      "highlights": [
+        { "es": "Cruce por clave compuesta (código de video + día de entrega) y manejo de filas con varios códigos.", "en": "Join on a composite key (video code + delivery day) and handling of rows with several codes." },
+        { "es": "Núcleo puro testeable con I/O delgado: de 46 a 99 pruebas, y una demo cuyos resultados exactos se predijeron y verificaron en producción.", "en": "Pure, testable core with thin I/O: from 46 to 99 tests, and a demo whose exact results were predicted and then verified live." }
+      ],
+      "stack": ["Google Apps Script", "Google Sheets", "Node.js tests"]
+    },
+    {
+      "id": "finance-case",
+      "area": "other",
+      "featured": false,
+      "period": { "es": "2026", "en": "2026" },
+      "title": { "es": "Caso de finanzas operativas: decisión de inversión de USD 100M", "en": "Operating-finance case: a USD 100M investment decision" },
+      "context": { "es": "Curso universitario", "en": "University course" },
+      "role": { "es": "Analista y expositor", "en": "Analyst and presenter" },
+      "summary": {
+        "es": "Modelo financiero y dos tesis opuestas sobre una multinacional de artículos deportivos, construidos desde sus reportes anuales y trimestrales.",
+        "en": "Financial model and two opposing theses on a sportswear multinational, built from its annual and quarterly filings."
+      },
+      "highlights": [
+        { "es": "Modelo Excel formulado: historia FY19–FY26, proyección FY27, trampa de capital de trabajo y brecha entre flujo de caja libre y dividendos.", "en": "Formula-driven Excel model: FY19–FY26 history, FY27 projection, working-capital trap and the gap between free cash flow and dividends." },
+        { "es": "Dos tesis completas (mantener y comprar), cada una con deck de 14 diapositivas con gráficos nativos, guion y 26–27 preguntas de defensa.", "en": "Two complete theses (hold and buy), each with a 14-slide deck with native charts, a speaking script and 26–27 defense questions." },
+        { "es": "Renderizador JSON → PPTX/DOCX con validador de contenido; detectó y corrigió una afirmación inexacta del propio caso.", "en": "JSON → PPTX/DOCX renderer with a content validator; it caught and corrected an inaccurate claim in the case itself." }
+      ],
+      "stack": ["Python", "openpyxl", "python-pptx", "python-docx", "Excel"]
+    }
+  ],
+  "more": [
+    { "es": "Webhook que responde comentarios de Instagram y TikTok con verificación de firma HMAC.", "en": "Webhook that answers Instagram and TikTok comments with HMAC signature verification." },
+    { "es": "Inventario fotográfico de campo con OCR y visión, convertido automáticamente en PDF y DOCX.", "en": "Field photo inventory with OCR and vision, turned automatically into PDF and DOCX reports." },
+    { "es": "Diagnóstico de congelamientos de Linux hasta un bug del kernel y RAM defectuosa confirmada con Memtest86+.", "en": "Traced Linux freezes down to a kernel bug and faulty RAM confirmed with Memtest86+." },
+    { "es": "Apps Android ARM en una tablet x86 con Waydroid, servidores de juego en Docker en la nube y CV en LaTeX.", "en": "ARM Android apps on an x86 tablet with Waydroid, cloud game servers on Docker, and a LaTeX CV." }
+  ],
+  "methods": [
+    { "title": { "es": "Especificación antes que código", "en": "Specs before code" }, "body": { "es": "Cada feature grande arranca con un documento de specs que cita el pedido literal, tareas trazables y un log de decisiones.", "en": "Every large feature starts with a spec document that quotes the request verbatim, traceable tasks and a decision log." } },
+    { "title": { "es": "Pruebas primero", "en": "Tests first" }, "body": { "es": "TDD estricto: rojo, verde, refactor. Suites que van de cientos a más de 13 mil pruebas, con gates antes de desplegar.", "en": "Strict TDD: red, green, refactor. Suites from hundreds to more than 13 thousand tests, with gates before every deploy." } },
+    { "title": { "es": "Revisión adversarial", "en": "Adversarial review" }, "body": { "es": "Revisión doble a ciegas y por lentes (riesgo, resiliencia, legibilidad, confiabilidad) sobre PRs chicos y encadenados.", "en": "Blind dual review and lens-based review (risk, resilience, readability, reliability) on small, chained pull requests." } },
+    { "title": { "es": "Métricas honestas", "en": "Honest metrics" }, "body": { "es": "Sets de prueba bloqueados, backtests con reglas pre-registradas y reporte explícito de lo que todavía no funciona.", "en": "Locked test sets, backtests with pre-registered rules and explicit reporting of what does not work yet." } },
+    { "title": { "es": "IA con costo controlado", "en": "AI with controlled cost" }, "body": { "es": "Ruteo de modelos por costo, latencia y calidad, libros de gasto y pruebas pagadas solo con aprobación.", "en": "Model routing by cost, latency and quality, spend ledgers, and paid runs only with approval." } },
+    { "title": { "es": "Seguridad por diseño", "en": "Security by design" }, "body": { "es": "Guardas para acciones irreversibles, cifrado de extremo a extremo, sandboxing de agentes e higiene de datos personales.", "en": "Guards for irreversible actions, end-to-end encryption, agent sandboxing and personal-data hygiene." } }
+  ],
+  "skills": [
+    { "title": { "es": "Frontend y móvil", "en": "Frontend and mobile" }, "items": ["TypeScript", "React 19", "Next.js 16", "Tailwind CSS 4", "Expo", "React Native", "Vite", "Alpine.js", "MapLibre"] },
+    { "title": { "es": "Backend y APIs", "en": "Backend and APIs" }, "items": ["Node.js", "NestJS", "Fastify", "Express", "Python", "FastAPI", "WebSockets", "MCP", "BullMQ", "Google Apps Script"] },
+    { "title": { "es": "Datos", "en": "Data" }, "items": ["PostgreSQL", "SQLite", "Cloudflare D1", "Redis", "Drizzle", "SQLAlchemy", "DuckDB", "pandas", "Excel · Power Query · VBA", "Streamlit"] },
+    { "title": { "es": "IA y machine learning", "en": "AI and machine learning" }, "items": [
+      { "es": "Orquestación multiagente", "en": "Multi-agent orchestration" },
+      { "es": "Extracción documental con LLM", "en": "LLM document extraction" },
+      { "es": "Voz a texto (Whisper, ONNX)", "en": "Speech to text (Whisper, ONNX)" },
+      { "es": "Embeddings y búsqueda vectorial", "en": "Embeddings and vector search" },
+      "PyTorch", "scikit-learn",
+      { "es": "Evaluación de modelos", "en": "Model evaluation" }
+    ] },
+    { "title": { "es": "Cloud y DevOps", "en": "Cloud and DevOps" }, "items": ["Docker", "nginx", "GitHub Actions", "Cloudflare", "Vercel", "Google Cloud", "systemd", "Prometheus", "Grafana", "Linux"] },
+    { "title": { "es": "Calidad", "en": "Quality" }, "items": ["TDD", "Vitest", "Jest", "pytest", "Playwright", { "es": "Revisión adversarial", "en": "Adversarial review" }] },
+    { "title": { "es": "Ingeniería y dominio", "en": "Engineering and domain" }, "items": [
+      { "es": "Presupuestos (APU y metrados)", "en": "Cost estimating (unit prices, takeoffs)" },
+      { "es": "Contrataciones públicas", "en": "Public procurement" },
+      { "es": "Control de obras (valor ganado)", "en": "Works control (earned value)" },
+      { "es": "Modelación de tránsito", "en": "Traffic modelling" },
+      { "es": "Hidrología y alerta temprana", "en": "Hydrology and early warning" },
+      { "es": "Comercio exterior", "en": "Foreign trade" },
+      { "es": "Facturación electrónica", "en": "E-invoicing" },
+      { "es": "Análisis financiero", "en": "Financial analysis" },
+      { "es": "Diseño de juegos", "en": "Game design" }
+    ] }
+  ],
+  "experience": [
+    {
+      "period": { "es": "2024 – hoy", "en": "2024 – present" },
+      "role": { "es": "Tech lead y arquitecto de sistemas e IA", "en": "Tech lead and systems & AI architect" },
+      "org": { "es": "Empresa peruana de software e IA", "en": "Peruvian software and AI company" },
+      "body": { "es": "Arquitectura y desarrollo de un ERP multi-tenant de trazabilidad y comercio exterior en producción, con automatización por agentes de IA.", "en": "Architecture and development of a multi-tenant traceability and foreign-trade ERP in production, automated with AI agents." }
+    },
+    {
+      "period": { "es": "2024 – 2025", "en": "2024 – 2025" },
+      "role": { "es": "Lead full stack", "en": "Lead full stack developer" },
+      "org": { "es": "Startup de e-commerce latinoamericana", "en": "Latin American e-commerce startup" },
+      "body": { "es": "Arquitectura frontend y backend de un CRM y ERP omnicanal con mensajería de WhatsApp y pasarelas de pago.", "en": "Frontend and backend architecture of an omnichannel CRM and ERP with WhatsApp messaging and payment gateways." }
+    },
+    {
+      "period": { "es": "2025 – hoy", "en": "2025 – present" },
+      "role": { "es": "Autor open source e ingeniería aplicada", "en": "Open-source author and applied engineering" },
+      "org": { "es": "Independiente", "en": "Independent" },
+      "body": { "es": "Herramientas para agentes de IA, software de ingeniería civil, modelos de tránsito e hidrología.", "en": "Tools for AI agents, civil-engineering software, and traffic and hydrology models." }
+    }
+  ],
+  "education": [
+    { "es": "Ingeniería Civil y Tecnologías de la Información — educación universitaria (Piura, Perú)", "en": "Civil Engineering and Information Technology — university education (Piura, Peru)" }
+  ],
+  "languages": [
+    { "es": "Español — nativo", "en": "Spanish — native" },
+    { "es": "Inglés — técnico profesional", "en": "English — professional technical" }
+  ]
+}
