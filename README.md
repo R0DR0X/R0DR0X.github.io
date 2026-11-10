@@ -71,10 +71,15 @@ buttons, filter labels) live in the `UI` dictionary in `tools/build.py`, one ent
 The key stack terms and the two CV highlights per featured project are chosen in `KEY_STACK` and
 `CV_HIGHLIGHTS` in the same file.
 
-## Before publishing
+## Publishing
 
-Set `meta.siteUrl` in `content/portfolio.json` to the public base URL (for example `https://example.com`),
-then rebuild. With a value, each page gets a canonical URL and reciprocal absolute
+The site is published at https://r0dr0x.github.io/ from the repository `R0DR0X/R0DR0X.github.io`.
+On every push to `main`, `.github/workflows/pages.yml` runs the tests and deploys the committed `site/`
+folder to GitHub Pages. The workflow does not build: rebuild locally with `python3 tools/build.py --pdf`,
+run the name check, and commit `site/` together with the content change.
+
+`meta.siteUrl` in `content/portfolio.json` holds the public base URL (`https://r0dr0x.github.io`); change it
+and rebuild if the site moves. With a value, each page gets a canonical URL and reciprocal absolute
 `<link rel="alternate" hreflang="es|en|x-default">` tags (`x-default` points to Spanish).
 While it is empty, those tags are omitted.
 

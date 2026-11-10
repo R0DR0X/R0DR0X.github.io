@@ -229,11 +229,17 @@ class SiteBuildTest(unittest.TestCase):
             self.assertIsNone(VOSEO.search(Page(self.source(rel)).text), rel)
 
     def test_no_alternates_or_canonical_without_site_url(self):
-        self.assertEqual(self.data["meta"]["siteUrl"], "")
-        for lang in ("es", "en"):
-            rels = [a.get("rel") for t, a in self.page(lang).tags if t == "link"]
-            self.assertNotIn("alternate", rels)
-            self.assertNotIn("canonical", rels)
+        data = copy.deepcopy(self.data)
+        data["meta"]["siteUrl"] = ""
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "out"
+            result = run_build(out, write_content(tmp, data))
+            self.assertEqual(result.returncode, 0, result.stderr)
+            for lang in ("es", "en"):
+                tags = Page((out / PAGES[lang]).read_text(encoding="utf-8")).tags
+                rels = [a.get("rel") for t, a in tags if t == "link"]
+                self.assertNotIn("alternate", rels)
+                self.assertNotIn("canonical", rels)
 
     def test_reciprocal_absolute_alternates_with_site_url(self):
         data = copy.deepcopy(self.data)
