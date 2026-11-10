@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Iván Rodrigo Pianto Antón — Portafolio (consola de ingeniería)</title>
+<style>
+  :root {
+    --bg: #0e1116;
+    --surface: #151b23;
+    --tag: #1c2430;
+    --line: #2b3440;
+    --control: #6e7b8a;
+    --text: #e6edf3;
+    --muted: #9da9b6;
+    --accent: #4fd1db;
+    --on-accent: #0e1116;
+    --status: #56d364;
+    --focus: #e6edf3;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 var(--sans); }
+  a { color: inherit; }
+  h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
+  ul, ol { padding: 0; list-style: none; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .mono, .kicker, .id, .chip, .btn, .stack, .tags, .card-k, .t { font-family: var(--mono); }
+
+  /* Focus is an outline in the text color with an offset; selection is the cyan fill. */
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+
+  .skip { position: absolute; left: -999px; top: 8px; z-index: 10; background: var(--accent); color: var(--on-accent); padding: 0 14px; min-height: 44px; display: inline-flex; align-items: center; font: 600 14px var(--mono); }
+  .skip:focus { left: 16px; }
+
+  /* Header */
+  .top { border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; gap: 32px; min-height: 64px; }
+  .mark { font: 600 15px var(--mono); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+  .mark::before { content: "›"; color: var(--accent); margin-right: 10px; }
+  .top nav { margin-left: auto; }
+  .top nav ul { display: flex; gap: 4px; }
+  .top nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; font: 14px var(--mono); color: var(--muted); text-decoration: none; border-radius: 4px; }
+  .top nav a:hover { color: var(--text); background: var(--surface); }
+  .lang { display: inline-flex; border: 1px solid var(--control); border-radius: 6px; overflow: hidden; }
+  .lang button { font: 600 13px var(--mono); min-width: 44px; min-height: 44px; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+  .lang button:focus-visible { outline-offset: -4px; outline-color: var(--focus); }
+  .lang button[aria-pressed="true"]:focus-visible { outline-color: var(--on-accent); }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 64px; padding: 72px 0 64px; border-bottom: 1px solid var(--line); align-items: start; }
+  .kicker { font-size: 13px; letter-spacing: .04em; color: var(--accent); margin-bottom: 18px; }
+  .kicker::before { content: "// "; color: var(--muted); }
+  h1 { font-size: 52px; line-height: 1.08; letter-spacing: -0.02em; font-weight: 700; margin-bottom: 14px; }
+  .headline { font: 500 16px/1.5 var(--mono); color: var(--accent); margin-bottom: 24px; }
+  .about { color: var(--muted); max-width: 60ch; font-size: 17px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 18px; border-radius: 6px; font-size: 14px; font-weight: 600; text-decoration: none; cursor: pointer; }
+  .btn.primary { background: var(--accent); color: var(--on-accent); border: 1px solid var(--accent); }
+  .btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--control); }
+  .btn.secondary:hover { background: var(--surface); }
+
+  .stats h2 { margin-bottom: 14px; }
+  .stats ul { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .stats li { background: var(--surface); padding: 28px 28px 26px; display: flex; flex-direction: column; gap: 10px; }
+  .stats .v { font: 600 52px/1 var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; color: var(--text); }
+  .stats .l { font-size: 14px; line-height: 1.45; color: var(--muted); max-width: 30ch; }
+
+  /* Sections */
+  section.block { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  .sec-h { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 28px; }
+  h2.title { font-size: 30px; line-height: 1.2; letter-spacing: -0.01em; font-weight: 650; }
+  .note { color: var(--muted); font-size: 15px; }
+
+  /* Filter */
+  .filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .chip { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px; font-size: 14px; border: 1px solid var(--control); border-radius: 6px; background: transparent; color: var(--text); cursor: pointer; }
+  .chip .n { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .chip:hover { background: var(--surface); }
+  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
+  .chip[aria-pressed="true"] .n { color: var(--on-accent); }
+  .count { font: 13px var(--mono); color: var(--muted); margin-bottom: 24px; }
+  .count strong { color: var(--text); font-variant-numeric: tabular-nums; }
+  .empty { border: 1px dashed var(--control); border-radius: 8px; padding: 32px; color: var(--muted); }
+  .empty p { margin-bottom: 16px; color: var(--text); }
+
+  /* Project grid: wide cards span two columns; dense flow fills the gaps. Cards hold no focusable content. */
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-flow: row dense; gap: 16px; }
+  .card { display: flex; flex-direction: column; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 22px 24px 24px; }
+  .card.feat { grid-column: span 2; }
+  .card-k { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-size: 12px; color: var(--muted); }
+  .card-k .id { color: var(--accent); }
+  .card-k .per { margin-left: auto; font-variant-numeric: tabular-nums; }
+  .card-k .per.live { color: var(--status); }
+  .card-k .per.live::before { content: "●"; margin-right: 6px; font-size: 9px; vertical-align: 2px; }
+  .card h3 { font-size: 19px; line-height: 1.3; font-weight: 650; }
+  .card.feat h3 { font-size: 23px; }
+  .ctx { font-size: 14px; color: var(--muted); }
+  .sum { font-size: 15px; }
+  .key { font-size: 14px; border-left: 2px solid var(--accent); padding-left: 12px; }
+  .hl { columns: 2; column-gap: 32px; font-size: 14px; color: var(--text); }
+  .hl li { break-inside: avoid; position: relative; padding-left: 18px; margin-bottom: 10px; }
+  .hl li::before { content: "›"; position: absolute; left: 0; color: var(--accent); font-family: var(--mono); }
+  .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 6px; font-size: 12px; }
+  .stack li, .tags li { background: var(--tag); color: var(--muted); border-radius: 4px; padding: 3px 8px; }
+  .stack li.more { color: var(--accent); }
+
+  .more-work { margin-top: 40px; }
+  .more-work h3 { font: 600 13px var(--mono); color: var(--accent); margin-bottom: 12px; }
+  .more-work ul { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 40px; color: var(--muted); font-size: 15px; }
+  .more-work li { padding-left: 18px; position: relative; }
+  .more-work li::before { content: "+"; position: absolute; left: 0; font-family: var(--mono); color: var(--accent); }
+
+  /* Methods 3x2 */
+  .methods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .methods li { padding: 22px 24px 24px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .methods .id { font-size: 12px; color: var(--accent); }
+  .methods h3 { font-size: 17px; font-weight: 650; margin: 6px 0 6px; }
+  .methods p { font-size: 14px; color: var(--muted); }
+
+  /* Skills */
+  .skill-row { display: grid; grid-template-columns: 240px 1fr; gap: 24px; padding: 14px 0; border-top: 1px solid var(--line); }
+  .skill-row:last-child { border-bottom: 1px solid var(--line); }
+  .skill-row dt { font: 600 13px/32px var(--mono); color: var(--text); }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px; }
+  .tags li { padding: 5px 10px; }
+
+  /* Experience log */
+  .log { border-top: 1px solid var(--line); }
+  .log > li { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .log .t { font-size: 13px; color: var(--accent); font-variant-numeric: tabular-nums; padding-top: 2px; }
+  .log .r { margin-bottom: 4px; }
+  .log .at { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .log p:not(.r) { color: var(--muted); font-size: 15px; }
+  .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 32px; }
+  .facts h3 { font: 600 13px var(--mono); color: var(--accent); margin-bottom: 8px; }
+  .facts li { color: var(--muted); }
+
+  /* Contact */
+  footer.contact { padding: 72px 0 96px; }
+  footer.contact h2 { font-size: 36px; line-height: 1.2; max-width: 22ch; margin-bottom: 20px; }
+  .channels { display: grid; grid-template-columns: max-content 1fr; gap: 6px 24px; font: 15px var(--mono); }
+  .channels dt { color: var(--muted); }
+  .channels dt, .channels dd { line-height: 44px; }
+  .channels a { color: var(--accent); display: inline-block; }
+
+  @media (max-width: 1100px) {
+    .hero { grid-template-columns: 1fr; gap: 48px; }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .methods { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 860px) {
+    .wrap { padding: 0 20px; }
+    .top .wrap { flex-wrap: wrap; gap: 0 16px; }
+    .lang { margin-left: auto; }
+    .top nav { order: 3; flex-basis: 100%; margin: 0 -20px; padding: 0 8px; border-top: 1px solid var(--line); }
+    .top nav ul { flex-wrap: wrap; gap: 0; }
+    .top nav a { padding: 0 10px; }
+    .hero { padding: 48px 0; }
+    h1 { font-size: 38px; }
+    .stats .v { font-size: 38px; }
+    .stats li { padding: 20px; }
+    .grid { grid-template-columns: 1fr; }
+    .card.feat { grid-column: auto; }
+    .hl { columns: 1; }
+    .methods { grid-template-columns: 1fr; }
+    .skill-row, .log > li { grid-template-columns: 1fr; gap: 8px; }
+    .more-work ul, .facts { grid-template-columns: 1fr; }
+    section.block { padding: 56px 0; }
+    footer.contact h2 { font-size: 28px; }
+  }
+  @media (max-width: 420px) {
+    .mark { font-size: 13px; }
+    .mark::before { margin-right: 6px; }
+    .stats ul { grid-template-columns: 1fr; }
+    .actions .btn { flex: 1 1 100%; }
+    .channels { grid-template-columns: 1fr; }
+    .channels dd { margin-bottom: 8px; overflow-wrap: anywhere; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; animation: none !important; }
+  }
+
+  /* Print / PDF: light theme, everything visible, no controls. */
+  @media print {
+    :root {
+      --bg: #ffffff; --surface: #ffffff; --tag: #ffffff; --line: #c9d1d9; --control: #c9d1d9;
+      --text: #111418; --muted: #4a5562; --accent: #0a5f69; --status: #1a7f37;
+    }
+    @page { margin: 14mm 12mm; }
+    body { font-size: 10pt; line-height: 1.45; }
+    .wrap { max-width: none; padding: 0; }
+    .skip, .top nav, .lang, .actions, .filters, .count, .empty { display: none !important; }
+    .card[hidden] { display: flex !important; }
+    .top { border: 0; }
+    .hero { grid-template-columns: 1fr; gap: 20px; padding: 8px 0 20px; }
+    h1 { font-size: 26pt; }
+    .stats ul { grid-template-columns: repeat(4, 1fr); border-radius: 0; }
+    .stats li { padding: 10px 12px; }
+    .stats .v { font-size: 20pt; }
+    .stats .l { font-size: 8.5pt; }
+    section.block { padding: 20px 0; }
+    .sec-h { margin-bottom: 12px; }
+    h2.title { font-size: 16pt; }
+    .sec-h, h2, h3 { break-after: avoid; }
+    .grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .card { padding: 10px 12px; gap: 6px; border-radius: 0; break-inside: avoid; }
+    .card.feat { grid-column: span 2; }
+    .card:not(.feat) { order: 1; }
+    .card h3, .card.feat h3 { font-size: 11.5pt; }
+    .hl { columns: 2; column-gap: 20px; font-size: 9pt; }
+    .hl li { margin-bottom: 4px; }
+    .methods { grid-template-columns: repeat(3, 1fr); }
+    .more-work ul, .facts { grid-template-columns: 1fr 1fr; }
+    .stack li, .tags li { padding: 0 6px 0 0; }
+    .stack li + li::before, .tags li + li::before { content: "· "; color: var(--muted); }
+    .methods li { padding: 10px 12px; break-inside: avoid; }
+    .skill-row { grid-template-columns: 160px 1fr; padding: 6px 0; break-inside: avoid; }
+    .skill-row dt { line-height: 1.6; }
+    .log > li { grid-template-columns: 120px 1fr; padding: 8px 0; break-inside: avoid; }
+    footer.contact { padding: 20px 0 0; break-inside: avoid; }
+    footer.contact h2 { font-size: 16pt; }
+    .channels a { text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#main">Iván Rodrigo Pianto Antón</a>
+    <nav aria-label="Secciones">
+      <ul>
+        <li><a href="#proyectos">proyectos</a></li>
+        <li><a href="#metodo">método</a></li>
+        <li><a href="#skills">skills</a></li>
+        <li><a href="#experiencia">experiencia</a></li>
+        <li><a href="#contacto">contacto</a></li>
+      </ul>
+    </nav>
+    <div class="lang" role="group" aria-label="Idioma">
+      <button type="button" aria-pressed="true" lang="es">ES</button>
+      <button type="button" aria-pressed="false" lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap" tabindex="-1">
+  <div class="hero">
+    <div>
+      <p class="kicker">Piura, Perú · actualizado 2026-11</p>
+      <h1>Iván Rodrigo Pianto Antón</h1>
+      <p class="headline">Ingeniero de software full stack · Arquitecto de sistemas de IA · Tech lead</p>
+      <p class="about">Construyo software que resuelve operaciones reales: ERPs multi-tenant, plataformas de e-commerce con agentes de IA, herramientas de ingeniería civil y modelos de riesgo hidrológico. Combino formación en ingeniería civil con arquitectura full stack, y trabajo con disciplina: especificaciones antes que código, pruebas primero, revisión adversarial y métricas honestas.</p>
+      <div class="actions">
+        <a class="btn primary" href="mailto:rodrigopianto2005@gmail.com">Escribirme</a>
+        <button type="button" class="btn secondary" id="pdf">Descargar PDF</button>
+      </div>
+    </div>
+    <section class="stats" aria-labelledby="cifras-h">
+      <h2 id="cifras-h" class="kicker">Cifras con evidencia</h2>
+      <ul><li><span class="v">13,223</span> <span class="l">pruebas en el gate de despliegue de un ERP multi-tenant</span></li><li><span class="v">20,491</span> <span class="l">anuncios analizados con IA por USD 25.53</span></li><li><span class="v">147k</span> <span class="l">estampillas en un catálogo reconstruido por scraping</span></li><li><span class="v">25,290</span> <span class="l">tramos de río en una corrida nacional de peligro de inundación</span></li></ul>
+    </section>
+  </div>
+
+  <section id="proyectos" class="block" aria-labelledby="proyectos-h">
+    <div class="sec-h">
+      <h2 id="proyectos-h" class="title">Proyectos</h2>
+      <p class="note">17 proyectos en cuatro áreas. Los nombres de clientes están anonimizados.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filtrar proyectos por área"><button type="button" class="chip" data-filter="all" aria-pressed="true">Todos <span class="n">17</span></button><button type="button" class="chip" data-filter="software" aria-pressed="false">Plataformas y SaaS <span class="n">3</span></button><button type="button" class="chip" data-filter="ai" aria-pressed="false">IA y agentes <span class="n">6</span></button><button type="button" class="chip" data-filter="engineering" aria-pressed="false">Ingeniería y ciencia de datos <span class="n">3</span></button><button type="button" class="chip" data-filter="other" aria-pressed="false">Web, negocio y otros <span class="n">5</span></button></div>
+    <p class="count" id="count" role="status"><strong>17 proyectos</strong> · Todos</p>
+    <div class="empty" id="empty" hidden>
+      <p>No hay proyectos en «<span id="empty-area"></span>».</p>
+      <button type="button" class="btn secondary" id="reset">Mostrar todos</button>
+    </div>
+    <div class="grid" id="grid">
+<article class="card feat" data-area="software" aria-labelledby="p-erp-traceability"><p class="card-k"><span class="id">01</span><span class="area">Plataformas y SaaS</span><span class="per live">2024 – hoy</span></p><h3 id="p-erp-traceability">ERP y trazabilidad multi-tenant para agroexportación</h3><p class="ctx">Exportadora pesquera peruana, a través de una empresa de software <span aria-hidden="true">·</span> Tech lead y arquitecto</p><p class="sum">Plataforma SaaS que cubre acopio, producción, almacén, comercio exterior y facturación electrónica. Un panel web, una app móvil offline y bots de WhatsApp trabajan sobre el mismo backend.</p><ul class="hl"><li>Motor documental con extracción por IA, reglas de validación y semáforo de revisión humana; app móvil offline-first con cola SQLite.</li><li>Comercio exterior completo: proformas, contenedores, propuesta automática de packing, tablero Kanban y carga histórica de 240 proformas (~USD 49.9M).</li><li>Producción con kardex por lote, trazabilidad GS1 y mermas conciliadas con el Excel de planta (457 guías importadas sin rechazos).</li><li>Facturación electrónica SUNAT (facturas, boletas, notas y guías de remisión) mediante un adaptador desacoplado.</li><li>Bots de WhatsApp que registran llegadas y emiten proformas por texto o audio, en producción desde agosto de 2026.</li><li>Gate de despliegue con 13,223 pruebas, observabilidad con Prometheus y Grafana, e infraestructura reducida a ~USD 83/mes.</li></ul><ul class="stack" aria-label="Stack"><li>NestJS</li><li>Fastify</li><li>PostgreSQL 17</li><li>Drizzle</li><li>Redis</li><li>BullMQ</li><li>Next.js 16</li><li>React 19</li><li>Expo</li><li>n8n</li><li>Gemini</li><li>Whisper</li><li>Docker</li><li>GitHub Actions</li><li>Prometheus</li><li>Grafana</li></ul></article>
+<article class="card" data-area="software" aria-labelledby="p-stamp-platform"><p class="card-k"><span class="id">02</span><span class="area">Plataformas y SaaS</span><span class="per">2026</span></p><h3 id="p-stamp-platform">Plataforma y marketplace para coleccionistas de estampillas</h3><p class="ctx">Proyecto propio <span aria-hidden="true">·</span> Desarrollador full stack</p><p class="sum">Catálogo de ~147k estampillas, subastas en tiempo real, cuentas de coleccionista y enriquecimiento con IA, todo en el edge.</p><p class="key">Catálogo de 10k a ~147.5k estampillas con un scraper en dos fases: persistencia de 0% a 95.4% y cobertura de imágenes de 97.6%.</p><ul class="stack" aria-label="Stack"><li>Next.js 16</li><li>Cloudflare Workers</li><li>D1</li><li>R2</li><li>Vectorize</li><li class="more"><span class="sr">y </span>+4<span class="sr"> más</span></li></ul></article>
+<article class="card" data-area="software" aria-labelledby="p-personal-finance"><p class="card-k"><span class="id">03</span><span class="area">Plataformas y SaaS</span><span class="per live">2025 – hoy</span></p><h3 id="p-personal-finance">Motor de finanzas personales para agentes de IA</h3><p class="ctx">Proyecto propio <span aria-hidden="true">·</span> Autor</p><p class="sum">Libro contable de línea de comandos que un agente de IA puede operar: importa correos bancarios y estados de cuenta, deduplica, clasifica y presupuesta.</p><p class="key">Dashboard local protegido (Origin, Sec-Fetch-Site, CSP y escritor único); 212 pruebas.</p><ul class="stack" aria-label="Stack"><li>Python</li><li>SQLite</li><li>openpyxl</li><li>Gmail API</li><li>pytest</li><li class="more"><span class="sr">y </span>+1<span class="sr"> más</span></li></ul></article>
+<article class="card feat" data-area="ai" aria-labelledby="p-ecommerce-platform"><p class="card-k"><span class="id">04</span><span class="area">IA y agentes</span><span class="per live">2024 – hoy</span></p><h3 id="p-ecommerce-platform">Plataforma de e-commerce operada por agentes de IA</h3><p class="ctx">Startup de e-commerce latinoamericana <span aria-hidden="true">·</span> Lead full stack y arquitecto de producto</p><p class="sum">Plataforma para vendedores directos con pago contra entrega: investigación de mercado, estrategia de oferta, creativos, landings, pedidos y ventas asistidas por IA.</p><ul class="hl"><li>v1: pipeline de 11 agentes de IA en DAG con 2 checkpoints humanos que valida un producto y produce avatar, competencia, branding, copy, creativos y landing en ~30–45 min.</li><li>v2: reconstrucción como SaaS multi-tenant en más de 20 cambios encadenados: identidad, billing por créditos, motor financiero, landings, publicación, pedidos y envíos.</li><li>CRM de WhatsApp con vendedora de IA que entiende audio y fotos, seguimientos automáticos, integración con courier y control del gasto en IA.</li><li>Estudio creativo automatizado: 17 anuncios del día 1 con QA de audio (−14 LUFS) y render reducido de 346 a 199 s por anuncio.</li><li>Suites de hasta 2,120 pruebas más E2E con Playwright, y revisión adversarial doble antes de cada merge.</li></ul><ul class="stack" aria-label="Stack"><li>Next.js 16</li><li>React 19</li><li>TypeScript</li><li>PostgreSQL</li><li>Cloudflare Workers</li><li>D1</li><li>R2</li><li>OpenRouter</li><li>Anthropic API</li><li>Whisper</li><li>Remotion</li><li>Playwright</li><li>Vitest</li><li>Mercado Pago</li></ul></article>
+<article class="card feat" data-area="ai" aria-labelledby="p-ad-intelligence"><p class="card-k"><span class="id">05</span><span class="area">IA y agentes</span><span class="per">2026</span></p><h3 id="p-ad-intelligence">Radar de nichos: inteligencia de anuncios con IA</h3><p class="ctx">Módulo de la plataforma de e-commerce <span aria-hidden="true">·</span> Arquitecto y desarrollador</p><p class="sum">Recolecta anuncios públicos por nicho y país, extrae señales con OCR, CLIP y Whisper, las etiqueta con LLMs y rankea los anuncios ganadores con un score de supervivencia.</p><ul class="hl"><li>Recolector paralelo de 20–30 workers: 923–1,717 anuncios por minuto frente a 68 en secuencial.</li><li>20,491 anuncios analizados por USD 25.53 y 62,581 frases agrupadas por USD 0.40.</li><li>Ranking por supervivencia Kaplan–Meier y transcripción en VMs spot (10 videos por USD 0.0048).</li><li>Arquitectura hexagonal, aislamiento multi-tenant y despliegue con backup y script de rollback.</li></ul><ul class="stack" aria-label="Stack"><li>Python 3.13</li><li>FastAPI</li><li>Huey</li><li>DuckDB</li><li>Parquet</li><li>CLIP</li><li>Whisper</li><li>OCR</li><li>OpenRouter</li><li>GCP spot VMs</li><li>ECharts</li></ul></article>
+<article class="card" data-area="ai" aria-labelledby="p-personal-agent"><p class="card-k"><span class="id">06</span><span class="area">IA y agentes</span><span class="per">2026</span></p><h3 id="p-personal-agent">Asistente personal de IA y automatizaciones</h3><p class="ctx">Uso propio <span aria-hidden="true">·</span> Autor</p><p class="sum">Asistente en Telegram que corre como servicio, con skills propias, monitores programados y control de sesiones de agentes de código.</p><p class="key">Supervisor de sesiones de agentes vía hooks y tmux; la primera versión salió con 182 pruebas.</p><ul class="stack" aria-label="Stack"><li>Python</li><li>Telegram Bot API</li><li>systemd</li><li>cron</li><li>tmux</li><li class="more"><span class="sr">y </span>+3<span class="sr"> más</span></li></ul></article>
+<article class="card" data-area="ai" aria-labelledby="p-genmedia-mcp"><p class="card-k"><span class="id">07</span><span class="area">IA y agentes</span><span class="per">2026</span></p><h3 id="p-genmedia-mcp">Servidor MCP para generar imágenes y video con IA</h3><p class="ctx">Fork local de un proyecto open source <span aria-hidden="true">·</span> Mantenedor</p><p class="sum">Servidor MCP que opera una app web de generación con IA mediante Chrome DevTools Protocol y que usan varios agentes.</p><p class="key">Reparación completa tras un cambio de interfaz: de 5 funciones operativas y 8 rotas a 18 y 0; 235 pruebas.</p><ul class="stack" aria-label="Stack"><li>Node.js</li><li>Playwright</li><li>Chrome DevTools Protocol</li><li>MCP</li><li>systemd</li><li class="more"><span class="sr">y </span>+1<span class="sr"> más</span></li></ul></article>
+<article class="card feat" data-area="engineering" aria-labelledby="p-construction-platform"><p class="card-k"><span class="id">08</span><span class="area">Ingeniería y ciencia de datos</span><span class="per">2026</span></p><h3 id="p-construction-platform">Plataforma para una constructora: compras, presupuestos y licitaciones</h3><p class="ctx">Contratista de construcción del norte del Perú <span aria-hidden="true">·</span> Ingeniero y desarrollador</p><p class="sum">Plataforma interna y motores que cubren compras, presupuestos, expedientes de licitación y control de obras, más un asistente de IA para los ingenieros.</p><ul class="hl"><li>Plataforma interna con proveedores validados contra un padrón de 18.5M de RUC, solicitudes de cotización, comparativo de precios y 13 plantillas corporativas.</li><li>Lectura de facturas de compra: XML UBL, QR, texto y extracción con LLM, con asignación automática a obras (63 casos cubiertos).</li><li>Motor de APU y metrados con predictor jerárquico: 13.8% de error mediano en conjuntos ciegos, sobre un corpus de 888 obras públicas.</li><li>Portal de obras con valor ganado (CPI, EAC) y expediente de calidad; más de 10 cotizaciones en dos semanas, de hasta S/ 237k, leyendo planos DWG/DXF.</li><li>Asistente de WhatsApp para los ingenieros con reglas fuera del modelo, notas de voz y tareas en sandbox.</li></ul><ul class="stack" aria-label="Stack"><li>Python</li><li>FastAPI</li><li>SQLAlchemy</li><li>PostgreSQL</li><li>Alpine.js</li><li>LibreOffice headless</li><li>ezdxf</li><li>Playwright</li><li>faster-whisper</li><li>systemd</li><li>Cloudflare Tunnel</li></ul></article>
+<article class="card feat" data-area="engineering" aria-labelledby="p-road-intelligence"><p class="card-k"><span class="id">09</span><span class="area">Ingeniería y ciencia de datos</span><span class="per">2026</span></p><h3 id="p-road-intelligence">Inteligencia vial para el Perú</h3><p class="ctx">Proyecto propio <span aria-hidden="true">·</span> Ingeniero y desarrollador</p><p class="sum">Tránsito, pavimentos, corredores urbanos y costos de obras viales sobre datos abiertos, con un diseño modular por país.</p><ul class="hl"><li>Dimensionamiento de mercado con datos abiertos de contrataciones públicas: la consultoría vial mueve ≈ S/ 450M al año.</li><li>Modelo de tránsito nacional (143k km de red, 253 zonas, ODME contra 73 peajes): error en tiempos típicos de 55.6% a 13.0%.</li><li>Corredores urbanos de 12 ciudades calibrados con un MAPE fuera de muestra de 6.6% por tipo de día.</li><li>Motor de costos y soluciones con backtesting sobre expedientes reales y reglas pre-registradas; motor normativo con 355 pruebas.</li><li>Visor web 3D y documentos técnicos DOCX generados automáticamente.</li></ul><ul class="stack" aria-label="Stack"><li>Python</li><li>FastAPI</li><li>OSMnx</li><li>AequilibraE</li><li>scikit-learn</li><li>MapLibre</li><li>Chart.js</li><li>python-docx</li><li>pytest</li></ul></article>
+<article class="card" data-area="other" aria-labelledby="p-roblox-game"><p class="card-k"><span class="id">10</span><span class="area">Web, negocio y otros</span><span class="per">2026</span></p><h3 id="p-roblox-game">Juego de carreras con combate vehicular para Roblox</h3><p class="ctx">Proyecto propio, inspirado en un clásico del cine de culto <span aria-hidden="true">·</span> Diseñador y desarrollador</p><p class="sum">Juego construido desde el código en Linux, con diseño de sistemas, economía y multijugador competitivo.</p><p class="key">Servidor autoritativo y 921 pruebas unitarias con lint, formato y tipos limpios.</p><ul class="stack" aria-label="Stack"><li>Luau</li><li>Rojo</li><li>Lune</li><li>selene</li><li>StyLua</li><li class="more"><span class="sr">y </span>+2<span class="sr"> más</span></li></ul></article>
+<article class="card" data-area="other" aria-labelledby="p-exporter-web-bi"><p class="card-k"><span class="id">11</span><span class="area">Web, negocio y otros</span><span class="per">2026</span></p><h3 id="p-exporter-web-bi">Web, BI y análisis de procesos para una exportadora</h3><p class="ctx">Exportadora peruana de productos marinos congelados <span aria-hidden="true">·</span> Desarrollador y analista</p><p class="sum">Sitio corporativo B2B, dashboard ejecutivo y relevamiento de la operación de planta para especificar el módulo de producción.</p><p class="key">Ingeniería inversa de la operación en Excel (~306k fórmulas, Power Query y 991 líneas de VBA) y mapeo de procesos desde 10 audios transcritos (~60k palabras).</p><ul class="stack" aria-label="Stack"><li>Next.js</li><li>Tailwind</li><li>Framer Motion</li><li>Python</li><li>Streamlit</li><li class="more"><span class="sr">y </span>+5<span class="sr"> más</span></li></ul></article>
+<article class="card feat" data-area="engineering" aria-labelledby="p-flood-warning"><p class="card-k"><span class="id">12</span><span class="area">Ingeniería y ciencia de datos</span><span class="per">2026</span></p><h3 id="p-flood-warning">Alerta temprana de inundaciones y huaicos</h3><p class="ctx">Proyecto propio, piloto en Piura <span aria-hidden="true">·</span> Ingeniero y científico de datos</p><p class="sum">Sistema de alerta temprana basado en impactos para el Perú, desde la lluvia pronosticada hasta umbrales en puentes y tramos de río.</p><ul class="hl"><li>Pipeline lluvia por ensamble → caudal con LSTM → umbrales de Gumbel en 6 puentes: NSE 0.793 frente a 0.597 de la línea base y Brier skill 0.60.</li><li>Corrida nacional sobre 25,290 tramos de río con control de calidad automático.</li><li>Validación honesta: la regla clásica de 20 mm no tenía skill (POD 0.03–0.16); el nuevo modelo de huaicos logró TSS 0.81 en un set 2025–26 bloqueado.</li><li>LSTM regional sobre 136 cuencas con ruteo (KGE de 0.17 a 0.52) y visor web público.</li></ul><ul class="stack" aria-label="Stack"><li>Python</li><li>PyTorch</li><li>ECMWF ENS</li><li>GloFAS</li><li>PISCO</li><li>CHIRPS</li><li>HydroBASINS</li><li>FastAPI</li></ul></article>
+<article class="card feat" data-area="ai" aria-labelledby="p-meeting-copilot"><p class="card-k"><span class="id">13</span><span class="area">IA y agentes</span><span class="per">2026</span></p><h3 id="p-meeting-copilot">Copiloto de reuniones con reconocimiento de voz local</h3><p class="ctx">Producto propio <span aria-hidden="true">·</span> Autor y arquitecto</p><p class="sum">Escucha la reunión en vivo, transcribe en la CPU y marca preguntas abiertas y conflictos con decisiones previas. Productizado con cuentas, suscripciones y un cliente MCP.</p><ul class="hl"><li>ASR en streaming en CPU con factor de tiempo real de 0.18–0.21, validado en una reunión real de 2 h 23 min.</li><li>Detectó y corrigió un use-after-free en el detector de voz que corrompía el 5.5% de las marcas de tiempo.</li><li>Tres lentes: búsqueda semántica, preguntas sugeridas y conflictos contra un registro de 22 decisiones; benchmark de 7 modelos.</li><li>Login con Google, tokens de API guardados solo como hash, suscripciones y cliente MCP público; de 150 a 652 pruebas sin warnings.</li></ul><ul class="stack" aria-label="Stack"><li>Python</li><li>FastAPI</li><li>ONNX Runtime</li><li>sherpa-onnx</li><li>Silero VAD</li><li>e5 embeddings</li><li>SQLite</li><li>MCP</li><li>Playwright</li></ul></article>
+<article class="card" data-area="other" aria-labelledby="p-company-website"><p class="card-k"><span class="id">14</span><span class="area">Web, negocio y otros</span><span class="per">2026</span></p><h3 id="p-company-website">Sitio corporativo bilingüe con SEO y medios generados con IA</h3><p class="ctx">Empresa peruana de software e IA <span aria-hidden="true">·</span> Desarrollador web</p><p class="sum">Sitio de marca y landing de cliente con posicionamiento en buscadores y en motores de IA.</p><p class="key">SEO de marca con JSON-LD, blog ES/EN (3 + 3 artículos) y video promocional de 26 s con marcado VideoObject.</p><ul class="stack" aria-label="Stack"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>JSON-LD</li><li>ffmpeg</li><li class="more"><span class="sr">y </span>+1<span class="sr"> más</span></li></ul></article>
+<article class="card" data-area="other" aria-labelledby="p-ad-tracker"><p class="card-k"><span class="id">15</span><span class="area">Web, negocio y otros</span><span class="per">2026</span></p><h3 id="p-ad-tracker">Automatización de un tracker publicitario</h3><p class="ctx">Cliente de e-commerce en Perú <span aria-hidden="true">·</span> Desarrollador</p><p class="sum">Llena el tracker de anuncios del cliente a partir de las hojas diarias del media buyer.</p><p class="key">Núcleo puro testeable con I/O delgado: de 46 a 99 pruebas, y una demo cuyos resultados exactos se predijeron y verificaron en producción.</p><ul class="stack" aria-label="Stack"><li>Google Apps Script</li><li>Google Sheets</li><li>Node.js tests</li></ul></article>
+<article class="card feat" data-area="ai" aria-labelledby="p-agent-cockpit"><p class="card-k"><span class="id">16</span><span class="area">IA y agentes</span><span class="per live">2025 – hoy</span></p><h3 id="p-agent-cockpit">Cockpit móvil para agentes de código (open source)</h3><p class="ctx">Proyecto open source propio <span aria-hidden="true">·</span> Autor y arquitecto</p><p class="sum">Terminal y chat móvil para dirigir agentes de código que corren en tu propia computadora: transcripciones, aprobación de herramientas, notificaciones y relay cifrado.</p><ul class="hl"><li>Monorepo con protocolo compartido validado con zod, daemon con WebSocket y tmux, PWA y app nativa con Expo.</li><li>Emparejamiento por QR con cifrado de extremo a extremo (Noise IKpsk2) y relay en contenedor con push autoalojado.</li><li>Panel de git, PRs y CI, diagnóstico del host, temas y layout adaptable para tablet y escritorio.</li><li>Más de 2,600 pruebas entre paquetes (servidor 889, móvil 1,530, protocolo 231).</li></ul><ul class="stack" aria-label="Stack"><li>TypeScript</li><li>React</li><li>Expo</li><li>React Native</li><li>Vite</li><li>xterm.js</li><li>node-pty</li><li>WebSocket</li><li>Noise protocol</li><li>Docker</li><li>nginx</li><li>Playwright</li></ul></article>
+<article class="card" data-area="other" aria-labelledby="p-finance-case"><p class="card-k"><span class="id">17</span><span class="area">Web, negocio y otros</span><span class="per">2026</span></p><h3 id="p-finance-case">Caso de finanzas operativas: decisión de inversión de USD 100M</h3><p class="ctx">Curso universitario <span aria-hidden="true">·</span> Analista y expositor</p><p class="sum">Modelo financiero y dos tesis opuestas sobre una multinacional de artículos deportivos, construidos desde sus reportes anuales y trimestrales.</p><p class="key">Dos tesis completas (mantener y comprar), cada una con deck de 14 diapositivas con gráficos nativos, guion y 26–27 preguntas de defensa.</p><ul class="stack" aria-label="Stack"><li>Python</li><li>openpyxl</li><li>python-pptx</li><li>python-docx</li><li>Excel</li></ul></article>
+    </div>
+    <div class="more-work">
+      <h3>// además</h3>
+      <ul><li>Webhook que responde comentarios de Instagram y TikTok con verificación de firma HMAC.</li><li>Inventario fotográfico de campo con OCR y visión, convertido automáticamente en PDF y DOCX.</li><li>Diagnóstico de congelamientos de Linux hasta un bug del kernel y RAM defectuosa confirmada con Memtest86+.</li><li>Apps Android ARM en una tablet x86 con Waydroid, servidores de juego en Docker en la nube y CV en LaTeX.</li></ul>
+    </div>
+  </section>
+
+  <section id="metodo" class="block" aria-labelledby="metodo-h">
+    <div class="sec-h">
+      <h2 id="metodo-h" class="title">Cómo trabajo</h2>
+      <p class="note">Seis reglas que se repiten en todos los proyectos.</p>
+    </div>
+    <ol class="methods"><li><span class="id">01</span><h3>Especificación antes que código</h3><p>Cada feature grande arranca con un documento de specs que cita el pedido literal, tareas trazables y un log de decisiones.</p></li><li><span class="id">02</span><h3>Pruebas primero</h3><p>TDD estricto: rojo, verde, refactor. Suites que van de cientos a más de 13 mil pruebas, con gates antes de desplegar.</p></li><li><span class="id">03</span><h3>Revisión adversarial</h3><p>Revisión doble a ciegas y por lentes (riesgo, resiliencia, legibilidad, confiabilidad) sobre PRs chicos y encadenados.</p></li><li><span class="id">04</span><h3>Métricas honestas</h3><p>Sets de prueba bloqueados, backtests con reglas pre-registradas y reporte explícito de lo que todavía no funciona.</p></li><li><span class="id">05</span><h3>IA con costo controlado</h3><p>Ruteo de modelos por costo, latencia y calidad, libros de gasto y pruebas pagadas solo con aprobación.</p></li><li><span class="id">06</span><h3>Seguridad por diseño</h3><p>Guardas para acciones irreversibles, cifrado de extremo a extremo, sandboxing de agentes e higiene de datos personales.</p></li></ol>
+  </section>
+
+  <section id="skills" class="block" aria-labelledby="skills-h">
+    <div class="sec-h">
+      <h2 id="skills-h" class="title">Skills</h2>
+      <p class="note">Agrupadas por área, todas usadas en proyectos de este portafolio.</p>
+    </div>
+    <dl><div class="skill-row"><dt>Frontend y móvil</dt><dd><ul class="tags"><li>TypeScript</li><li>React 19</li><li>Next.js 16</li><li>Tailwind CSS 4</li><li>Expo</li><li>React Native</li><li>Vite</li><li>Alpine.js</li><li>MapLibre</li></ul></dd></div><div class="skill-row"><dt>Backend y APIs</dt><dd><ul class="tags"><li>Node.js</li><li>NestJS</li><li>Fastify</li><li>Express</li><li>Python</li><li>FastAPI</li><li>WebSockets</li><li>MCP</li><li>BullMQ</li><li>Google Apps Script</li></ul></dd></div><div class="skill-row"><dt>Datos</dt><dd><ul class="tags"><li>PostgreSQL</li><li>SQLite</li><li>Cloudflare D1</li><li>Redis</li><li>Drizzle</li><li>SQLAlchemy</li><li>DuckDB</li><li>pandas</li><li>Excel · Power Query · VBA</li><li>Streamlit</li></ul></dd></div><div class="skill-row"><dt>IA y machine learning</dt><dd><ul class="tags"><li>Orquestación multiagente</li><li>Extracción documental con LLM</li><li>Voz a texto (Whisper, ONNX)</li><li>Embeddings y búsqueda vectorial</li><li>PyTorch</li><li>scikit-learn</li><li>Evaluación de modelos</li></ul></dd></div><div class="skill-row"><dt>Cloud y DevOps</dt><dd><ul class="tags"><li>Docker</li><li>nginx</li><li>GitHub Actions</li><li>Cloudflare</li><li>Vercel</li><li>Google Cloud</li><li>systemd</li><li>Prometheus</li><li>Grafana</li><li>Linux</li></ul></dd></div><div class="skill-row"><dt>Calidad</dt><dd><ul class="tags"><li>TDD</li><li>Vitest</li><li>Jest</li><li>pytest</li><li>Playwright</li><li>Revisión adversarial</li></ul></dd></div><div class="skill-row"><dt>Ingeniería y dominio</dt><dd><ul class="tags"><li>Presupuestos (APU y metrados)</li><li>Contrataciones públicas</li><li>Control de obras (valor ganado)</li><li>Modelación de tránsito</li><li>Hidrología y alerta temprana</li><li>Comercio exterior</li><li>Facturación electrónica</li><li>Análisis financiero</li><li>Diseño de juegos</li></ul></dd></div></dl>
+  </section>
+
+  <section id="experiencia" class="block" aria-labelledby="experiencia-h">
+    <div class="sec-h">
+      <h2 id="experiencia-h" class="title">Experiencia</h2>
+    </div>
+    <ol class="log"><li><span class="t">2024 – hoy</span><div><p class="r"><strong>Tech lead y arquitecto de sistemas e IA</strong> <span class="at">@ Empresa peruana de software e IA</span></p><p>Arquitectura y desarrollo de un ERP multi-tenant de trazabilidad y comercio exterior en producción, con automatización por agentes de IA.</p></div></li><li><span class="t">2024 – 2025</span><div><p class="r"><strong>Lead full stack</strong> <span class="at">@ Startup de e-commerce latinoamericana</span></p><p>Arquitectura frontend y backend de un CRM y ERP omnicanal con mensajería de WhatsApp y pasarelas de pago.</p></div></li><li><span class="t">2025 – hoy</span><div><p class="r"><strong>Autor open source e ingeniería aplicada</strong> <span class="at">@ Independiente</span></p><p>Herramientas para agentes de IA, software de ingeniería civil, modelos de tránsito e hidrología.</p></div></li></ol>
+    <div class="facts">
+      <div><h3>// formación</h3><ul><li>Ingeniería Civil y Tecnologías de la Información — educación universitaria (Piura, Perú)</li></ul></div>
+      <div><h3>// idiomas</h3><ul><li>Español — nativo</li><li>Inglés — técnico profesional</li></ul></div>
+    </div>
+  </section>
+</main>
+
+<footer id="contacto" class="contact" aria-labelledby="contacto-h">
+  <div class="wrap">
+    <p class="kicker">contacto</p>
+    <h2 id="contacto-h">¿Tienes una operación que necesita software serio?</h2>
+    <dl class="channels">
+      <dt>email</dt><dd><a href="mailto:rodrigopianto2005@gmail.com">rodrigopianto2005@gmail.com</a></dd>
+      <dt>github</dt><dd>github.com/R0DR0X</dd>
+      <dt>ubicación</dt><dd>Piura, Perú</dd>
+    </dl>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+    var cards = Array.prototype.slice.call(document.querySelectorAll('#grid .card'));
+    var count = document.getElementById('count');
+    var empty = document.getElementById('empty');
+    var emptyArea = document.getElementById('empty-area');
+
+    function label(chip) { return chip.firstChild.textContent.trim(); }
+
+    function apply(chip) {
+      var area = chip.getAttribute('data-filter');
+      var shown = 0;
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+      cards.forEach(function (card) {
+        var match = area === 'all' || card.getAttribute('data-area') === area;
+        card.hidden = !match;
+        if (match) shown++;
+      });
+      count.innerHTML = '<strong>' + shown + (shown === 1 ? ' proyecto' : ' proyectos') + '</strong> · ' + label(chip);
+      emptyArea.textContent = label(chip);
+      empty.hidden = shown !== 0;
+    }
+
+    chips.forEach(function (chip) { chip.addEventListener('click', function () { apply(chip); }); });
+    document.getElementById('reset').addEventListener('click', function () { apply(chips[0]); chips[0].focus(); });
+
+    // Language switch is visual only in this artboard.
+    var langs = document.querySelectorAll('.lang button');
+    Array.prototype.forEach.call(langs, function (b) {
+      b.addEventListener('click', function () {
+        Array.prototype.forEach.call(langs, function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      });
+    });
+
+    document.getElementById('pdf').addEventListener('click', function () { window.print(); });
+  })();
+</script>
+</body>
+</html>

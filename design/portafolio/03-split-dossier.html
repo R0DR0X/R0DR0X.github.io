@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iván Rodrigo Pianto Antón — Portafolio (dossier)</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --rail: #f5f7fa;
+    --ink: #0f172a;
+    --text: #1e293b;
+    --muted: #475569;
+    --control: #64748b;
+    --line: #cbd5e1;
+    --rule: #e2e8f0;
+    --accent: #1f4fd1;
+    --accent-strong: #1a3fa8;
+    --on-accent: #ffffff;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --rail-w: clamp(300px, 26vw, 360px);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; }
+  }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 1rem/1.6 var(--sans); font-variant-numeric: tabular-nums; }
+  h1, h2, h3, h4 { color: var(--ink); }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { color: var(--accent-strong); }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .skip { position: absolute; left: -999px; top: 8px; z-index: 10; }
+  .skip:focus { left: 8px; background: var(--ink); color: #ffffff; padding: .75rem 1rem; border-radius: 4px; }
+  .print-only, .facts li.print-only { display: none; }
+  main:focus { outline: none; }
+  :where(.plain) { list-style: none; margin: 0; padding: 0; }
+
+  /* Page frame: rail (identity + ficha) beside the dossier body */
+  .page { max-width: 1440px; margin: 0 auto; }
+
+  /* Rail */
+  .rail { background: var(--rail); border-bottom: 1px solid var(--rule); padding: 1.5rem 1.25rem 2rem; }
+  .rail-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .stamp { margin: 0; font-size: .8125rem; color: var(--muted); white-space: nowrap; }
+  .lang { display: inline-flex; border: 1px solid var(--control); border-radius: 6px; overflow: hidden; }
+  .lang button { font: 600 .8125rem var(--sans); letter-spacing: .04em; background: transparent; color: var(--text); border: 0; min-width: 48px; min-height: 44px; padding: 0 .75rem; cursor: pointer; }
+  .lang button + button { border-left: 1px solid var(--control); }
+  .lang button:hover { background: var(--rule); }
+  .lang button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+  .lang button:focus-visible { outline-offset: -5px; outline-color: var(--on-accent); }
+  .lang button[aria-pressed="false"]:focus-visible { outline-color: var(--ink); }
+
+  .id h1 { font-size: 1.875rem; line-height: 1.15; letter-spacing: -.015em; margin: 1.25rem 0 .5rem; }
+  .headline { margin: 0 0 .75rem; font-size: .9375rem; line-height: 1.5; color: var(--text); }
+  .facts { font-size: .875rem; color: var(--muted); display: grid; gap: .125rem; }
+  .facts li { display: flex; align-items: center; gap: .5rem; min-height: 28px; }
+  .facts svg { flex: none; width: 16px; height: 16px; color: var(--muted); }
+  .facts a { color: var(--accent); }
+
+  .actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  .btn { flex: 1 1 auto; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .5rem 1rem; border-radius: 6px; font: 600 .9375rem/1.2 var(--sans); text-decoration: none; }
+  .btn svg { width: 16px; height: 16px; flex: none; }
+  .btn.primary { background: var(--accent); color: var(--on-accent); }
+  .btn.primary:hover { background: var(--accent-strong); color: var(--on-accent); }
+  .btn.secondary { border: 1px solid var(--control); color: var(--ink); background: var(--bg); }
+  .btn.secondary:hover { border-color: var(--ink); color: var(--ink); background: var(--rule); }
+
+  .toc { margin-top: 1.25rem; border-top: 1px solid var(--rule); padding-top: .75rem; }
+  .toc ul { display: flex; flex-wrap: wrap; gap: 0 .25rem; }
+  .toc a { display: flex; align-items: center; min-height: 44px; padding: 0 .625rem; border-radius: 4px; font-size: .875rem; color: var(--text); text-decoration: none; border-left: 3px solid transparent; }
+  .toc a:hover { color: var(--accent-strong); text-decoration: underline; }
+  .toc a[aria-current="location"] { color: var(--accent); font-weight: 600; border-left-color: var(--accent); background: var(--bg); }
+
+  /* Ficha: languages, education, skills */
+  .ficha { margin-top: 1.75rem; }
+  .rail .ficha-title { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  #slot-main .ficha { margin-top: 0; padding: 2.5rem 0; border-top: 1px solid var(--rule); }
+  .ficha h3 { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 .5rem; }
+  .ficha .block + .block { margin-top: 1.5rem; }
+  .ficha p, .ficha li { font-size: .875rem; }
+  .ficha .stacked li + li { margin-top: .25rem; }
+  .skills { margin: 0; }
+  .skills > div { padding: .625rem 0; border-top: 1px solid var(--rule); }
+  .skills > div:first-child { border-top: 0; padding-top: 0; }
+  .skills dt { font-weight: 600; font-size: .875rem; color: var(--ink); }
+  .skills dd { margin: .125rem 0 0; }
+  .inline { list-style: none; margin: 0; padding: 0; line-height: 1.55; color: var(--text); }
+  .inline li { display: inline; }
+  .inline li:not(:last-child)::after { content: " · "; color: var(--muted); }
+
+  /* Dossier body */
+  main { padding: 0 1.25rem; }
+  main > section { padding: 2.5rem 0; border-top: 1px solid var(--rule); }
+  main > section:first-child { border-top: 0; }
+  h2 { font-size: 1.375rem; line-height: 1.25; margin: 0 0 1.25rem; letter-spacing: -.005em; }
+  .note { margin: -.75rem 0 1.5rem; color: var(--muted); font-size: .9375rem; }
+
+  .about { margin: 0; font-size: 1.0625rem; line-height: 1.65; max-width: 68ch; color: var(--text); }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; margin-top: 1.75rem; background: var(--rule); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+  .stats li { padding: 1rem 1.125rem; background: var(--bg); }
+  .stats strong { display: block; font-size: 1.5rem; line-height: 1.2; color: var(--ink); letter-spacing: -.01em; }
+  .stats span { display: block; margin-top: .25rem; font-size: .8125rem; line-height: 1.45; color: var(--muted); }
+
+  /* Experience timeline */
+  .timeline { position: relative; }
+  .timeline li { position: relative; display: grid; grid-template-columns: 1fr; padding: 0 0 1.75rem 1.75rem; }
+  .timeline li::before { content: ""; position: absolute; left: 6px; top: .5rem; bottom: -.5rem; width: 2px; background: var(--line); }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li:last-child::before { display: none; }
+  .timeline .dot { position: absolute; left: 0; top: .3rem; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg); }
+  .timeline .dot.now { background: var(--accent); }
+  .timeline .when { margin: 0; font-size: .875rem; font-weight: 600; color: var(--accent); }
+  .timeline .when .state { font-weight: 400; color: var(--muted); }
+  .timeline h3 { font-size: 1.0625rem; margin: .125rem 0 0; line-height: 1.35; }
+  .timeline .org { margin: 0; font-size: .9375rem; color: var(--muted); }
+  .timeline .body { margin: .375rem 0 0; max-width: 68ch; }
+
+  /* Projects */
+  .area + .area { margin-top: 2.5rem; }
+  .area-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-bottom: 2px solid var(--ink); padding-bottom: .375rem; margin-bottom: .25rem; }
+  .area-head h3 { font-size: 1.0625rem; margin: 0; }
+  .area-head p { margin: 0; font-size: .8125rem; color: var(--muted); white-space: nowrap; }
+  .proj { padding: 1.5rem 0; border-bottom: 1px solid var(--rule); }
+  .proj-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .25rem 1rem; }
+  .proj h4 { font-size: 1.125rem; line-height: 1.35; margin: 0; max-width: 52ch; }
+  .proj .period { margin: 0; font-size: .875rem; font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .proj .ctx { margin: .25rem 0 0; font-size: .875rem; color: var(--muted); }
+  .proj .summary { margin: .75rem 0 0; max-width: 70ch; }
+  .proj .hl { margin: .75rem 0 0; padding-left: 1.125rem; max-width: 70ch; }
+  .proj .hl li { margin-bottom: .375rem; }
+  .proj .hl li::marker { color: var(--accent); }
+  .proj .stack { margin: .75rem 0 0; font: .8125rem/1.6 var(--mono); color: var(--muted); max-width: 90ch; }
+  .proj .stack b { font: 600 .75rem var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); margin-right: .5rem; }
+
+  .brief-label { margin: 1.25rem 0 .25rem; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .brief li { display: grid; grid-template-columns: 1fr; gap: .125rem; padding: .625rem 0; border-bottom: 1px solid var(--rule); }
+  .brief .t { font-weight: 600; color: var(--ink); }
+  .brief .c, .brief .y { font-size: .875rem; color: var(--muted); }
+  .more { margin: .5rem 0 0; padding-left: 1.125rem; }
+  .more li { margin-bottom: .25rem; font-size: .9375rem; }
+
+  /* Methods */
+  .methods { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem 2rem; counter-reset: m; }
+  .methods li { counter-increment: m; border-top: 1px solid var(--rule); padding-top: .75rem; }
+  .methods h3 { font-size: 1rem; margin: 0 0 .25rem; }
+  .methods h3::before { content: counter(m, decimal-leading-zero) "  "; color: var(--accent); font-variant-numeric: tabular-nums; white-space: pre; }
+  .methods p { margin: 0; font-size: .9375rem; color: var(--muted); }
+
+  /* Contact */
+  footer.contact { padding: 2.5rem 1.25rem 3.5rem; border-top: 1px solid var(--rule); }
+  footer.contact h2 { margin-bottom: .5rem; }
+  footer.contact p { margin: 0 0 1.25rem; color: var(--muted); max-width: 60ch; }
+  footer.contact .actions { margin-top: 0; }
+
+  /* Ficha placed in the body on narrow screens */
+  .slot:empty { display: none; }
+
+  @media (min-width: 720px) {
+    .rail { padding: 2rem 2.5rem; }
+    main, footer.contact { padding-left: 2.5rem; padding-right: 2.5rem; }
+    .timeline li { grid-template-columns: 9.5rem 1fr; column-gap: 1.5rem; padding-left: 2rem; }
+    .timeline .when { padding-top: .125rem; }
+    .brief li { grid-template-columns: minmax(0, 1fr) minmax(0, 15rem) 6.5rem; column-gap: 1.5rem; align-items: baseline; }
+    .brief .y { text-align: right; }
+    main .skills > div { display: grid; grid-template-columns: 12rem 1fr; gap: 1rem; }
+    main .ficha .block.langs-edu { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    main .ficha .block.langs-edu > div + div { margin-top: 0; }
+  }
+
+  /* Wide: sticky two-column dossier */
+  @media (min-width: 1080px) {
+    .page { display: grid; grid-template-columns: var(--rail-w) minmax(0, 1fr); grid-template-rows: auto 1fr; }
+    .rail { grid-column: 1; grid-row: 1 / span 2; position: sticky; top: 0; align-self: start; height: 100vh; overflow-y: auto; overscroll-behavior: contain; border-bottom: 0; border-right: 1px solid var(--rule); padding: 2rem 2rem 2.5rem; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+    .toc ul { display: grid; grid-template-columns: repeat(3, 1fr); }
+    main { grid-column: 2; padding: 1rem 4rem 0; }
+    footer.contact { grid-column: 2; padding: 2.5rem 4rem 4rem; }
+  }
+  @media (min-width: 1080px) and (prefers-reduced-motion: no-preference) {
+    .toc a { transition: color .15s, border-color .15s; }
+  }
+
+  /* Print: A4, two columns kept, nothing sticky */
+  @media print {
+    @page { size: A4; margin: 13mm 12mm 14mm; }
+    html { font-size: 9pt; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; color: #000000; }
+    .skip, .lang, .toc, .rail .actions, footer.contact, .stamp { display: none !important; }
+    .print-only { display: block; }
+    .facts li.print-only { display: flex; }
+    .ficha p, .ficha li { font-size: .9375rem; }
+    .page { display: grid; grid-template-columns: 54mm minmax(0, 1fr); column-gap: 7mm; max-width: none; }
+    .rail { position: static; height: auto; overflow: visible; background: none; border: 0; border-right: .5pt solid #cbd5e1; padding: 0 5mm 0 0; grid-row: 1; align-self: start; }
+    .id h1 { margin-top: 0; font-size: 1.75rem; }
+    main { padding: 0; grid-column: 2; }
+    main > section { padding: 0 0 1.25rem; border-top: 0; }
+    h2 { font-size: 1.3rem; margin-bottom: .75rem; break-after: avoid; }
+    .stats { grid-template-columns: repeat(4, 1fr); margin-top: 1rem; }
+    .stats li { padding: .5rem .625rem; }
+    .stats strong { font-size: 1.35rem; }
+    .timeline li { grid-template-columns: 8rem 1fr; column-gap: 1rem; padding-bottom: .875rem; }
+    .brief li { grid-template-columns: minmax(0, 1fr) minmax(0, 13rem) 5.5rem; column-gap: 1rem; }
+    .brief .y { text-align: right; }
+    .proj { padding: .875rem 0; }
+    .proj, .timeline li, .brief li, .methods li, .stats li, .skills > div, .more li { break-inside: avoid; page-break-inside: avoid; }
+    .area-head, .brief-label, .note, .proj-head, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+    .area + .area { margin-top: 1.25rem; }
+    .methods { grid-template-columns: repeat(2, 1fr); gap: .75rem 1.25rem; }
+    p, li { orphans: 3; widows: 3; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<div class="page">
+  <div class="rail" id="rail">
+    <header class="id">
+      <div class="rail-top">
+        <p class="stamp">Actualizado 2026-11</p>
+        <div class="lang" role="group" aria-label="Idioma">
+          <button type="button" aria-pressed="true" lang="es">ES</button>
+          <button type="button" aria-pressed="false" lang="en">EN</button>
+        </div>
+      </div>
+
+      <h1>Iván Rodrigo Pianto Antón</h1>
+      <p class="headline">Ingeniero de software full stack · Arquitecto de sistemas de IA · Tech lead</p>
+
+      <ul class="plain facts">
+        <li>
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 1.5a4.75 4.75 0 0 0-4.75 4.75c0 3.4 4.06 7.8 4.23 7.98a.7.7 0 0 0 1.04 0c.17-.18 4.23-4.58 4.23-7.98A4.75 4.75 0 0 0 8 1.5Zm0 6.6a1.85 1.85 0 1 1 0-3.7 1.85 1.85 0 0 1 0 3.7Z"/></svg>
+          <span>Piura, Perú</span>
+        </li>
+        <li class="print-only">rodrigopianto2005@gmail.com</li>
+        <li class="print-only">github.com/R0DR0X</li>
+      </ul>
+
+      <div class="actions">
+        <a class="btn primary" href="mailto:rodrigopianto2005@gmail.com">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M2 3.75h12v8.5H2zM2.5 4.25 8 8.75l5.5-4.5"/></svg>
+          Escríbeme
+        </a>
+        <a class="btn secondary" href="#">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M8 2v8m-3.25-3.25L8 10l3.25-3.25M2.75 13.25h10.5"/></svg>
+          Descargar PDF
+        </a>
+      </div>
+
+      <nav class="toc" aria-label="Secciones">
+        <ul class="plain">
+          <li><a href="#perfil">Perfil</a></li>
+          <li><a href="#experiencia">Experiencia</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#habilidades">Habilidades</a></li>
+          <li><a href="#metodos">Métodos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="slot" id="slot-rail"></div>
+  </div>
+
+  <main id="main" tabindex="-1">
+    <section id="perfil" aria-labelledby="perfil-h">
+      <h2 id="perfil-h">Perfil</h2>
+      <p class="about">Construyo software que resuelve operaciones reales: ERPs multi-tenant, plataformas de e-commerce con agentes de IA, herramientas de ingeniería civil y modelos de riesgo hidrológico. Combino formación en ingeniería civil con arquitectura full stack, y trabajo con disciplina: especificaciones antes que código, pruebas primero, revisión adversarial y métricas honestas.</p>
+      <ul class="plain stats" aria-label="Cifras con evidencia">
+        <li><strong>13,223</strong><span>pruebas en el gate de despliegue de un ERP multi-tenant</span></li>
+        <li><strong>20,491</strong><span>anuncios analizados con IA por USD 25.53</span></li>
+        <li><strong>147k</strong><span>estampillas en un catálogo reconstruido por scraping</span></li>
+        <li><strong>25,290</strong><span>tramos de río en una corrida nacional de peligro de inundación</span></li>
+      </ul>
+    </section>
+
+    <section id="experiencia" aria-labelledby="experiencia-h">
+      <h2 id="experiencia-h">Experiencia</h2>
+      <ol class="plain timeline">
+        <li>
+          <span class="dot now" aria-hidden="true"></span>
+          <p class="when">2024 – hoy <span class="sr-only">(actual)</span></p>
+          <div>
+            <h3>Tech lead y arquitecto de sistemas e IA</h3>
+            <p class="org">Empresa peruana de software e IA</p>
+            <p class="body">Arquitectura y desarrollo de un ERP multi-tenant de trazabilidad y comercio exterior en producción, con automatización por agentes de IA.</p>
+          </div>
+        </li>
+        <li>
+          <span class="dot" aria-hidden="true"></span>
+          <p class="when">2024 – 2025</p>
+          <div>
+            <h3>Lead full stack</h3>
+            <p class="org">Startup de e-commerce latinoamericana</p>
+            <p class="body">Arquitectura frontend y backend de un CRM y ERP omnicanal con mensajería de WhatsApp y pasarelas de pago.</p>
+          </div>
+        </li>
+        <li>
+          <span class="dot now" aria-hidden="true"></span>
+          <p class="when">2025 – hoy <span class="sr-only">(actual)</span></p>
+          <div>
+            <h3>Autor open source e ingeniería aplicada</h3>
+            <p class="org">Independiente</p>
+            <p class="body">Herramientas para agentes de IA, software de ingeniería civil, modelos de tránsito e hidrología.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="proyectos" aria-labelledby="proyectos-h">
+      <h2 id="proyectos-h">Proyectos</h2>
+      <p class="note">17 proyectos en 4 áreas. Los nombres de clientes y empresas están anonimizados.</p>
+
+      <section class="area" aria-labelledby="area-software">
+        <div class="area-head"><h3 id="area-software">Plataformas y SaaS</h3><p>3 proyectos</p></div>
+
+        <article class="proj" aria-labelledby="p-erp">
+          <div class="proj-head">
+            <h4 id="p-erp">ERP y trazabilidad multi-tenant para agroexportación</h4>
+            <p class="period">2024 – hoy</p>
+          </div>
+          <p class="ctx">Exportadora pesquera peruana, a través de una empresa de software · Tech lead y arquitecto</p>
+          <p class="summary">Plataforma SaaS que cubre acopio, producción, almacén, comercio exterior y facturación electrónica. Un panel web, una app móvil offline y bots de WhatsApp trabajan sobre el mismo backend.</p>
+          <ul class="hl">
+            <li>Motor documental con extracción por IA, reglas de validación y semáforo de revisión humana; app móvil offline-first con cola SQLite.</li>
+            <li>Comercio exterior completo: proformas, contenedores, propuesta automática de packing, tablero Kanban y carga histórica de 240 proformas (~USD 49.9M).</li>
+            <li>Producción con kardex por lote, trazabilidad GS1 y mermas conciliadas con el Excel de planta (457 guías importadas sin rechazos).</li>
+            <li>Facturación electrónica SUNAT (facturas, boletas, notas y guías de remisión) mediante un adaptador desacoplado.</li>
+            <li>Bots de WhatsApp que registran llegadas y emiten proformas por texto o audio, en producción desde agosto de 2026.</li>
+            <li>Gate de despliegue con 13,223 pruebas, observabilidad con Prometheus y Grafana, e infraestructura reducida a ~USD 83/mes.</li>
+          </ul>
+          <p class="stack"><b>Stack</b>NestJS · Fastify · PostgreSQL 17 · Drizzle · Redis · BullMQ · Next.js 16 · React 19 · Expo · n8n · Gemini · Whisper · Docker · GitHub Actions · Prometheus · Grafana</p>
+        </article>
+
+        <p class="brief-label">También en esta área</p>
+        <ul class="plain brief">
+          <li><span class="t">Plataforma y marketplace para coleccionistas de estampillas</span><span class="c">Proyecto propio</span><span class="y">2026</span></li>
+          <li><span class="t">Motor de finanzas personales para agentes de IA</span><span class="c">Proyecto propio</span><span class="y">2025 – hoy</span></li>
+        </ul>
+      </section>
+
+      <section class="area" aria-labelledby="area-ai">
+        <div class="area-head"><h3 id="area-ai">IA y agentes</h3><p>6 proyectos</p></div>
+
+        <article class="proj" aria-labelledby="p-ecom">
+          <div class="proj-head">
+            <h4 id="p-ecom">Plataforma de e-commerce operada por agentes de IA</h4>
+            <p class="period">2024 – hoy</p>
+          </div>
+          <p class="ctx">Startup de e-commerce latinoamericana · Lead full stack y arquitecto de producto</p>
+          <p class="summary">Plataforma para vendedores directos con pago contra entrega: investigación de mercado, estrategia de oferta, creativos, landings, pedidos y ventas asistidas por IA.</p>
+          <ul class="hl">
+            <li>v1: pipeline de 11 agentes de IA en DAG con 2 checkpoints humanos que valida un producto y produce avatar, competencia, branding, copy, creativos y landing en ~30–45 min.</li>
+            <li>v2: reconstrucción como SaaS multi-tenant en más de 20 cambios encadenados: identidad, billing por créditos, motor financiero, landings, publicación, pedidos y envíos.</li>
+            <li>CRM de WhatsApp con vendedora de IA que entiende audio y fotos, seguimientos automáticos, integración con courier y control del gasto en IA.</li>
+            <li>Estudio creativo automatizado: 17 anuncios del día 1 con QA de audio (−14 LUFS) y render reducido de 346 a 199 s por anuncio.</li>
+            <li>Suites de hasta 2,120 pruebas más E2E con Playwright, y revisión adversarial doble antes de cada merge.</li>
+          </ul>
+          <p class="stack"><b>Stack</b>Next.js 16 · React 19 · TypeScript · PostgreSQL · Cloudflare Workers · D1 · R2 · OpenRouter · Anthropic API · Whisper · Remotion · Playwright · Vitest · Mercado Pago</p>
+        </article>
+
+        <article class="proj" aria-labelledby="p-radar">
+          <div class="proj-head">
+            <h4 id="p-radar">Radar de nichos: inteligencia de anuncios con IA</h4>
+            <p class="period">2026</p>
+          </div>
+          <p class="ctx">Módulo de la plataforma de e-commerce · Arquitecto y desarrollador</p>
+          <p class="summary">Recolecta anuncios públicos por nicho y país, extrae señales con OCR, CLIP y Whisper, las etiqueta con LLMs y rankea los anuncios ganadores con un score de supervivencia.</p>
+          <ul class="hl">
+            <li>Recolector paralelo de 20–30 workers: 923–1,717 anuncios por minuto frente a 68 en secuencial.</li>
+            <li>20,491 anuncios analizados por USD 25.53 y 62,581 frases agrupadas por USD 0.40.</li>
+            <li>Ranking por supervivencia Kaplan–Meier y transcripción en VMs spot (10 videos por USD 0.0048).</li>
+            <li>Arquitectura hexagonal, aislamiento multi-tenant y despliegue con backup y script de rollback.</li>
+          </ul>
+          <p class="stack"><b>Stack</b>Python 3.13 · FastAPI · Huey · DuckDB · Parquet · CLIP · Whisper · OCR · OpenRouter · GCP spot VMs · ECharts</p>
+        </article>
+
+        <article class="proj" aria-labelledby="p-copilot">
+          <div class="proj-head">
+            <h4 id="p-copilot">Copiloto de reuniones con reconocimiento de voz local</h4>
+            <p class="period">2026</p>
+          </div>
+          <p class="ctx">Producto propio · Autor y arquitecto</p>
+          <p class="summary">Escucha la reunión en vivo, transcribe en la CPU y marca preguntas abiertas y conflictos con decisiones previas. Productizado con cuentas, suscripciones y un cliente MCP.</p>
+          <ul class="hl">
+            <li>ASR en streaming en CPU con factor de tiempo real de 0.18–0.21, validado en una reunión real de 2 h 23 min.</li>
+            <li>Detectó y corrigió un use-after-free en el detector de voz que corrompía el 5.5% de las marcas de tiempo.</li>
+            <li>Tres lentes: búsqueda semántica, preguntas sugeridas y conflictos contra un registro de 22 decisiones; benchmark de 7 modelos.</li>
+            <li>Login con Google, tokens de API guardados solo como hash, suscripciones y cliente MCP público; de 150 a 652 pruebas sin warnings.</li>
+          </ul>
+          <p class="stack"><b>Stack</b>Python · FastAPI · ONNX Runtime · sherpa-onnx · Silero VAD · e5 embeddings · SQLite · MCP · Playwright</p>
+        </article>
+
+        <article class="proj" aria-labelledby="p-cockpit">
+          <div class="proj-head">
+            <h4 id="p-cockpit">Cockpit móvil para agentes de código (open source)</h4>
+            <p class="period">2025 – hoy</p>
+          </div>
+          <p class="ctx">Proyecto open source propio · Autor y arquitecto</p>
+          <p class="summary">Terminal y chat móvil para dirigir agentes de código que corren en tu propia computadora: transcripciones, aprobación de herramientas, notificaciones y relay cifrado.</p>
+          <ul class="hl">
+            <li>Monorepo con protocolo compartido validado con zod, daemon con WebSocket y tmux, PWA y app nativa con Expo.</li>
+            <li>Emparejamiento por QR con cifrado de extremo a extremo (Noise IKpsk2) y relay en contenedor con push autoalojado.</li>
+            <li>Panel de git, PRs y CI, diagnóstico del host, temas y layout adaptable para tablet y escritorio.</li>
+            <li>Más de 2,600 pruebas entre paquetes (servidor 889, móvil 1,530, protocolo 231).</li>
+          </ul>
+          <p class="stack"><b>Stack</b>TypeScript · React · Expo · React Native · Vite · xterm.js · node-pty · WebSocket · Noise protocol · Docker · nginx · Playwright</p>
+        </article>
+
+        <p class="brief-label">También en esta área</p>
+        <ul class="plain brief">
+          <li><span class="t">Asistente personal de IA y automatizaciones</span><span class="c">Uso propio</span><span class="y">2026</span></li>
+          <li><span class="t">Servidor MCP para generar imágenes y video con IA</span><span class="c">Fork local de un proyecto open source</span><span class="y">2026</span></li>
+        </ul>
+      </section>
+
+      <section class="area" aria-labelledby="area-eng">
+        <div class="area-head"><h3 id="area-eng">Ingeniería y ciencia de datos</h3><p>3 proyectos</p></div>
+
+        <article class="proj" aria-labelledby="p-constr">
+          <div class="proj-head">
+            <h4 id="p-constr">Plataforma para una constructora: compras, presupuestos y licitaciones</h4>
+            <p class="period">2026</p>
+          </div>
+          <p class="ctx">Contratista de construcción del norte del Perú · Ingeniero y desarrollador</p>
+          <p class="summary">Plataforma interna y motores que cubren compras, presupuestos, expedientes de licitación y control de obras, más un asistente de IA para los ingenieros.</p>
+          <ul class="hl">
+            <li>Plataforma interna con proveedores validados contra un padrón de 18.5M de RUC, solicitudes de cotización, comparativo de precios y 13 plantillas corporativas.</li>
+            <li>Lectura de facturas de compra: XML UBL, QR, texto y extracción con LLM, con asignación automática a obras (63 casos cubiertos).</li>
+            <li>Motor de APU y metrados con predictor jerárquico: 13.8% de error mediano en conjuntos ciegos, sobre un corpus de 888 obras públicas.</li>
+            <li>Portal de obras con valor ganado (CPI, EAC) y expediente de calidad; más de 10 cotizaciones en dos semanas, de hasta S/ 237k, leyendo planos DWG/DXF.</li>
+            <li>Asistente de WhatsApp para los ingenieros con reglas fuera del modelo, notas de voz y tareas en sandbox.</li>
+          </ul>
+          <p class="stack"><b>Stack</b>Python · FastAPI · SQLAlchemy · PostgreSQL · Alpine.js · LibreOffice headless · ezdxf · Playwright · faster-whisper · systemd · Cloudflare Tunnel</p>
+        </article>
+
+        <article class="proj" aria-labelledby="p-road">
+          <div class="proj-head">
+            <h4 id="p-road">Inteligencia vial para el Perú</h4>
+            <p class="period">2026</p>
+          </div>
+          <p class="ctx">Proyecto propio · Ingeniero y desarrollador</p>
+          <p class="summary">Tránsito, pavimentos, corredores urbanos y costos de obras viales sobre datos abiertos, con un diseño modular por país.</p>
+          <ul class="hl">
+            <li>Dimensionamiento de mercado con datos abiertos de contrataciones públicas: la consultoría vial mueve ≈ S/ 450M al año.</li>
+            <li>Modelo de tránsito nacional (143k km de red, 253 zonas, ODME contra 73 peajes): error en tiempos típicos de 55.6% a 13.0%.</li>
+            <li>Corredores urbanos de 12 ciudades calibrados con un MAPE fuera de muestra de 6.6% por tipo de día.</li>
+            <li>Motor de costos y soluciones con backtesting sobre expedientes reales y reglas pre-registradas; motor normativo con 355 pruebas.</li>
+            <li>Visor web 3D y documentos técnicos DOCX generados automáticamente.</li>
+          </ul>
+          <p class="stack"><b>Stack</b>Python · FastAPI · OSMnx · AequilibraE · scikit-learn · MapLibre · Chart.js · python-docx · pytest</p>
+        </article>
+
+        <article class="proj" aria-labelledby="p-flood">
+          <div class="proj-head">
+            <h4 id="p-flood">Alerta temprana de inundaciones y huaicos</h4>
+            <p class="period">2026</p>
+          </div>
+          <p class="ctx">Proyecto propio, piloto en Piura · Ingeniero y científico de datos</p>
+          <p class="summary">Sistema de alerta temprana basado en impactos para el Perú, desde la lluvia pronosticada hasta umbrales en puentes y tramos de río.</p>
+          <ul class="hl">
+            <li>Pipeline lluvia por ensamble → caudal con LSTM → umbrales de Gumbel en 6 puentes: NSE 0.793 frente a 0.597 de la línea base y Brier skill 0.60.</li>
+            <li>Corrida nacional sobre 25,290 tramos de río con control de calidad automático.</li>
+            <li>Validación honesta: la regla clásica de 20 mm no tenía skill (POD 0.03–0.16); el nuevo modelo de huaicos logró TSS 0.81 en un set 2025–26 bloqueado.</li>
+            <li>LSTM regional sobre 136 cuencas con ruteo (KGE de 0.17 a 0.52) y visor web público.</li>
+          </ul>
+          <p class="stack"><b>Stack</b>Python · PyTorch · ECMWF ENS · GloFAS · PISCO · CHIRPS · HydroBASINS · FastAPI</p>
+        </article>
+      </section>
+
+      <section class="area" aria-labelledby="area-other">
+        <div class="area-head"><h3 id="area-other">Web, negocio y otros</h3><p>5 proyectos</p></div>
+        <ul class="plain brief">
+          <li><span class="t">Juego de carreras con combate vehicular para Roblox</span><span class="c">Proyecto propio, inspirado en un clásico del cine de culto</span><span class="y">2026</span></li>
+          <li><span class="t">Web, BI y análisis de procesos para una exportadora</span><span class="c">Exportadora peruana de productos marinos congelados</span><span class="y">2026</span></li>
+          <li><span class="t">Sitio corporativo bilingüe con SEO y medios generados con IA</span><span class="c">Empresa peruana de software e IA</span><span class="y">2026</span></li>
+          <li><span class="t">Automatización de un tracker publicitario</span><span class="c">Cliente de e-commerce en Perú</span><span class="y">2026</span></li>
+          <li><span class="t">Caso de finanzas operativas: decisión de inversión de USD 100M</span><span class="c">Curso universitario</span><span class="y">2026</span></li>
+        </ul>
+        <p class="brief-label">Además</p>
+        <ul class="more">
+          <li>Webhook que responde comentarios de Instagram y TikTok con verificación de firma HMAC.</li>
+          <li>Inventario fotográfico de campo con OCR y visión, convertido automáticamente en PDF y DOCX.</li>
+          <li>Diagnóstico de congelamientos de Linux hasta un bug del kernel y RAM defectuosa confirmada con Memtest86+.</li>
+          <li>Apps Android ARM en una tablet x86 con Waydroid, servidores de juego en Docker en la nube y CV en LaTeX.</li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- Narrow screens: the ficha lives here, after projects, so DOM order matches reading order -->
+    <div class="slot" id="slot-main">
+      <aside class="ficha" id="ficha" aria-labelledby="ficha-h">
+        <h2 class="ficha-title" id="ficha-h">Ficha técnica</h2>
+        <div class="block langs-edu">
+          <div class="block">
+            <h3>Idiomas</h3>
+            <ul class="plain stacked">
+              <li>Español — nativo</li>
+              <li>Inglés — técnico profesional</li>
+            </ul>
+          </div>
+          <div class="block">
+            <h3>Formación</h3>
+            <p>Ingeniería Civil y Tecnologías de la Información — educación universitaria (Piura, Perú)</p>
+          </div>
+        </div>
+        <div class="block" id="habilidades">
+          <h3>Habilidades</h3>
+          <dl class="skills">
+            <div><dt>Frontend y móvil</dt><dd><ul class="inline"><li>TypeScript</li><li>React 19</li><li>Next.js 16</li><li>Tailwind CSS 4</li><li>Expo</li><li>React Native</li><li>Vite</li><li>Alpine.js</li><li>MapLibre</li></ul></dd></div>
+            <div><dt>Backend y APIs</dt><dd><ul class="inline"><li>Node.js</li><li>NestJS</li><li>Fastify</li><li>Express</li><li>Python</li><li>FastAPI</li><li>WebSockets</li><li>MCP</li><li>BullMQ</li><li>Google Apps Script</li></ul></dd></div>
+            <div><dt>Datos</dt><dd><ul class="inline"><li>PostgreSQL</li><li>SQLite</li><li>Cloudflare D1</li><li>Redis</li><li>Drizzle</li><li>SQLAlchemy</li><li>DuckDB</li><li>pandas</li><li>Excel · Power Query · VBA</li><li>Streamlit</li></ul></dd></div>
+            <div><dt>IA y machine learning</dt><dd><ul class="inline"><li>Orquestación multiagente</li><li>Extracción documental con LLM</li><li>Voz a texto (Whisper, ONNX)</li><li>Embeddings y búsqueda vectorial</li><li>PyTorch</li><li>scikit-learn</li><li>Evaluación de modelos</li></ul></dd></div>
+            <div><dt>Cloud y DevOps</dt><dd><ul class="inline"><li>Docker</li><li>nginx</li><li>GitHub Actions</li><li>Cloudflare</li><li>Vercel</li><li>Google Cloud</li><li>systemd</li><li>Prometheus</li><li>Grafana</li><li>Linux</li></ul></dd></div>
+            <div><dt>Calidad</dt><dd><ul class="inline"><li>TDD</li><li>Vitest</li><li>Jest</li><li>pytest</li><li>Playwright</li><li>Revisión adversarial</li></ul></dd></div>
+            <div><dt>Ingeniería y dominio</dt><dd><ul class="inline"><li>Presupuestos (APU y metrados)</li><li>Contrataciones públicas</li><li>Control de obras (valor ganado)</li><li>Modelación de tránsito</li><li>Hidrología y alerta temprana</li><li>Comercio exterior</li><li>Facturación electrónica</li><li>Análisis financiero</li><li>Diseño de juegos</li></ul></dd></div>
+          </dl>
+        </div>
+      </aside>
+    </div>
+
+    <section id="metodos" aria-labelledby="metodos-h">
+      <h2 id="metodos-h">Cómo trabajo</h2>
+      <ul class="plain methods">
+        <li><h3>Especificación antes que código</h3><p>Cada feature grande arranca con un documento de specs que cita el pedido literal, tareas trazables y un log de decisiones.</p></li>
+        <li><h3>Pruebas primero</h3><p>TDD estricto: rojo, verde, refactor. Suites que van de cientos a más de 13 mil pruebas, con gates antes de desplegar.</p></li>
+        <li><h3>Revisión adversarial</h3><p>Revisión doble a ciegas y por lentes (riesgo, resiliencia, legibilidad, confiabilidad) sobre PRs chicos y encadenados.</p></li>
+        <li><h3>Métricas honestas</h3><p>Sets de prueba bloqueados, backtests con reglas pre-registradas y reporte explícito de lo que todavía no funciona.</p></li>
+        <li><h3>IA con costo controlado</h3><p>Ruteo de modelos por costo, latencia y calidad, libros de gasto y pruebas pagadas solo con aprobación.</p></li>
+        <li><h3>Seguridad por diseño</h3><p>Guardas para acciones irreversibles, cifrado de extremo a extremo, sandboxing de agentes e higiene de datos personales.</p></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="contact" id="contacto" aria-labelledby="contacto-h">
+    <h2 id="contacto-h">Contacto</h2>
+    <p>¿Tienes una operación que necesita software? Escríbeme y cuéntame qué quieres resolver. Piura, Perú.</p>
+    <div class="actions">
+      <a class="btn primary" href="mailto:rodrigopianto2005@gmail.com">rodrigopianto2005@gmail.com</a>
+      <a class="btn secondary" href="#">github.com/R0DR0X</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    // Wide screens and print keep the ficha in the rail; narrow screens read it after the projects.
+    var ficha = document.getElementById('ficha');
+    var slotRail = document.getElementById('slot-rail');
+    var slotMain = document.getElementById('slot-main');
+    var wide = window.matchMedia('print, (min-width: 1080px)');
+    function place(inRail) {
+      var target = inRail ? slotRail : slotMain;
+      if (ficha.parentNode !== target) target.appendChild(ficha);
+    }
+    function sync() { place(wide.matches); }
+    sync();
+    if (wide.addEventListener) wide.addEventListener('change', sync); else wide.addListener(sync);
+    window.addEventListener('beforeprint', function () { place(true); });
+    window.addEventListener('afterprint', sync);
+
+    // Mark the section in view in the rail navigation.
+    if (!('IntersectionObserver' in window)) return;
+    var links = {};
+    document.querySelectorAll('.toc a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+    var ids = ['perfil', 'experiencia', 'proyectos', 'metodos', 'contacto'];
+    var visible = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+      var current = ids.filter(function (id) { return visible[id]; })[0];
+      Object.keys(links).forEach(function (id) {
+        if (id === current) links[id].setAttribute('aria-current', 'location');
+        else links[id].removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' });
+    ids.forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  })();
+</script>
+</body>
+</html>

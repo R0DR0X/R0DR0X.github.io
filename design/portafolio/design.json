@@ -1,0 +1,10 @@
+{
+  "title": "Personal portfolio",
+  "brief": "Bilingual (ES/EN) personal-brand portfolio of a full stack engineer, AI systems architect and civil engineer; the same content renders a website and a PDF; client names anonymized",
+  "feature": "odd/tasks/portafolio.md",
+  "artboards": [
+    { "file": "01-editorial-index.html", "title": "Editorial index", "tradeoff": "Most readable and nearly identical in print, so the PDF comes almost free; calmer, less visual punch and a longer scroll", "width": 1440, "height": 900 },
+    { "file": "02-engineering-console.html", "title": "Engineering console", "tradeoff": "Strongest technical identity, metric-first and filterable by area; dark theme needs a separate light print style for the PDF and reads more developer than engineer", "width": 1440, "height": 900 },
+    { "file": "03-split-dossier.html", "title": "Split dossier", "tradeoff": "Closest to a CV: identity and skills always visible beside a timeline, fastest to scan and easiest PDF parity; least storytelling and the most conventional look", "width": 1440, "height": 900 }
+  ]
+}
