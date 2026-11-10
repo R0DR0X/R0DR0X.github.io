@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iván Rodrigo Pianto Antón — CV</title>
+<style>
+  @page { size: A4; margin: 14mm; }
+  * { box-sizing: border-box; }
+  html { font-size: 10pt; }
+  body { margin: 0; background: #ffffff; color: #1d1b18; font-family: Arial, "Liberation Sans", Helvetica, system-ui, sans-serif; line-height: 1.38; }
+  @media screen { body { max-width: 182mm; margin: 2rem auto; padding: 0 1rem; } }
+  a { color: inherit; text-decoration: none; }
+  h1 { margin: 0; font-size: 2rem; line-height: 1.15; }
+  .headline { margin: .15rem 0 .2rem; font-size: 1.1rem; }
+  .contact { margin: 0 0 .6rem; color: #3f3a33; }
+  h2 { margin: .9rem 0 .35rem; padding-bottom: .15rem; border-bottom: .75pt solid #9a3b1b; font-size: 1.15rem; text-transform: uppercase; letter-spacing: .04em; color: #9a3b1b; break-after: avoid; }
+  h3 { margin: .45rem 0 0; font-size: 1.02rem; break-after: avoid; }
+  p { margin: .15rem 0; }
+  ul { margin: .15rem 0 0; padding-left: 1.1rem; }
+  li { margin: .05rem 0; }
+  .sub { color: #3f3a33; }
+  .entry { break-inside: avoid; }
+  .skills p { margin: .12rem 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Iván Rodrigo Pianto Antón</h1>
+  <p class="headline">Ingeniero de software full stack · Arquitecto de sistemas de IA · Tech lead</p>
+  <p class="contact">Piura, Perú · <a href="mailto:rodrigopianto2005@gmail.com">rodrigopianto2005@gmail.com</a> · <a href="https://github.com/R0DR0X">github.com/R0DR0X</a></p>
+</header>
+<main>
+<section>
+  <h2>Perfil</h2>
+  <p>Construyo software que resuelve operaciones reales: ERPs multi-tenant, plataformas de e-commerce con agentes de IA, herramientas de ingeniería civil y modelos de riesgo hidrológico. Combino formación en ingeniería civil con arquitectura full stack, y trabajo con disciplina: especificaciones antes que código, pruebas primero, revisión adversarial y métricas honestas.</p>
+  <p><strong>Stack principal:</strong> TypeScript, Python, Next.js 16, NestJS, FastAPI, PostgreSQL</p>
+  <p><strong>Cifras clave:</strong> 13,223 pruebas en el gate de despliegue de un ERP multi-tenant; 20,491 anuncios analizados con IA por USD 25.53; 147k estampillas en un catálogo reconstruido por scraping; 25,290 tramos de río en una corrida nacional de peligro de inundación.</p>
+</section>
+<section>
+  <h2>Experiencia</h2>
+  <div class="entry"><h3>Tech lead y arquitecto de sistemas e IA — Empresa peruana de software e IA</h3><p class="sub">2024 – hoy</p><p>Arquitectura y desarrollo de un ERP multi-tenant de trazabilidad y comercio exterior en producción, con automatización por agentes de IA.</p></div><div class="entry"><h3>Lead full stack — Startup de e-commerce latinoamericana</h3><p class="sub">2024 – 2025</p><p>Arquitectura frontend y backend de un CRM y ERP omnicanal con mensajería de WhatsApp y pasarelas de pago.</p></div><div class="entry"><h3>Autor open source e ingeniería aplicada — Independiente</h3><p class="sub">2025 – hoy</p><p>Herramientas para agentes de IA, software de ingeniería civil, modelos de tránsito e hidrología.</p></div>
+</section>
+<section>
+  <h2>Proyectos destacados</h2>
+  <div class="entry"><h3>ERP y trazabilidad multi-tenant para agroexportación</h3><p class="sub">Exportadora pesquera peruana, a través de una empresa de software · 2024 – hoy</p><ul><li>Comercio exterior completo: proformas, contenedores, propuesta automática de packing, tablero Kanban y carga histórica de 240 proformas (~USD 49.9M).</li><li>Gate de despliegue con 13,223 pruebas, observabilidad con Prometheus y Grafana, e infraestructura reducida a ~USD 83/mes.</li></ul></div><div class="entry"><h3>Plataforma de e-commerce operada por agentes de IA</h3><p class="sub">Startup de e-commerce latinoamericana · 2024 – hoy</p><ul><li>v1: pipeline de 11 agentes de IA en DAG con 2 checkpoints humanos que valida un producto y produce avatar, competencia, branding, copy, creativos y landing en ~30–45 min.</li><li>v2: reconstrucción como SaaS multi-tenant en más de 20 cambios encadenados: identidad, billing por créditos, motor financiero, landings, publicación, pedidos y envíos.</li></ul></div><div class="entry"><h3>Radar de nichos: inteligencia de anuncios con IA</h3><p class="sub">Módulo de la plataforma de e-commerce · 2026</p><ul><li>Recolector paralelo de 20–30 workers: 923–1,717 anuncios por minuto frente a 68 en secuencial.</li><li>20,491 anuncios analizados por USD 25.53 y 62,581 frases agrupadas por USD 0.40.</li></ul></div><div class="entry"><h3>Plataforma para una constructora: compras, presupuestos y licitaciones</h3><p class="sub">Contratista de construcción del norte del Perú · 2026</p><ul><li>Plataforma interna con proveedores validados contra un padrón de 18.5M de RUC, solicitudes de cotización, comparativo de precios y 13 plantillas corporativas.</li><li>Motor de APU y metrados con predictor jerárquico: 13.8% de error mediano en conjuntos ciegos, sobre un corpus de 888 obras públicas.</li></ul></div><div class="entry"><h3>Inteligencia vial para el Perú</h3><p class="sub">Proyecto propio · 2026</p><ul><li>Modelo de tránsito nacional (143k km de red, 253 zonas, ODME contra 73 peajes): error en tiempos típicos de 55.6% a 13.0%.</li><li>Corredores urbanos de 12 ciudades calibrados con un MAPE fuera de muestra de 6.6% por tipo de día.</li></ul></div><div class="entry"><h3>Alerta temprana de inundaciones y huaicos</h3><p class="sub">Proyecto propio, piloto en Piura · 2026</p><ul><li>Pipeline lluvia por ensamble → caudal con LSTM → umbrales de Gumbel en 6 puentes: NSE 0.793 frente a 0.597 de la línea base y Brier skill 0.60.</li><li>Validación honesta: la regla clásica de 20 mm no tenía skill (POD 0.03–0.16); el nuevo modelo de huaicos logró TSS 0.81 en un set 2025–26 bloqueado.</li></ul></div><div class="entry"><h3>Copiloto de reuniones con reconocimiento de voz local</h3><p class="sub">Producto propio · 2026</p><ul><li>ASR en streaming en CPU con factor de tiempo real de 0.18–0.21, validado en una reunión real de 2 h 23 min.</li><li>Detectó y corrigió un use-after-free en el detector de voz que corrompía el 5.5% de las marcas de tiempo.</li></ul></div><div class="entry"><h3>Cockpit móvil para agentes de código (open source)</h3><p class="sub">Proyecto open source propio · 2025 – hoy</p><ul><li>Emparejamiento por QR con cifrado de extremo a extremo (Noise IKpsk2) y relay en contenedor con push autoalojado.</li><li>Más de 2,600 pruebas entre paquetes (servidor 889, móvil 1,530, protocolo 231).</li></ul></div>
+</section>
+<section class="skills">
+  <h2>Habilidades</h2>
+  <p><strong>Frontend y móvil:</strong> TypeScript, React 19, Next.js 16, Tailwind CSS 4, Expo, React Native, Vite, Alpine.js, MapLibre</p><p><strong>Backend y APIs:</strong> Node.js, NestJS, Fastify, Express, Python, FastAPI, WebSockets, MCP, BullMQ, Google Apps Script</p><p><strong>Datos:</strong> PostgreSQL, SQLite, Cloudflare D1, Redis, Drizzle, SQLAlchemy, DuckDB, pandas, Excel · Power Query · VBA, Streamlit</p><p><strong>IA y machine learning:</strong> Orquestación multiagente, Extracción documental con LLM, Voz a texto (Whisper, ONNX), Embeddings y búsqueda vectorial, PyTorch, scikit-learn, Evaluación de modelos</p><p><strong>Cloud y DevOps:</strong> Docker, nginx, GitHub Actions, Cloudflare, Vercel, Google Cloud, systemd, Prometheus, Grafana, Linux</p><p><strong>Calidad:</strong> TDD, Vitest, Jest, pytest, Playwright, Revisión adversarial</p><p><strong>Ingeniería y dominio:</strong> Presupuestos (APU y metrados), Contrataciones públicas, Control de obras (valor ganado), Modelación de tránsito, Hidrología y alerta temprana, Comercio exterior, Facturación electrónica, Análisis financiero, Diseño de juegos</p>
+</section>
+<section>
+  <h2>Educación</h2>
+  <ul><li>Ingeniería Civil y Tecnologías de la Información — educación universitaria (Piura, Perú)</li></ul>
+</section>
+<section>
+  <h2>Idiomas</h2>
+  <ul><li>Español — nativo</li><li>Inglés — técnico profesional</li></ul>
+</section>
+</main>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iván Rodrigo Pianto Antón — CV</title>
+<style>
+  @page { size: A4; margin: 14mm; }
+  * { box-sizing: border-box; }
+  html { font-size: 10pt; }
+  body { margin: 0; background: #ffffff; color: #1d1b18; font-family: Arial, "Liberation Sans", Helvetica, system-ui, sans-serif; line-height: 1.38; }
+  @media screen { body { max-width: 182mm; margin: 2rem auto; padding: 0 1rem; } }
+  a { color: inherit; text-decoration: none; }
+  h1 { margin: 0; font-size: 2rem; line-height: 1.15; }
+  .headline { margin: .15rem 0 .2rem; font-size: 1.1rem; }
+  .contact { margin: 0 0 .6rem; color: #3f3a33; }
+  h2 { margin: .9rem 0 .35rem; padding-bottom: .15rem; border-bottom: .75pt solid #9a3b1b; font-size: 1.15rem; text-transform: uppercase; letter-spacing: .04em; color: #9a3b1b; break-after: avoid; }
+  h3 { margin: .45rem 0 0; font-size: 1.02rem; break-after: avoid; }
+  p { margin: .15rem 0; }
+  ul { margin: .15rem 0 0; padding-left: 1.1rem; }
+  li { margin: .05rem 0; }
+  .sub { color: #3f3a33; }
+  .entry { break-inside: avoid; }
+  .skills p { margin: .12rem 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Iván Rodrigo Pianto Antón</h1>
+  <p class="headline">Full stack software engineer · AI systems architect · Tech lead</p>
+  <p class="contact">Piura, Peru · <a href="mailto:rodrigopianto2005@gmail.com">rodrigopianto2005@gmail.com</a> · <a href="https://github.com/R0DR0X">github.com/R0DR0X</a></p>
+</header>
+<main>
+<section>
+  <h2>Profile</h2>
+  <p>I build software for real operations: multi-tenant ERPs, e-commerce platforms run by AI agents, civil-engineering tools and hydrological risk models. I combine a civil-engineering background with full stack architecture, and I work with discipline: specs before code, tests first, adversarial review and honest metrics.</p>
+  <p><strong>Key stack:</strong> TypeScript, Python, Next.js 16, NestJS, FastAPI, PostgreSQL</p>
+  <p><strong>Key figures:</strong> 13,223 tests in the release gate of a multi-tenant ERP; 20,491 ads analyzed with AI for USD 25.53; 147k stamps in a catalog rebuilt by scraping; 25,290 river reaches in a national flood-hazard run.</p>
+</section>
+<section>
+  <h2>Experience</h2>
+  <div class="entry"><h3>Tech lead and systems &amp; AI architect — Peruvian software and AI company</h3><p class="sub">2024 – present</p><p>Architecture and development of a multi-tenant traceability and foreign-trade ERP in production, automated with AI agents.</p></div><div class="entry"><h3>Lead full stack developer — Latin American e-commerce startup</h3><p class="sub">2024 – 2025</p><p>Frontend and backend architecture of an omnichannel CRM and ERP with WhatsApp messaging and payment gateways.</p></div><div class="entry"><h3>Open-source author and applied engineering — Independent</h3><p class="sub">2025 – present</p><p>Tools for AI agents, civil-engineering software, and traffic and hydrology models.</p></div>
+</section>
+<section>
+  <h2>Selected projects</h2>
+  <div class="entry"><h3>Multi-tenant ERP and traceability for agro-export</h3><p class="sub">Peruvian seafood exporter, through a software company · 2024 – present</p><ul><li>Full foreign-trade area: proformas, containers, automatic packing proposals, a Kanban board and a historical load of 240 proformas (~USD 49.9M).</li><li>Release gate with 13,223 tests, Prometheus and Grafana observability, and infrastructure cut to ~USD 83/month.</li></ul></div><div class="entry"><h3>E-commerce platform run by AI agents</h3><p class="sub">Latin American e-commerce startup · 2024 – present</p><ul><li>v1: an 11-agent AI pipeline (DAG) with 2 human checkpoints that validates a product and produces avatar, competitors, branding, copy, creatives and a landing page in ~30–45 min.</li><li>v2: rebuilt as a multi-tenant SaaS in 20+ chained changes: identity, credit-based billing, financial engine, landing pages, publishing, orders and shipments.</li></ul></div><div class="entry"><h3>Niche radar: AI ad-market intelligence</h3><p class="sub">Module of the e-commerce platform · 2026</p><ul><li>Parallel collector with 20–30 workers: 923–1,717 ads per minute versus 68 sequentially.</li><li>20,491 ads analyzed for USD 25.53 and 62,581 phrases clustered for USD 0.40.</li></ul></div><div class="entry"><h3>Construction company platform: procurement, estimating and tenders</h3><p class="sub">Construction contractor in northern Peru · 2026</p><ul><li>Internal platform with suppliers validated against a registry of 18.5M tax IDs, requests for quotation, price comparison and 13 corporate templates.</li><li>Unit-price and quantity-takeoff engine with a hierarchical predictor: 13.8% median error on blind sets, over a corpus of 888 public works.</li></ul></div><div class="entry"><h3>Road intelligence platform for Peru</h3><p class="sub">Own project · 2026</p><ul><li>National traffic model (143k km network, 253 zones, ODME against 73 toll stations): typical travel-time error from 55.6% to 13.0%.</li><li>Urban corridors for 12 cities calibrated to a 6.6% out-of-sample MAPE by day type.</li></ul></div><div class="entry"><h3>Flood and debris-flow early warning</h3><p class="sub">Own project, piloted in Piura · 2026</p><ul><li>Ensemble rainfall → LSTM discharge → Gumbel thresholds at 6 bridges: NSE 0.793 versus 0.597 for the baseline, and a Brier skill score of 0.60.</li><li>Honest validation: the classic 20 mm rule had no skill (POD 0.03–0.16); the new debris-flow model reached TSS 0.81 on a locked 2025–26 set.</li></ul></div><div class="entry"><h3>Live meeting copilot with on-device speech recognition</h3><p class="sub">Own product · 2026</p><ul><li>Streaming ASR on CPU with a 0.18–0.21 real-time factor, validated on a real 2 h 23 min meeting.</li><li>Found and fixed a use-after-free in the voice detector that corrupted 5.5% of timestamps.</li></ul></div><div class="entry"><h3>Mobile cockpit for AI coding agents (open source)</h3><p class="sub">Own open-source project · 2025 – present</p><ul><li>QR pairing with end-to-end encryption (Noise IKpsk2) and a containerized relay with self-hosted push.</li><li>2,600+ tests across packages (server 889, mobile 1,530, protocol 231).</li></ul></div>
+</section>
+<section class="skills">
+  <h2>Skills</h2>
+  <p><strong>Frontend and mobile:</strong> TypeScript, React 19, Next.js 16, Tailwind CSS 4, Expo, React Native, Vite, Alpine.js, MapLibre</p><p><strong>Backend and APIs:</strong> Node.js, NestJS, Fastify, Express, Python, FastAPI, WebSockets, MCP, BullMQ, Google Apps Script</p><p><strong>Data:</strong> PostgreSQL, SQLite, Cloudflare D1, Redis, Drizzle, SQLAlchemy, DuckDB, pandas, Excel · Power Query · VBA, Streamlit</p><p><strong>AI and machine learning:</strong> Multi-agent orchestration, LLM document extraction, Speech to text (Whisper, ONNX), Embeddings and vector search, PyTorch, scikit-learn, Model evaluation</p><p><strong>Cloud and DevOps:</strong> Docker, nginx, GitHub Actions, Cloudflare, Vercel, Google Cloud, systemd, Prometheus, Grafana, Linux</p><p><strong>Quality:</strong> TDD, Vitest, Jest, pytest, Playwright, Adversarial review</p><p><strong>Engineering and domain:</strong> Cost estimating (unit prices, takeoffs), Public procurement, Works control (earned value), Traffic modelling, Hydrology and early warning, Foreign trade, E-invoicing, Financial analysis, Game design</p>
+</section>
+<section>
+  <h2>Education</h2>
+  <ul><li>Civil Engineering and Information Technology — university education (Piura, Peru)</li></ul>
+</section>
+<section>
+  <h2>Languages</h2>
+  <ul><li>Spanish — native</li><li>English — professional technical</li></ul>
+</section>
+</main>
+</body>
+</html>
