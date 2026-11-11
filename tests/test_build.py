@@ -12,6 +12,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from html import unescape as html_unescape
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -19,7 +20,13 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = ROOT / "tools" / "build.py"
 CHECK_NAMES = ROOT / "tools" / "check_names.py"
 CONTRAST = ROOT / "tools" / "contrast.py"
+COVERS = ROOT / "tools" / "covers.py"
 CONTENT = ROOT / "content" / "portfolio.json"
+MANIFEST = ROOT / "assets" / "img" / "manifest.json"
+PAGE_LIMIT = 220 * 1024
+PAUSE_LABEL = {"es": "Pausar animaciones", "en": "Pause animations"}
+OG_LOCALE = {"es": "es_PE", "en": "en_US"}
+VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 
 PAGES = {"es": "index.html", "en": os.path.join("en", "index.html")}
 CVS = {"es": os.path.join("cv", "es.html"), "en": os.path.join("cv", "en.html")}
@@ -60,6 +67,70 @@ def write_content(directory, data):
     path = Path(directory) / "content.json"
     path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     return path
+
+
+def covers_css():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("covers", COVERS)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.covers_css()
+
+
+class Node:
+    def __init__(self, tag, attrs, parent=None, text=""):
+        self.tag, self.attrs, self.parent = tag, attrs, parent
+        self.children, self.text = [], text
+
+    @property
+    def classes(self):
+        return (self.attrs.get("class") or "").split()
+
+    def walk(self):
+        for child in self.children:
+            yield child
+            yield from child.walk()
+
+    def find_all(self, tag=None, cls=None, **attrs):
+        return [n for n in self.walk()
+                if (tag is None or n.tag == tag) and (cls is None or cls in n.classes)
+                and all(n.attrs.get(k.replace("_", "-")) == v for k, v in attrs.items())]
+
+    def all_text(self):
+        return self.text + "".join(c.all_text() for c in self.children if c.tag not in ("script", "style"))
+
+
+class Tree(HTMLParser):
+    """Minimal element tree (void and self-closing elements handled)."""
+
+    def __init__(self, source):
+        super().__init__(convert_charrefs=True)
+        self.root = Node("#root", {})
+        self.cur = self.root
+        self.feed(source)
+
+    def handle_starttag(self, tag, attrs):
+        node = Node(tag, dict(attrs), self.cur)
+        self.cur.children.append(node)
+        if tag not in VOID:
+            self.cur = node
+
+    def handle_startendtag(self, tag, attrs):
+        self.cur.children.append(Node(tag, dict(attrs), self.cur))
+
+    def handle_endtag(self, tag):
+        node = self.cur
+        while node is not self.root and node.tag != tag:
+            node = node.parent
+        if node is not self.root:
+            self.cur = node.parent
+
+    def handle_data(self, data):
+        self.cur.children.append(Node("#text", {}, self.cur, data))
+
+
+def srcset_urls(value):
+    return [part.strip().split()[0] for part in value.split(",") if part.strip()]
 
 
 class Page(HTMLParser):
@@ -132,6 +203,9 @@ class SiteBuildTest(unittest.TestCase):
 
     def cv(self, lang):
         return Page(self.source(CVS[lang]))
+
+    def tree(self, lang):
+        return Tree(self.source(PAGES[lang])).root
 
     def test_build_succeeds_silently_on_stderr(self):
         self.assertEqual(self.result.returncode, 0, self.result.stderr)
@@ -270,8 +344,12 @@ class SiteBuildTest(unittest.TestCase):
             self.assertNotRegex(source, r"(?i)url\(\s*[\"']?\s*(https?:)?//")
             self.assertNotIn("@import", source)
             for tag, attrs in page.tags:
-                if tag in ("script", "img", "iframe", "video", "audio", "source", "embed"):
+                if tag in ("script", "iframe", "video", "audio", "embed"):
                     self.assertNotIn("src", attrs, f"{rel}: {tag} loads a file")
+                for name in ("src", "srcset", "poster"):
+                    for url in srcset_urls(attrs.get(name) or ""):
+                        self.assertFalse(external.match(url), f"{rel}: {tag} loads {url}")
+                        self.assertIsNone(re.match(r"^[a-z][a-z0-9+.-]*:", url, re.I), f"{rel}: {url}")
                 if tag == "link" and attrs.get("rel") not in ("canonical", "alternate"):
                     self.assertFalse(external.match(attrs.get("href", "")), f"{rel}: {attrs}")
                 if tag == "a":
@@ -280,6 +358,173 @@ class SiteBuildTest(unittest.TestCase):
                         continue
                     self.assertFalse(external.match(href), f"{rel}: outbound {href}")
                     self.assertIsNone(re.match(r"^[a-z][a-z0-9+.-]*:", href, re.I), f"{rel}: scheme {href}")
+
+    def test_every_local_image_exists_and_manifest_files_are_copied(self):
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        for entry in manifest.values():
+            for variant in entry["variants"]:
+                self.assertTrue((self.out / "assets" / "img" / variant["file"]).is_file(), variant["file"])
+        for lang, rel in PAGES.items():
+            seen = 0
+            for node in self.tree(lang).walk():
+                if node.tag not in ("img", "source"):
+                    continue
+                for name in ("src", "srcset"):
+                    for url in srcset_urls(node.attrs.get(name) or ""):
+                        seen += 1
+                        target = os.path.normpath(os.path.join(os.path.dirname(rel), url))
+                        self.assertTrue((self.out / target).is_file(), f"{rel}: {url}")
+                if node.tag == "img":
+                    self.assertEqual(node.attrs.get("alt"), "", f"{rel}: decorative image needs alt=''")
+                    self.assertTrue(node.attrs.get("width") and node.attrs.get("height"), rel)
+            self.assertGreater(seen, 0, rel)
+
+    def test_hero_picture_is_the_eager_lcp_image(self):
+        for lang in ("es", "en"):
+            root = self.tree(lang)
+            heroes = root.find_all("section", id="top")
+            self.assertEqual(len(heroes), 1)
+            pictures = heroes[0].find_all("picture")
+            self.assertEqual(len(pictures), 1)
+            sources = pictures[0].find_all("source")
+            self.assertEqual(len(sources), 2)
+            self.assertIn("hero-mobile-", sources[0].attrs.get("srcset", ""))
+            self.assertIn("media", sources[0].attrs)
+            self.assertRegex(sources[1].attrs.get("srcset", ""), r"hero-\d+\.webp")
+            for source in sources:
+                self.assertIn("sizes", source.attrs)
+            img = pictures[0].find_all("img")
+            self.assertEqual(len(img), 1)
+            self.assertEqual(img[0].attrs.get("fetchpriority"), "high")
+            self.assertNotIn("loading", img[0].attrs)
+            eager = [n for n in root.find_all("img") if n.attrs.get("fetchpriority") == "high"]
+            self.assertEqual(eager, img)
+            canvas = heroes[0].find_all("canvas")
+            self.assertEqual(len(canvas), 1)
+            self.assertEqual(canvas[0].attrs.get("aria-hidden"), "true")
+            h1 = heroes[0].find_all("h1")
+            self.assertEqual(len(h1), 1)
+            self.assertEqual(" ".join(h1[0].all_text().split()), self.data["meta"]["name"])
+
+    def test_every_project_card_has_an_animated_cover(self):
+        for lang in ("es", "en"):
+            projects = self.tree(lang).find_all("section", id="projects")[0]
+            cards = [n for n in projects.find_all("li") if "data-area" in n.attrs]
+            self.assertEqual(len(cards), 17)
+            for card in cards:
+                hosts = card.find_all(cls="cover-host")
+                self.assertEqual(len(hosts), 1)
+                svgs = [n for n in hosts[0].find_all("svg") if "cover" in n.classes]
+                self.assertEqual(len(svgs), 1)
+                self.assertEqual(len(card.find_all("details")), 1)
+
+    def test_featured_case_rows_show_their_artwork_and_cover(self):
+        featured = [p for p in self.data["projects"] if p["featured"]]
+        for lang in ("es", "en"):
+            root = self.tree(lang)
+            for project in featured:
+                rows = root.find_all("article", id=f"case-{project['id']}")
+                self.assertEqual(len(rows), 1, project["id"])
+                hosts = rows[0].find_all(cls="cover-host")
+                self.assertEqual(len(hosts), 1, project["id"])
+                self.assertTrue(any("cover" in n.classes for n in hosts[0].find_all("svg")))
+                imgs = hosts[0].find_all("img")
+                self.assertEqual(len(imgs), 1, project["id"])
+                img = imgs[0].attrs
+                self.assertIn(f"case-{project['id']}-", img.get("src", ""))
+                self.assertEqual(len(srcset_urls(img.get("srcset", ""))), 2)
+                self.assertIn("sizes", img)
+                self.assertEqual(img.get("loading"), "lazy")
+                self.assertEqual(img.get("decoding"), "async")
+
+    def test_svg_ids_are_unique_per_page(self):
+        for lang in ("es", "en"):
+            ids = [n.attrs["id"] for n in self.tree(lang).walk() if "id" in n.attrs]
+            dupes = sorted({i for i in ids if ids.count(i) > 1})
+            self.assertEqual(dupes, [], lang)
+
+    def test_header_controls_pause_menu_and_progress(self):
+        for lang in ("es", "en"):
+            root = self.tree(lang)
+            pause = root.find_all("button", id="motion-toggle")
+            self.assertEqual(len(pause), 1)
+            self.assertEqual(" ".join(pause[0].all_text().split()), PAUSE_LABEL[lang])
+            menu = root.find_all("button", id="menu-toggle")
+            self.assertEqual(len(menu), 1)
+            self.assertEqual(menu[0].attrs.get("aria-expanded"), "false")
+            self.assertEqual(len(root.find_all(id=menu[0].attrs.get("aria-controls"))), 1)
+            self.assertEqual(len(root.find_all(cls="progress")), 1)
+
+    def test_covers_css_is_included_once_per_page(self):
+        marker = covers_css().strip().splitlines()[1]
+        for lang in ("es", "en"):
+            self.assertEqual(self.source(PAGES[lang]).count(marker), 1, lang)
+
+    def test_website_pages_stay_under_the_size_budget(self):
+        for rel in PAGES.values():
+            self.assertLessEqual((self.out / rel).stat().st_size, PAGE_LIMIT, rel)
+
+    def test_motion_only_runs_under_no_preference(self):
+        guard = "@media (prefers-reduced-motion: no-preference)"
+        for rel in PAGES.values():
+            css = "".join(re.findall(r"<style>(.*?)</style>", self.source(rel), re.S))
+            outside = css
+            while guard in outside:
+                start = outside.index(guard)
+                depth, i = 0, outside.index("{", start)
+                for j in range(i, len(outside)):
+                    depth += {"{": 1, "}": -1}.get(outside[j], 0)
+                    if depth == 0:
+                        break
+                outside = outside[:start] + outside[j + 1:]
+            self.assertTrue("@keyframes" in css, rel)
+            for prop, value in re.findall(r"(animation(?:-name)?|transition)\s*:\s*([^;}]+)", outside):
+                self.assertRegex(value.strip(), r"^none\s*(!important)?$", f"{rel}: {prop}: {value}")
+            self.assertNotRegex(outside, r"@keyframes", rel)
+
+    def test_description_theme_color_and_inline_favicon(self):
+        for lang in ("es", "en"):
+            metas = {a.get("name"): a.get("content") for t, a in self.page(lang).tags if t == "meta" and a.get("name")}
+            first = self.data["about"][lang].split(". ")[0]
+            self.assertTrue(metas["description"].startswith(first), lang)
+            self.assertRegex(metas["theme-color"], r"^#[0-9a-f]{6}$")
+            icons = [a for t, a in self.page(lang).tags if t == "link" and a.get("rel") == "icon"]
+            self.assertEqual(len(icons), 1)
+            self.assertTrue(icons[0]["href"].startswith("data:image/svg+xml,"))
+
+    def test_social_tags_and_json_ld_follow_site_url(self):
+        data = copy.deepcopy(self.data)
+        with tempfile.TemporaryDirectory() as tmp:
+            for site_url in ("https://example.com/portfolio", ""):
+                data["meta"]["siteUrl"] = site_url
+                out = Path(tmp) / ("with" if site_url else "without")
+                result = run_build(out, write_content(tmp, data))
+                self.assertEqual(result.returncode, 0, result.stderr)
+                for lang in ("es", "en"):
+                    source = (out / PAGES[lang]).read_text(encoding="utf-8")
+                    tags = Page(source).tags
+                    props = {a.get("property") or a.get("name"): a.get("content") for t, a in tags if t == "meta"}
+                    ld = re.findall(r'<script type="application/ld\+json">(.*?)</script>', source, re.S)
+                    if not site_url:
+                        self.assertFalse([k for k in props if k and k.startswith(("og:", "twitter:"))], lang)
+                        self.assertEqual(ld, [], lang)
+                        continue
+                    page_url = "https://example.com/portfolio/" + ("en/" if lang == "en" else "")
+                    title = html_unescape(re.search(r"<title>(.*?)</title>", source).group(1))
+                    self.assertEqual(props["og:title"], title)
+                    self.assertTrue(props["og:description"])
+                    self.assertEqual(props["og:url"], page_url)
+                    self.assertEqual(props["og:image"], "https://example.com/portfolio/assets/img/og.jpg")
+                    self.assertEqual(props["og:locale"], OG_LOCALE[lang])
+                    self.assertEqual(props["twitter:card"], "summary_large_image")
+                    self.assertTrue((out / "assets" / "img" / "og.jpg").is_file())
+                    self.assertEqual(len(ld), 1, lang)
+                    person = json.loads(ld[0])
+                    self.assertEqual(person["@type"], "Person")
+                    self.assertEqual(person["name"], data["meta"]["name"])
+                    self.assertEqual(person["jobTitle"], data["meta"]["headline"][lang])
+                    self.assertEqual(person["url"], page_url)
+                    self.assertEqual(person["sameAs"], ["https://github.com/R0DR0X"])
 
     # 6. CV print sources.
     def test_cv_pages_have_standard_headings_and_experience(self):
@@ -363,6 +608,7 @@ class PdfTest(unittest.TestCase):
                     self.assertLessEqual(pages, 2, name)
                 else:
                     self.assertGreaterEqual(pages, 2, name)
+                    self.assertLessEqual(pages, 10, name)
             if shutil.which("pdftotext"):
                 denylist = Path(tmp) / "deny.txt"
                 denylist.write_text("Pianto\n", encoding="utf-8")
