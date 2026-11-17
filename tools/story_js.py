@@ -18,7 +18,7 @@ const hdr=$('#site-header'),head=$('.story-head',story),idx=$('.chap-index',stor
 const texts=chs.map(c=>$('.ch-text',c)),devs=chs.map(c=>$('.dev',c));
 const lapS=chs.map(c=>$('.lid .shots',c)),phS=chs.map(c=>$('.phone .shots',c));
 const links=$$('a[data-i]',idx),ol=$('ol',idx),cap=$('.stage-cap',story);
-const n=chs.length,P=devs.map(v=>v.classList.contains('has-phone')?1:0),Y=[-12,11,-9,13,-11,9,-13,14];
+const n=chs.length,P=devs.map(v=>v.classList.contains('has-phone')?1:0),FR=devs.map(v=>v.classList.contains('ph-lead')?1:0),Y=[-12,11,-9,13,-11,9,-13,14];
 const names=links.map(a=>$('.l',a).textContent);
 // Cloned covers keep unique ids: rename every id inside the clone and its #references.
 const reid=el=>{const ids={};$$('[id]',el).forEach(x=>{ids[x.id]=x.id+'-s';x.id+='-s'});if(!Object.keys(ids).length)return el;
@@ -43,7 +43,7 @@ function fit(){
   if(wide){const st=stage.parentElement;stage.style.setProperty('--k',Math.max(.3,Math.min(1.2,st.clientWidth/740,(st.clientHeight-70)/600)).toFixed(3))}
 }
 function clearInline(){
-  devs.forEach((v,i)=>{['--open','--yaw','--pitch','--ph','--sh'].forEach(p=>v.style.removeProperty(p));v.classList.toggle('ph-on',!!P[i])});
+  devs.forEach((v,i)=>{['--open','--yaw','--pitch','--ph','--sh','--fr'].forEach(p=>v.style.removeProperty(p));v.classList.toggle('ph-on',!!P[i])});
   texts.forEach(t=>{t.style.opacity='';t.style.transform=''});
   links.forEach(a=>{a.removeAttribute('aria-current');a.style.removeProperty('--p')});last=-2;
 }
@@ -60,9 +60,9 @@ function tick(){
     const hr=head.getBoundingClientRect(),g0=hh+vh*.15,ip=clamp((g0-hr.top)/(g0-F+hr.height)),open=sm(ip/.7);
     const s=f<0?-1+sm((ip-.84)/.16):f+(f<n-1?sm((t-.9)/.1):0);
     const i0=Math.floor(s),fr=s-i0,yA=i0<0?-28:Y[i0%8],yB=Y[Math.min(n-1,i0+1)%8],pA=i0<0?0:P[i0],pB=P[Math.min(n-1,i0+1)];
-    const ph=lerp(pA,pB,fr)*open,st=stage.style;
+    const ph=lerp(pA,pB,fr)*open,st=stage.style,fA=i0<0?0:FR[i0],fB=FR[Math.min(n-1,i0+1)];
     st.setProperty('--open',open.toFixed(3));st.setProperty('--yaw',lerp(yA,yB,fr).toFixed(2)+'deg');
-    st.setProperty('--pitch',lerp(-34,-20,open).toFixed(2)+'deg');st.setProperty('--ph',ph.toFixed(3));st.setProperty('--sh',ph.toFixed(3));
+    st.setProperty('--pitch',lerp(-34,-20,open).toFixed(2)+'deg');st.setProperty('--ph',ph.toFixed(3));st.setProperty('--sh',ph.toFixed(3));st.setProperty('--fr',(lerp(fA,fB,fr)*open).toFixed(3));
     stage.classList.toggle('ph-on',ph>.005);
     L.forEach((w,j)=>{const dd=j-1-s,a=Math.abs(dd);if(a<2)wake(w);if(a>=1){w.style.visibility='hidden';return}
       w.style.visibility='inherit';w.style.opacity=(1-a).toFixed(3);w.style.transform=`translate3d(0,${(dd*55).toFixed(2)}%,0) scale(${(1-a*.1).toFixed(3)})`});

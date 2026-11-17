@@ -6,6 +6,7 @@ One content source (content/portfolio.json) renders:
   site/cv/es.html, site/cv/en.html     CV print sources
   site/assets/img/*                    artwork listed in assets/img/manifest.json
   site/assets/img/real/*               real screenshots listed in assets/img/real/manifest.json
+  site/assets/img/mock/*               mock screens listed in assets/img/mock/manifest.json
   site/files/*.pdf                     with --pdf, printed by headless Chrome
 
 Standard library only. Content is validated before anything is written.
@@ -28,7 +29,7 @@ from page_css import MOTION_CSS, PRINT_CSS, SECTIONS_CSS  # noqa: E402
 from site_css import SITE_CSS as BASE_CSS  # noqa: E402
 from site_js import BASE_JS, HEAD_JS  # noqa: E402
 from sphere_js import SPHERE_JS  # noqa: E402
-from story import copy_real, load_real  # noqa: E402
+from story import SIZES, copy_shots, load_mock, load_real, mock_label, real_img  # noqa: E402
 from story_css import STORY_CSS  # noqa: E402
 from story_html import render_story  # noqa: E402
 from story_js import STORY_JS  # noqa: E402
@@ -39,6 +40,7 @@ DEFAULT_OUT = ROOT / "site"
 ASSETS = ROOT / "assets" / "img"
 MANIFEST = ASSETS / "manifest.json"
 REAL_DIR = ASSETS / "real"
+MOCK_DIR = ASSETS / "mock"
 LANGS = ("es", "en")
 GITHUB_BASE = "https://github.com/"
 CHROME_NAMES = ("google-chrome", "google-chrome-stable", "chromium", "chromium-browser")
@@ -149,6 +151,9 @@ UI = {
         "theme": "Tema oscuro",
         "hero_pill": "proyectos destacados · {loc}",
         "hero_hint": "Cada nodo es una habilidad. Mueve el puntero para girar la órbita.",
+        "hero_scrub": " Desplázate: la órbita se despliega en proyectos.",
+        "handoff": "La órbita se despliega en {n} casos",
+        "mock": "Vista ilustrativa",
         "key_stack": "Stack principal",
         "languages": "Idiomas",
         "education": "Formación",
@@ -201,6 +206,9 @@ UI = {
         "theme": "Dark theme",
         "hero_pill": "featured projects · {loc}",
         "hero_hint": "Each node is a skill. Move the pointer to steer the orbit.",
+        "hero_scrub": " Scroll: the orbit unfolds into projects.",
+        "handoff": "The orbit unfolds into {n} cases",
+        "mock": "Illustrative view",
         "key_stack": "Key stack",
         "languages": "Languages",
         "education": "Education",
@@ -435,8 +443,8 @@ def head_meta(data, lang, manifest):
     return "\n".join(tags) + "\n", f'<script type="application/ld+json">{ld}</script>\n'
 
 
-def render_site(data, lang, manifest, real=None):
-    real = real or {}
+def render_site(data, lang, manifest, real=None, mock=None):
+    real, mock = real or {}, mock or {}
     ui = UI[lang]
     meta = data["meta"]
     other_href = "en/" if lang == "es" else "../"
@@ -499,9 +507,13 @@ def render_site(data, lang, manifest, real=None):
     words = meta["name"].split()
     name_html = f'{e(" ".join(words[:split]))} <mark>{e(" ".join(words[split:]))}</mark>'
     featured_n = sum(1 for p in projects if p["featured"])
-    hero = f"""<section id="top" class="hero on-dark" aria-labelledby="hero-name">
+    # Pinned stage (S12): with motion allowed the sphere unrolls into a grid of
+    # numbered project tiles (labels from the chapter index) while scrolling.
+    hero = f"""<section id="top" class="hero on-dark" aria-labelledby="hero-name"><div class="hero-stage">
   <div class="hero-glow" aria-hidden="true"></div>
-  <canvas id="orbit" aria-hidden="true" data-labels="#skills .chips li"></canvas>
+  <canvas id="orbit" aria-hidden="true" data-labels="#skills .chips li" data-tiles="#work .chap-index a[data-i]"></canvas>
+  <p class="pill handoff" aria-hidden="true"><b>{featured_n}</b>{e(ui["handoff"].format(n=featured_n))}</p>
+</div>
   <div class="wrap">
     <div class="hero-copy">
       <p class="pill"><b>{featured_n}</b>{e(ui["hero_pill"].format(loc=t(meta["location"], lang)))}</p>
@@ -514,7 +526,7 @@ def render_site(data, lang, manifest, real=None):
         <a class="btn ghost" href="{cv_href}">{e(ui["cv_pdf"])}</a>
         <a class="btn ghost" href="{pdf_href}">{e(ui["portfolio_pdf"])}</a>
       </div>
-      <p class="hint">{e(ui["hero_hint"])}</p>
+      <p class="hint"><span>{e(ui["hero_hint"])}<span class="hint-scrub">{e(ui["hero_scrub"])}</span></span></p>
     </div>
   </div>
 </section>"""
@@ -537,7 +549,17 @@ def render_site(data, lang, manifest, real=None):
         rows.append(f'<div class="mq-row{" rev" if k else ""}"><ul class="plain mq-track">{items}</ul></div>')
     marquee_dur = max(40, round(len(terms) * 1.6))
 
-    work = render_story(data, lang, prefix, manifest, real, areas, numbers, area_style, kicker)
+    work = render_story(data, lang, prefix, manifest, real, areas, numbers, area_style, kicker, mock)
+
+    def card_media(project):
+        """Project image (S13): real shot first, else mock, else the SVG cover."""
+        shots = real.get(project["id"]) or mock.get(project["id"]) or []
+        shot = next((x for x in shots if x["device"] == "laptop"), shots[0] if shots else None)
+        if not shot:
+            return f'<div class="cover-host card-cover" aria-hidden="true">{cover_svg(project["id"], project["area"])}</div>'
+        phone = " ph" if shot["device"] == "phone" else ""
+        sizes = SIZES["phone"] if phone else "(min-width: 75rem) 24rem, (min-width: 40rem) 46vw, 92vw"
+        return f'<div class="card-cover card-img{phone}">{real_img(shot, lang, prefix, sizes)}{mock_label(shot, ui["mock"])}</div>'
 
     counts = {area_id: sum(1 for p in projects if p["area"] == area_id) for area_id in areas}
     filter_chips = [f'<button type="button" class="chip" data-filter="all" data-label="{e(ui["filter_all"])}" aria-pressed="true">{e(ui["filter_all"])} <span class="n">{len(projects)}</span></button>']
@@ -557,7 +579,7 @@ def render_site(data, lang, manifest, real=None):
         cards.append(
             f'<li class="card reveal{" is-featured" if featured else ""}" data-area="{e(project["area"])}" '
             f'style="{area_style(project["area"])}; --i:{i % 3}; view-transition-name: card-{pid}">'
-            f'<div class="cover-host card-cover" aria-hidden="true">{cover_svg(project["id"], project["area"])}</div>'
+            f'{card_media(project)}'
             f'<div class="card-body"><p class="card-top"><span class="n" aria-hidden="true">{n}</span><span class="tag">{e(areas[project["area"]])}</span></p>'
             f'<h3>{heading}</h3>'
             f'<p class="meta">{e(t(project["context"], lang))} · {e(t(project["period"], lang))}</p>'
@@ -795,10 +817,10 @@ def render_cv(data, lang):
 
 # --------------------------------------------------------------------- build
 
-def render_all(data, manifest, real=None):
+def render_all(data, manifest, real=None, mock=None):
     files = {}
     for lang in LANGS:
-        files[PAGE_PATHS[lang]] = render_site(data, lang, manifest, real)
+        files[PAGE_PATHS[lang]] = render_site(data, lang, manifest, real, mock)
         files[CV_PATHS[lang]] = render_cv(data, lang)
     return files
 
@@ -856,6 +878,9 @@ def main(argv=None):
     parser.add_argument("--real-images", type=Path, default=REAL_DIR,
                         help="folder with the real screenshots and their manifest.json (default: assets/img/real); "
                              "without a manifest the real projects show their referential artwork")
+    parser.add_argument("--mock-images", type=Path, default=MOCK_DIR,
+                        help="folder with the mock screens and their manifest.json (default: assets/img/mock); "
+                             "without a manifest the other projects show their referential artwork")
     args = parser.parse_args(argv)
 
     try:
@@ -872,7 +897,13 @@ def main(argv=None):
             raise ContentError(f"cannot read {args.real_images / 'manifest.json'}: {exc}") from exc
         except ValueError as exc:
             raise ContentError(str(exc)) from exc
-        files = render_all(data, manifest, real)
+        try:
+            mock = load_mock(args.mock_images, data["projects"], real)
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ContentError(f"cannot read {args.mock_images / 'manifest.json'}: {exc}") from exc
+        except ValueError as exc:
+            raise ContentError(str(exc)) from exc
+        files = render_all(data, manifest, real, mock)
     except (OSError, json.JSONDecodeError) as exc:
         print(f"content error: cannot read {args.content}: {exc}", file=sys.stderr)
         return 1
@@ -889,7 +920,8 @@ def main(argv=None):
         path.write_text(html, encoding="utf-8")
         print(f"wrote {path}")
     copy_images(manifest, args.out)
-    copy_real(real, args.real_images, args.out)
+    copy_shots(real, args.real_images, args.out, "real")
+    copy_shots(mock, args.mock_images, args.out, "mock")
     print(f"wrote {args.out / 'assets' / 'img'}")
 
     if args.pdf:

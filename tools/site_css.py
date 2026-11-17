@@ -74,8 +74,16 @@ mark{background:linear-gradient(transparent 56%,var(--highlight) 56%,var(--highl
 @media (min-width:68rem){.menu{display:none!important}}
 @media (max-width:25rem){.lang a{min-width:40px}.tools{gap:.25rem}}
 
-/* hero: canvas sphere of skills */
-.hero{position:relative;isolation:isolate;display:flex;align-items:center;min-height:clamp(34rem,calc(100svh - var(--hh)),56rem);overflow:clip}
+/* hero: canvas sphere of skills; html.scrub pins the stage while it unrolls (S12) */
+.hero{--stage-h:calc(100vh - var(--hh));--scrub:120vh;position:relative;isolation:isolate;overflow:clip}
+.hero-stage{position:absolute;inset:0;overflow:hidden}
+.hero>.wrap{position:relative;z-index:0;display:flex;align-items:center;min-height:clamp(34rem,calc(100svh - var(--hh)),56rem)}
+html.scrub .hero::after{content:"";display:block;height:var(--scrub)}
+html.scrub .hero-stage{position:sticky;top:var(--hh);height:var(--stage-h);margin-bottom:calc(-1 * var(--stage-h))}
+html.scrub .hero>.wrap{min-height:var(--stage-h)}
+.hint-scrub,html:not(.scrub) .handoff{display:none}
+html.scrub .hint-scrub{display:inline}
+.handoff{position:absolute;left:50%;top:1.25rem;margin:0;opacity:0;white-space:nowrap;transform:translateX(-50%);pointer-events:none}
 .hero-glow{position:absolute;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(40% 55% at 70% 48%,rgba(0,212,255,.22),rgba(0,212,255,.05) 60%,transparent)}
 #orbit{position:absolute;inset:0;z-index:-1;width:100%;height:100%;touch-action:pan-y}
 .hero-copy{max-width:38rem;padding:3.5rem 0}
@@ -93,8 +101,8 @@ mark{background:linear-gradient(transparent 56%,var(--highlight) 56%,var(--highl
 .hint{display:flex;align-items:center;gap:.625rem;margin:1.875rem 0 0;font:500 .8125rem/1.4 var(--mono);color:var(--text-soft)}
 .hint::before,.dot{content:"";width:8px;height:8px;flex:none;border-radius:50%;background:var(--primary);box-shadow:0 0 0 4px rgba(0,212,255,.18)}
 @media (max-width:51.25rem){
- .hero{align-items:flex-end}
- .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:62%;z-index:-1;pointer-events:none;background:linear-gradient(transparent,rgba(4,8,18,.88) 38%,var(--bg))}
+ .hero>.wrap{align-items:flex-end}
+ .hero>.wrap::before{content:"";position:absolute;inset:0 -1.25rem;z-index:-1;pointer-events:none;background:linear-gradient(transparent 8rem,rgba(4,8,18,.9) 12.5rem,var(--bg))}
  .hero-glow{background:radial-gradient(70% 36% at 50% 22%,rgba(0,212,255,.22),transparent 70%)}
  .hero-copy{padding:13rem 0 2.25rem}
  .cta .btn{flex:1 1 auto}

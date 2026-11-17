@@ -22,6 +22,9 @@ SECTIONS_CSS = """
 .card:hover{border-color:var(--control)}
 .card-cover{position:relative;aspect-ratio:16/9;overflow:hidden;border-bottom:1px solid var(--c-line);background:var(--cover-bg);--cover-bg:var(--cover-bg);--cover-line:var(--steel);--cover-line-2:var(--sea);--cover-accent:var(--area);--cover-glow:var(--area)}
 .card-cover .cover{width:100%;height:100%}
+.card-img img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.card-img.ph{background:radial-gradient(60% 80% at 50% 30%,rgba(0,212,255,.2),transparent 70%),var(--bg)}
+.card-img.ph img{width:auto;height:88%;margin:5% auto 0;border:2px solid #33445f;border-radius:14px}
 .card-body{display:flex;flex:1;flex-direction:column;padding:1.125rem 1.25rem 1.25rem}
 .card-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:0 0 .625rem}
 .card-top .n{font:700 1rem/1 var(--mono);color:var(--c-text)}
@@ -131,14 +134,15 @@ PRINT_CSS = """
  html{font-size:8.75pt;color-scheme:light;background:#ffffff}
  body{background:#ffffff;color:var(--c-text);line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
  .on-dark,.mist{background:#ffffff}
- .skip,.site-header,#orbit,.hero-glow,.hero::after,.hint,.cta,.stack-sec,.filters,.count,.empty,.card-cover,.go,.tl-line,.tl-dot,.site-footer .top,.card.is-featured .summary,.card.is-featured details,.chap-index,.stage,.dev-cell,.story-head .lead-fx,.mod-shot,.ch-link,.pill b{display:none!important}
+ .skip,.site-header,.hero-stage,.hero::after,.hero>.wrap::before,.hint,.cta,.stack-sec,.filters,.count,.empty,.card-cover,.go,.tl-line,.tl-dot,.site-footer .top,.card.is-featured .summary,.card.is-featured details,.chap-index,.stage,.dev-cell,.story-head .lead-fx,.mod-shot,.ch-link,.pill b{display:none!important}
  .reveal,.ch-text{opacity:1!important;transform:none!important}
  .card[hidden]{display:block!important}
  .print-only{display:block}
  .wrap{width:auto;margin:0}
  a{color:inherit;text-decoration:none}
  .hero{display:block;min-height:0;overflow:visible;padding:0 0 3mm;border-bottom:1px solid var(--c-line)}
- .hero-copy{max-width:none;padding:0}
+ .hero>.wrap{display:block;min-height:0!important}
+ .hero-copy{max-width:none;padding:0;opacity:1!important;-webkit-mask-image:none!important;mask-image:none!important}
  .pill{padding:0;border:0;background:none;font-size:.85rem}
  .name{margin:1mm 0;font-size:2.6rem;letter-spacing:-.02em}
  .headline,.lede{margin:0 0 1mm;max-width:none;color:var(--c-text)}

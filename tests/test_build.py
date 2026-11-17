@@ -191,8 +191,9 @@ class SiteBuildTest(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp = tempfile.mkdtemp(prefix="portfolio-test-")
         cls.out = Path(cls.tmp) / "site"
-        # No real screenshots here: every chapter shows its referential artwork.
-        cls.result = run_build(cls.out, CONTENT, "--real-images", Path(cls.tmp) / "no-real")
+        # No real or mock screenshots here: every project shows its referential artwork.
+        cls.result = run_build(cls.out, CONTENT, "--real-images", Path(cls.tmp) / "no-real",
+                               "--mock-images", Path(cls.tmp) / "no-mock")
         cls.data = load_content()
 
     @classmethod
@@ -437,6 +438,10 @@ class SiteBuildTest(unittest.TestCase):
             for project in featured:
                 rows = root.find_all("article", id=f"case-{project['id']}")
                 self.assertEqual(len(rows), 1, project["id"])
+                if project.get("terminal"):
+                    # S14: freshia's laptop shows only its terminal (pinned in test_freshia_laptop_shows_only_a_terminal).
+                    self.assertEqual(rows[0].find_all(cls="cover-host"), [], project["id"])
+                    continue
                 hosts = rows[0].find_all(cls="cover-host")
                 self.assertEqual(len(hosts), 1, project["id"])
                 self.assertTrue(any("cover" in n.classes for n in hosts[0].find_all("svg")))
@@ -471,6 +476,106 @@ class SiteBuildTest(unittest.TestCase):
                 self.assertEqual(len(cells[0].find_all(cls="lid")), 1)
                 phones = cells[0].find_all(cls="phone")
                 self.assertEqual(len(phones), 1 if project["id"] in REAL_PRODUCTS else 0, project["id"])
+                # S11: a chapter with a phone uses the side-by-side layout; only freshia leads with the phone (S14).
+                dev = cells[0].find_all(cls="dev")[0]
+                self.assertEqual("has-phone" in dev.classes, bool(phones), project["id"])
+                self.assertEqual("ph-lead" in dev.classes, project["id"] == "agent-cockpit", project["id"])
+
+    def test_device_layout_keeps_laptop_and_phone_apart(self):
+        # S11/S14: the layout variables that place the devices: --sh moves the laptop
+        # left and shrinks it beside the phone; --fr (freshia) sets the laptop back.
+        css = "".join(re.findall(r"<style>(.*?)</style>", self.source(PAGES["es"]), re.S))
+        for rule in (".has-phone{--ph:1;--sh:1}", ".ph-lead{--fr:1}"):
+            self.assertTrue(rule in css, rule)
+        lap = re.search(r"\.lap\{([^}]*)\}", css).group(1)
+        self.assertIn("--ls:calc(1 - var(--sh,0) * .28 - var(--fr,0) * .06)", lap)
+        self.assertIn("translate3d(calc(var(--sh,0) * -89px - var(--fr,0) * 55px)", lap)
+        self.assertIn("scale3d(var(--ls),var(--ls),var(--ls))", lap)
+        phone = re.search(r"\.phone\{([^}]*)\}", css).group(1)
+        self.assertIn("left:555px", phone)
+        self.assertIn("scale(calc(1 + var(--fr,0) * .45))", phone)
+
+    def test_freshia_laptop_shows_only_a_terminal(self):
+        # S14: the phone leads; the laptop screen is an HTML terminal, never an image.
+        project = [p for p in self.data["projects"] if p["id"] == "agent-cockpit"][0]
+        for lang in ("es", "en"):
+            article = self.tree(lang).find_all("article", id="case-agent-cockpit")[0]
+            lid = article.find_all(cls="lid")[0]
+            self.assertEqual(lid.find_all("img"), [])
+            self.assertEqual(lid.find_all("svg"), [])
+            terms = lid.find_all(cls="term")
+            self.assertEqual(len(terms), 1)
+            lines = [" ".join(n.all_text().split()) for n in terms[0].find_all(cls="t-body")[0].find_all("span")]
+            expected = [" ".join((line["t"][lang] if isinstance(line["t"], dict) else line["t"]).split()) for line in project["terminal"]["lines"]]
+            self.assertEqual(lines, expected)
+            self.assertIn("gentle-shell", " ".join(lines))
+            self.assertEqual(len(article.find_all(cls="phone")[0].find_all("img")), 1)
+
+    def test_hero_stage_unrolls_into_the_chapter_tiles(self):
+        # S12: the pinned stage holds the canvas; its tiles are the chapter index links.
+        featured = [p for p in self.data["projects"] if p["featured"]]
+        for lang in ("es", "en"):
+            root = self.tree(lang)
+            hero = root.find_all("section", id="top")[0]
+            stage = hero.find_all(cls="hero-stage")
+            self.assertEqual(len(stage), 1)
+            canvas = stage[0].find_all("canvas")
+            self.assertEqual(len(canvas), 1)
+            self.assertEqual(canvas[0].attrs.get("data-tiles"), "#work .chap-index a[data-i]")
+            links = [a for a in root.find_all("nav", cls="chap-index")[0].find_all("a") if "data-i" in a.attrs]
+            self.assertEqual(len(links), len(featured))
+            for link in links:
+                self.assertEqual(len(link.find_all(cls="n")), 1)
+                self.assertEqual(len(link.find_all(cls="l")), 1)
+            handoff = stage[0].find_all(cls="handoff")
+            self.assertEqual(len(handoff), 1)
+            self.assertEqual(handoff[0].attrs.get("aria-hidden"), "true")
+            self.assertEqual(hero.find_all(cls="hero-copy")[0].parent.parent, hero)
+
+    @unittest.skipUnless(shutil.which("node"), "node is not installed")
+    def test_hero_floor_fits_the_stage_and_the_copy_clears_the_header(self):
+        # S12, S16 (L13): the lit floor shows all 8 tiles below the badge inside the
+        # pinned stage (centered on narrow screens, tiles >= 44 px), every tile is lit
+        # before the hold, and no hero copy shows right under the sticky header.
+        for lang in ("es", "en"):
+            pure = re.findall(r"/\*pure\*/(.*?)/\*/pure\*/", self.source(PAGES[lang]), re.S)
+            self.assertEqual(len(pure), 1, lang)
+            # Stage = viewport - 64 px header; badge bottom 62 px; mobile 5x8 grid, desktop 12x8.
+            probe = pure[0] + """
+            var out={floors:[],lit:[],fade:[]};
+            [[360,676,1],[390,780,1],[1280,656,0],[1440,836,0]].forEach(function(v){
+              out.floors.push([v[0],v[1],v[2],floorFit(v[0],v[1],!!v[2],v[2]?5:12,8,62)])});
+            for(var i=0;i<8;i++)out.lit.push([reveal(i,lit(.55)),reveal(i,lit(.8))]);
+            for(var top=-900;top<=64;top+=4){var f=fade(top,top+700,64,780),a=function(y){return f.o*clamp((y-top-f.cut)/f.fe,0,1)};
+              out.fade.push([top,a(64),a(64+24),f.o,a(64+40)])}
+            console.log(JSON.stringify(out));"""
+            res = subprocess.run(["node", "-e", probe], capture_output=True, text=True, timeout=60)
+            self.assertEqual(res.returncode, 0, res.stderr)
+            out = json.loads(res.stdout)
+            for cw, ch, small, fit in out["floors"]:
+                rows = fit["rows"]
+                self.assertEqual(len(rows) * (2 if small else 4), 8, (cw, ch))
+                for y0, y1 in rows:
+                    self.assertGreaterEqual(y0, 62, (cw, ch, rows))
+                    self.assertLessEqual(y1, ch, (cw, ch, rows))
+                    self.assertGreaterEqual(y1 - y0, 44, (cw, ch, rows))
+                top, bottom = fit["box"]
+                self.assertGreaterEqual(top, 62, (cw, ch, fit))
+                self.assertLessEqual(bottom, ch, (cw, ch, fit))
+                if small:
+                    self.assertAlmostEqual(top - 62, ch - bottom, delta=1, msg=(cw, ch, fit))
+            for early, late in out["lit"]:
+                self.assertEqual(early, 0)
+                self.assertGreaterEqual(late, 0.999)
+            for top, at_header, below, opacity, at_padding in out["fade"]:
+                if top <= 0:  # scrolled >= 64 px: the 24 px under the header stay empty
+                    self.assertEqual(at_header, 0, top)
+                    self.assertEqual(below, 0, top)
+                if top + 700 <= 64 + 64:  # last line within 64 px of the header: gone
+                    self.assertEqual(opacity, 0, top)
+            # Before scrolling (copy top at the header) the copy is fully visible.
+            self.assertEqual(out["fade"][-1][0], 64)
+            self.assertEqual(out["fade"][-1][2:], [1, 1, 1])
 
     # S5: real product names and their public links.
     def test_real_projects_carry_product_names_and_links(self):
@@ -674,7 +779,7 @@ class RealScreenshotsTest(unittest.TestCase):
         cls.real = Path(cls.tmp) / "real"
         cls.manifest = make_real_fixture(cls.real, cls.SPEC)
         cls.out = Path(cls.tmp) / "site"
-        cls.result = run_build(cls.out, CONTENT, "--real-images", cls.real)
+        cls.result = run_build(cls.out, CONTENT, "--real-images", cls.real, "--mock-images", Path(cls.tmp) / "no-mock")
 
     @classmethod
     def tearDownClass(cls):
@@ -734,8 +839,10 @@ class RealScreenshotsTest(unittest.TestCase):
                     self.assertEqual(article.find_all(cls="cover-host"), [], pid)
                     self.assertFalse(any("assets/img/case-" in (n.attrs.get("src") or "") for n in article.find_all("img")), pid)
                 else:
-                    # Phone-only screenshots: the laptop keeps its referential artwork.
-                    self.assertEqual(len(lid.find_all(cls="cover-host")), 1, pid)
+                    # Phone-only screenshots (freshia): the laptop shows only its terminal (S14).
+                    self.assertEqual(lid.find_all(cls="cover-host"), [], pid)
+                    self.assertEqual(lid.find_all("img"), [], pid)
+                    self.assertEqual(len(lid.find_all(cls="term")), 1, pid)
                     self.assertFalse(any("assets/img/case-" in (n.attrs.get("src") or "") for n in article.find_all(cls="phone")[0].find_all("img")), pid)
                 phone = article.find_all(cls="phone")[0]
                 devices = {"laptop": lid, "phone": phone}
@@ -783,6 +890,153 @@ class RealScreenshotsTest(unittest.TestCase):
             for rel in PAGES.values():
                 self.assertLessEqual((out / rel).stat().st_size, PAGE_LIMIT, rel)
                 self.assertIn("assets/img/real/", (out / rel).read_text(encoding="utf-8"))
+
+
+class MockScreensTest(unittest.TestCase):
+    """S13 + L11: projects without real shots show mock screens from assets/img/mock/."""
+
+    LABEL = {"es": "Vista ilustrativa", "en": "Illustrative view"}
+    REAL = {
+        "erp-traceability": [("laptop", "llegadas"), ("phone", "llegadas")],
+        "ecommerce-platform": [("laptop", "anuncios")],
+        "agent-cockpit": [("phone", "chat")],
+    }
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.mkdtemp(prefix="portfolio-mock-test-")
+        cls.data = load_content()
+        ids = [p["id"] for p in cls.data["projects"] if p["id"] not in REAL_PRODUCTS]
+        # Mock shots for every other project; a phone shot too for one featured project.
+        cls.spec = {pid: [("laptop", "panel")] for pid in ids}
+        cls.spec["flood-warning"].append(("phone", "alerta"))
+        cls.real = make_real_fixture(Path(cls.tmp) / "real", cls.REAL)
+        cls.mock = make_real_fixture(Path(cls.tmp) / "mock", cls.spec)
+        cls.out = Path(cls.tmp) / "site"
+        cls.result = run_build(cls.out, CONTENT, "--real-images", Path(cls.tmp) / "real", "--mock-images", Path(cls.tmp) / "mock")
+
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(cls.tmp, ignore_errors=True)
+
+    def tree(self, lang):
+        return Tree((self.out / PAGES[lang]).read_text(encoding="utf-8")).root
+
+    def test_build_copies_every_mock_screen(self):
+        self.assertEqual(self.result.returncode, 0, self.result.stderr)
+        self.assertEqual(self.result.stderr, "")
+        for shots in self.mock.values():
+            for shot in shots:
+                widths = (800, 1600) if shot["device"] == "laptop" else (400, 800)
+                for w in widths:
+                    self.assertTrue((self.out / "assets" / "img" / "mock" / f"{shot['file']}-{w}.webp").is_file())
+
+    def test_every_card_shows_its_real_or_mock_image(self):
+        # Owner's choice (S13, L11): the image replaces the SVG cover in all 17 cards.
+        for lang, rel in PAGES.items():
+            projects = self.tree(lang).find_all("section", id="projects")[0]
+            cards = [n for n in projects.find_all("li") if "data-area" in n.attrs]
+            self.assertEqual(len(cards), 17)
+            for card, project in zip(cards, self.data["projects"]):
+                pid = project["id"]
+                self.assertEqual(card.find_all(cls="cover-host"), [], pid)
+                self.assertEqual([n for n in card.find_all("svg") if "cover" in n.classes], [], pid)
+                media = card.find_all(cls="card-img")
+                self.assertEqual(len(media), 1, pid)
+                imgs = media[0].find_all("img")
+                self.assertEqual(len(imgs), 1, pid)
+                img = imgs[0].attrs
+                kind = "real" if pid in REAL_PRODUCTS else "mock"
+                shots = (self.real if kind == "real" else self.mock)[pid]
+                shot = next((x for x in shots if x["device"] == "laptop"), shots[0])
+                small, large = (800, 1600) if shot["device"] == "laptop" else (400, 800)
+                self.assertEqual(img["src"].split("/")[-1], f"{shot['file']}-{small}.webp")
+                self.assertIn(f"assets/img/{kind}/", img["src"])
+                self.assertEqual([u.split("/")[-1] for u in srcset_urls(img.get("srcset", ""))],
+                                 [f"{shot['file']}-{small}.webp", f"{shot['file']}-{large}.webp"])
+                self.assertIn("sizes", img)
+                self.assertEqual((img.get("width"), img.get("height")), (str(shot["width"]), str(shot["height"])))
+                self.assertEqual(img.get("alt"), shot["alt"][lang])
+                self.assertEqual(img.get("loading"), "lazy")
+                for url in srcset_urls(img["srcset"]):
+                    self.assertTrue((self.out / os.path.normpath(os.path.join(os.path.dirname(rel), url))).is_file(), url)
+                labels = [" ".join(n.all_text().split()) for n in media[0].find_all(cls="slot")]
+                self.assertEqual(labels, [self.LABEL[lang]] if kind == "mock" else [], pid)
+                self.assertEqual("ph" in media[0].classes, shot["device"] == "phone", pid)
+
+    def test_chapters_without_real_shots_show_labelled_mock_screens(self):
+        for lang in ("es", "en"):
+            root = self.tree(lang)
+            for project in self.data["projects"]:
+                if not project["featured"]:
+                    continue
+                pid = project["id"]
+                article = root.find_all("article", id=f"case-{pid}")[0]
+                self.assertEqual(article.find_all(cls="cover-host"), [], pid)
+                self.assertFalse(any("assets/img/case-" in (n.attrs.get("src") or "") for n in article.find_all("img")), pid)
+                labels = [" ".join(n.all_text().split()) for n in article.find_all(cls="slot")]
+                if pid in REAL_PRODUCTS:
+                    # Real screenshots carry no label.
+                    self.assertEqual(labels, [], pid)
+                    continue
+                lid = article.find_all(cls="lid")[0]
+                self.assertIn(f"assets/img/mock/{pid}-01-panel-800.webp", lid.find_all("img")[0].attrs["src"])
+                phones = [s for s in self.mock[pid] if s["device"] == "phone"]
+                self.assertEqual(labels, [self.LABEL[lang]] * (1 + len(phones)), pid)
+                dev = article.find_all(cls="dev")[0]
+                self.assertEqual("has-phone" in dev.classes, bool(phones), pid)
+                self.assertNotIn("ph-lead", dev.classes)
+                if phones:
+                    self.assertIn("assets/img/mock/flood-warning-02-alerta-400.webp", article.find_all(cls="phone")[0].find_all("img")[0].attrs["src"])
+
+    def test_without_mock_screens_the_other_projects_keep_their_artwork(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "out"
+            result = run_build(out, CONTENT, "--real-images", Path(self.tmp) / "real", "--mock-images", Path(tmp) / "missing")
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(result.stderr, "")
+            self.assertFalse((out / "assets" / "img" / "mock").exists())
+            for lang in ("es", "en"):
+                root = Tree((out / PAGES[lang]).read_text(encoding="utf-8")).root
+                self.assertFalse(any("assets/img/mock/" in (n.attrs.get("src") or "") for n in root.find_all("img")))
+                cards = [n for n in root.find_all("section", id="projects")[0].find_all("li") if "data-area" in n.attrs]
+                for card, project in zip(cards, self.data["projects"]):
+                    if project["id"] in REAL_PRODUCTS:
+                        self.assertEqual(len(card.find_all(cls="card-img")), 1, project["id"])
+                    else:
+                        self.assertEqual(len(card.find_all(cls="cover-host")), 1, project["id"])
+                        self.assertEqual(card.find_all("img"), [], project["id"])
+                radar = root.find_all("article", id="case-ad-intelligence")[0]
+                self.assertIn("case-ad-intelligence-", radar.find_all(cls="cover-host")[0].find_all("img")[0].attrs["src"])
+
+    def test_missing_mock_file_stops_the_build(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            make_real_fixture(Path(tmp) / "mock", {"roblox-game": [("laptop", "carrera")]})
+            (Path(tmp) / "mock" / "roblox-game-01-carrera-1600.webp").unlink()
+            out = Path(tmp) / "out"
+            result = run_build(out, CONTENT, "--mock-images", Path(tmp) / "mock")
+            self.assertEqual(result.returncode, 1)
+            self.assertEqual(result.stderr, "content error: mock image 'roblox-game' file missing: roblox-game-01-carrera-1600.webp\n")
+            self.assertEqual(result.stdout, "")
+            self.assertFalse(out.exists())
+
+    @unittest.skipUnless((ROOT / "assets" / "img" / "real" / "manifest.json").is_file()
+                         and (ROOT / "assets" / "img" / "mock" / "manifest.json").is_file(), "no real and mock manifests")
+    def test_repository_manifests_give_every_card_an_image(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "out"
+            result = run_build(out, CONTENT)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            for rel in PAGES.values():
+                self.assertLessEqual((out / rel).stat().st_size, PAGE_LIMIT, rel)
+                root = Tree((out / rel).read_text(encoding="utf-8")).root
+                cards = [n for n in root.find_all("section", id="projects")[0].find_all("li") if "data-area" in n.attrs]
+                self.assertEqual(len(cards), 17)
+                for card in cards:
+                    imgs = card.find_all("img")
+                    self.assertEqual(len(imgs), 1, rel)
+                    self.assertRegex(imgs[0].attrs["src"], r"assets/img/(real|mock)/")
+                    self.assertTrue(imgs[0].attrs.get("alt"))
 
 
 class ContentValidationTest(unittest.TestCase):

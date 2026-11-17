@@ -73,7 +73,8 @@ STORY_CSS = """
 .dev-in{position:absolute;left:0;top:0;width:760px;height:600px;transform:scale(var(--k));transform-origin:0 0}
 .scene{position:absolute;inset:0;perspective:1700px;perspective-origin:50% 18%;transform-style:preserve-3d}
 .floor{position:absolute;left:50%;top:350px;width:640px;height:220px;margin-left:-320px;pointer-events:none;background:radial-gradient(closest-side,rgba(0,212,255,.26),rgba(0,212,255,.06) 60%,transparent)}
-.lap{position:absolute;left:132px;top:404px;width:520px;height:0;transform-style:preserve-3d;transform-origin:260px 0 170px;transform:translateX(calc(var(--sh,0) * -34px)) rotateX(var(--pitch,-20deg)) rotateY(var(--yaw,-10deg))}
+/* --sh: laptop and phone side by side with a gap; --fr: phone in front, laptop smaller and set back (S11, S14) */
+.lap{--ls:calc(1 - var(--sh,0) * .28 - var(--fr,0) * .06);position:absolute;left:120px;top:404px;width:520px;height:0;transform-style:preserve-3d;transform-origin:260px 0 170px;transform:translate3d(calc(var(--sh,0) * -89px - var(--fr,0) * 55px),calc(var(--fr,0) * -10px),calc(var(--fr,0) * -140px)) rotateX(var(--pitch,-20deg)) rotateY(var(--yaw,-10deg)) scale3d(var(--ls),var(--ls),var(--ls))}
 .base{position:absolute;left:0;top:0;width:520px;height:340px;transform-origin:50% 0;transform:rotateX(90deg);transform-style:preserve-3d;border-radius:4px 4px 18px 18px;background:linear-gradient(180deg,#2a3850,#1a2539 70%,#151f30)}
 .base > *{position:absolute}
 .kb{left:34px;right:34px;top:26px;height:150px;border-radius:7px;background-color:#0b111c;background-image:linear-gradient(90deg,transparent 0 27px,#0b111c 27px 31px),linear-gradient(transparent 0 22px,#0b111c 22px 25px),linear-gradient(#25334a,#1d293d);background-size:31px 25px,31px 25px,100% 100%;background-position:4px 4px,4px 4px,0 0;box-shadow:inset 0 0 0 4px #0b111c}
@@ -93,9 +94,10 @@ STORY_CSS = """
 .screen::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:#000;opacity:calc(1 - var(--open,1))}
 .layer{position:absolute;inset:0;visibility:hidden}
 .layer:first-child{visibility:inherit}
-.phone{position:absolute;left:540px;top:184px;width:142px;height:290px;visibility:hidden;transform-style:preserve-3d;transform:translate3d(calc((1 - var(--ph,0)) * 420px),calc((1 - var(--ph,0)) * 60px),150px) rotateY(calc(-22deg + (1 - var(--ph,0)) * -40deg)) rotateX(-6deg)}
+.phone{position:absolute;left:555px;top:184px;width:142px;height:290px;visibility:hidden;transform-style:preserve-3d;transform:translate3d(calc((1 - var(--ph,0)) * 420px - var(--fr,0) * 88px),calc((1 - var(--ph,0)) * 60px - var(--fr,0) * 26px),calc(150px + var(--fr,0) * 40px)) rotateY(calc(-16deg + (1 - var(--ph,0)) * -40deg + var(--fr,0) * 6deg)) rotateX(-6deg) scale(calc(1 + var(--fr,0) * .45))}
 .ph-on .phone{visibility:visible}
 .has-phone{--ph:1;--sh:1}
+.ph-lead{--fr:1}
 .ph-front,.ph-back{position:absolute;inset:0;border-radius:24px;-webkit-backface-visibility:hidden;backface-visibility:hidden}
 .ph-front{background:#05080f;box-shadow:inset 0 0 0 2px #33445f,0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(0,212,255,.18)}
 .ph-back{transform:translateZ(-9px) rotateY(180deg);background:linear-gradient(150deg,#2b3a54,#121c2d)}
@@ -114,6 +116,20 @@ STORY_CSS = """
 .shot.ref .cover{position:absolute;inset:0;width:100%;height:100%;opacity:.42;mix-blend-mode:screen}
 .slot{position:absolute;right:8px;bottom:8px;z-index:2;padding:4px 7px;border:1px dashed rgba(71,232,255,.55);border-radius:4px;background:rgba(4,8,18,.82);color:#bcd0e2;font:600 10px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}
 .phone .slot{right:6px;bottom:6px;font-size:8px}
+.term{visibility:inherit;padding:0;background:radial-gradient(120% 90% at 0 0,rgba(0,212,255,.1),transparent 60%),#050a14;font:500 17px/1.5 var(--mono);color:#c6d1dd}
+.t-bar{display:flex;align-items:center;gap:6px;margin:0;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);background:#0b1424;font-size:13px;color:#8fa3b8}
+.t-bar i{width:9px;height:9px;border-radius:50%;background:#2a3a52}
+.t-bar i:first-child{background:#ff8a4c}
+.t-bar span{margin-left:8px}
+.t-body{margin:0;padding:12px 16px;white-space:pre}
+.t-body span{display:block}
+.t-cmd{color:#fff;font-weight:700}
+.t-dim{color:#8fa3b8}
+.t-ask{color:#fff}
+.t-tool{color:#47e8ff}
+.t-wait{color:#ffb38a}
+.t-ok{color:#7ee0c3}
+.t-body span:last-child::after{content:"";display:inline-block;width:10px;height:19px;margin-left:2px;vertical-align:-3px;background:#47e8ff}
 .boot{display:grid;place-items:center;visibility:inherit;background:radial-gradient(closest-side,rgba(0,212,255,.25),transparent),#040812;text-align:center;color:var(--white)}
 .boot i{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:13px;background:#111e31;color:#47e8ff;font:700 18px/1 var(--mono);font-style:normal}
 .boot b{display:block;margin-top:12px;font-size:16px}

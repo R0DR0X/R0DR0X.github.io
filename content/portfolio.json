@@ -316,6 +316,20 @@
       ],
       "stack": ["TypeScript", "React", "Expo", "React Native", "Vite", "xterm.js", "node-pty", "WebSocket", "Noise protocol", "Docker", "nginx", "Playwright"],
       "short": { "es": "freshia", "en": "freshia" },
+      "terminal": {
+        "title": "tmux · ~/homelab/api",
+        "lines": [
+          { "k": "cmd", "t": "$ gentle-shell" },
+          { "k": "dim", "t": "◆ Gentle Shell · Claude Code" },
+          { "k": "ask", "t": { "es": "› valida el endpoint /orders", "en": "› validate the /orders endpoint" } },
+          { "k": "tool", "t": "● Read src/orders.ts" },
+          { "k": "tool", "t": "● Edit src/orders.ts" },
+          { "k": "wait", "t": { "es": "◇ Bash pnpm test · ¿aprobar?", "en": "◇ Bash pnpm test · approve?" } },
+          { "k": "ok", "t": { "es": "✓ aprobado desde freshia", "en": "✓ approved from freshia" } },
+          { "k": "ok", "t": { "es": "✓ pruebas en verde", "en": "✓ tests passing" } },
+          { "k": "ask", "t": "› " }
+        ]
+      },
       "product": {
         "name": "freshia",
         "url": "https://github.com/R0DR0X/freshia",

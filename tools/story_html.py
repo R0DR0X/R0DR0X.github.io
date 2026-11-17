@@ -5,7 +5,7 @@ text, its problem -> solution -> saving modules (real projects) and its own
 device; plus the chapter index and the pinned stage used on wide screens.
 """
 from covers import cover_svg
-from story import SIZES, THUMB_SIZES, Eager, art_img, assign_shots, device, e, real_img, t
+from story import SIZES, THUMB_SIZES, Eager, art_img, assign_shots, device, e, mock_label, real_img, t, terminal
 
 STORY_UI = {
     "es": {
@@ -23,7 +23,7 @@ STORY_UI = {
         "chapter": "Capítulo",
         "boot": "{n} capítulos · desplázate",
         "ref": "Imagen referencial",
-        "real": "Captura real",
+        "mock": "Vista ilustrativa",
         "modules": "Problema → solución → ahorro",
         "problem": "Problema",
         "solution": "Solución",
@@ -46,7 +46,7 @@ STORY_UI = {
         "chapter": "Chapter",
         "boot": "{n} chapters · scroll",
         "ref": "Reference image",
-        "real": "Real screenshot",
+        "mock": "Illustrative view",
         "modules": "Problem → solution → saving",
         "problem": "Problem",
         "solution": "Solution",
@@ -73,21 +73,30 @@ def on_device(shots, device, assigned):
 
 
 def screens(project, lang, prefix, manifest, shots, eager, s, assigned):
-    """Laptop and phone screen markup; phone is None when there is none."""
+    """Laptop and phone screen markup; phone is None when there is none.
+
+    Shots are real or mock (mock ones carry the illustrative label); a
+    project with a terminal (S14) shows only that terminal on the laptop.
+    """
     art = manifest.get(f"case-{project['id']}")
     laps = on_device(shots, "laptop", assigned)
     phones = on_device(shots, "phone", assigned)
-    if laps:
-        lap = "".join(f'<div class="shot{" on" if i == 0 else ""}">{real_img(x, lang, prefix, SIZES["laptop"], eager)}'
-                      f'<span class="slot">{e(s["real"])}</span></div>' for i, x in enumerate(laps))
+
+    def shot_list(group, device):
+        return "".join(f'<div class="shot{" on" if i == 0 else ""}">{real_img(x, lang, prefix, SIZES[device], eager)}'
+                       f'{mock_label(x, s["mock"])}</div>' for i, x in enumerate(group))
+
+    if project.get("terminal"):
+        lap = terminal(project["terminal"], lang)
+    elif laps:
+        lap = shot_list(laps, "laptop")
     else:
         cover = cover_svg(project["id"], project["area"]).replace(f"cv-{project['id']}-", f"cv-{project['id']}-case-")
         image = art_img(art, prefix, SIZES["laptop"]) if art else ""
         lap = f'<div class="shot ref on cover-host">{image}{cover}<span class="slot">{e(s["ref"])}</span></div>'
     phone = None
     if phones:
-        phone = "".join(f'<div class="shot{" on" if i == 0 else ""}">{real_img(x, lang, prefix, SIZES["phone"], eager)}'
-                        f'<span class="slot">{e(s["real"])}</span></div>' for i, x in enumerate(phones))
+        phone = shot_list(phones, "phone")
     elif project.get("product") and not shots and art:
         phone = f'<div class="shot ref on">{art_img(art, prefix, SIZES["phone"], smallest=True)}<span class="slot">{e(s["ref"])}</span></div>'
     return f'<div class="shots">{lap}</div>', (None if phone is None else f'<div class="shots">{phone}</div>')
@@ -115,7 +124,7 @@ def modules(project, lang, prefix, shots, eager, s, picks):
 def chapter(project, i, ctx):
     lang, s, prefix = ctx["lang"], ctx["s"], ctx["prefix"]
     pid = e(project["id"])
-    shots = ctx["real"].get(project["id"], [])
+    shots = ctx["real"].get(project["id"]) or ctx["mock"].get(project["id"], [])
     picks = assign_shots(project, shots)
     lap, phone = screens(project, lang, prefix, ctx["manifest"], shots, ctx["eager"], s, {i for i in picks if i is not None})
     product = project.get("product")
@@ -139,13 +148,13 @@ def chapter(project, i, ctx):
             f'<h3 id="case-{pid}-h" tabindex="-1">{title}</h3>{meta}'
             f'<p class="ch-sum">{e(t(project["summary"], lang))}</p>{extra}'
             f'{modules(project, lang, prefix, shots, ctx["eager"], s, picks)}{tech}</div>'
-            f'<div class="dev-cell" aria-hidden="true">{device(lap, phone)}</div></article>')
+            f'<div class="dev-cell" aria-hidden="true">{device(lap, phone, front=bool(project.get("terminal")))}</div></article>')
 
 
-def render_story(data, lang, prefix, manifest, real, areas, numbers, area_style, kicker):
+def render_story(data, lang, prefix, manifest, real, areas, numbers, area_style, kicker, mock=None):
     s = STORY_UI[lang]
     featured = [p for p in data["projects"] if p["featured"]]
-    ctx = {"lang": lang, "s": s, "prefix": prefix, "manifest": manifest, "real": real, "eager": Eager(),
+    ctx = {"lang": lang, "s": s, "prefix": prefix, "manifest": manifest, "real": real, "mock": mock or {}, "eager": Eager(),
            "areas": areas, "numbers": numbers, "area_style": area_style}
     chapters = "".join(chapter(p, i, ctx) for i, p in enumerate(featured))
     names = join_names([p["product"]["name"] for p in featured if p.get("product")], s["and"])

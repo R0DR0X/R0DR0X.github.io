@@ -6,13 +6,14 @@ BASE_JS: theme toggle, motion pause (WCAG 2.2.2), menu, section spy, reveal
 fallback, cover observer, count-up, area filter and print.
 SPHERE_JS: the hero canvas, a hand-written 3D projection of a sphere of skill
 nodes (ported from design/portafolio-escorpia/02-orbita-3d.html), steered by
-the pointer; it draws one still frame under reduced motion or when paused.
+the pointer, that unrolls into the case tiles while the pinned hero scrolls
+(html.scrub, also set here); one still sphere under reduced motion.
 """
 
 HEAD_JS = ("(function(r){r.classList.add('js');try{var t=localStorage.getItem('theme');"
            "if(t==='dark'||t==='light')r.setAttribute('data-theme',t);"
            "if(localStorage.getItem('motion')==='paused')r.classList.add('motion-paused')}catch(e){}"
-           "if(!matchMedia('(prefers-reduced-motion: reduce)').matches)r.classList.add('fx')})(document.documentElement);")
+           "if(!matchMedia('(prefers-reduced-motion: reduce)').matches)r.classList.add('fx','scrub')})(document.documentElement);")
 
 BASE_JS = r"""
 (function () {

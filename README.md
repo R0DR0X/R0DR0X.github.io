@@ -9,12 +9,14 @@ The same content renders:
 | Website, English | `site/en/index.html` |
 | Website artwork (copied from `assets/img/`) | `site/assets/img/*.webp`, `og.jpg` |
 | Real screenshots (copied from `assets/img/real/`) | `site/assets/img/real/*.webp` |
+| Mock screens (copied from `assets/img/mock/`) | `site/assets/img/mock/*.webp` |
 | CV print source (ES / EN) | `site/cv/es.html`, `site/cv/en.html` |
 | CV PDF, max 2 A4 pages (ES / EN) | `site/files/Ivan-Rodrigo-Pianto-Anton-CV-ES.pdf`, `...-CV-EN.pdf` |
 | Portfolio PDF, A4 (ES / EN) | `site/files/Ivan-Rodrigo-Pianto-Anton-Portafolio-ES.pdf`, `...-Portfolio-EN.pdf` |
 
 Everything is static HTML with inline CSS and JS. No external fonts, scripts, styles or libraries; the only
-images are the local files listed in `assets/img/manifest.json` and `assets/img/real/manifest.json`.
+images are the local files listed in `assets/img/manifest.json`, `assets/img/real/manifest.json` and
+`assets/img/mock/manifest.json`.
 
 ## Website
 
@@ -24,17 +26,24 @@ A single page in the escorpia.com design language: light by default with dark `.
 - Header: section links, language switch, a theme toggle (light/dark, remembered in `localStorage`), the
   "Pausar animaciones" / "Pause animations" button and, on narrow screens, a menu button.
 - Hero: a `<canvas>` sphere of skill nodes drawn with a hand-written 3D projection, steered by the pointer; its
-  labels are the skill chips of the page. It draws one still frame under reduced motion or when paused, and stops
-  off screen and in hidden tabs.
+  labels are the skill chips of the page and never cover the hero copy. With motion allowed the stage is pinned
+  while the page scrolls: the copy scrolls away, then the sphere unrolls row by row into a flat grid, tilts into a
+  floor and lights up the numbered tiles of the featured cases (labels from the chapter index; a lit tile opens its
+  chapter). When paused the frame only follows the scroll; under reduced motion it is one still sphere and the hero
+  is not pinned. The loop stops off screen and in hidden tabs.
 - Featured work (`#work`): a scroll story with a CSS 3D laptop and phone. On wide screens the device is pinned
   between the text column and a chapter index: the lid opens, the screen changes per chapter (and per screenshot
-  inside a chapter) and the phone joins for the projects that have one. On narrow screens every chapter has its
-  own device above the text. Each chapter is `article#case-<id>`.
+  inside a chapter) and the phone joins for the projects that have one, beside the laptop with a clear gap (the
+  laptop moves left and shrinks; a chapter without a phone centers the laptop alone). A project with a `terminal`
+  in the content (freshia) puts the phone in front and the laptop smaller and set back, its screen an HTML terminal
+  that the phone never covers. On narrow screens every chapter has its own device above the text, with the same
+  layout. Each chapter is `article#case-<id>`.
 - Real projects (`erp-traceability` → Escorpia Traza, `ecommerce-platform` → Win Comerce, `agent-cockpit` →
   freshia) carry a `product` entry in the content (name and optional public link), a one-line `impact` and
   `modules`: one problem → solution → saving block per module. Every other project keeps its referential artwork
   and anonymized wording.
-- Count-up figures, a stack marquee, project cards with animated SVG covers and an area filter (View Transitions
+- Count-up figures, a stack marquee, project cards with the project's image (real screenshot, else mock screen,
+  else the animated SVG cover) and an area filter (View Transitions
   when supported), method cards, skills and an experience timeline that draws with scroll.
 - Without JavaScript or with `prefers-reduced-motion: reduce` every section is static and fully readable: the
   story shows each chapter next to its device, the marquee is a wrapped list and reveals are off. Every animation
@@ -58,6 +67,14 @@ Laptop shots ship as `<file>-800.webp` and `<file>-1600.webp` (16:10), phone sho
 keeps the first shot and the shots no module uses, and each module shows the next unused shot of its `area`
 (the pinned stage adds those back). The first screenshot loads eagerly, the rest lazily. Without the manifest
 the real projects fall back to their referential artwork, so the build works before the screenshots exist.
+Real screenshots carry no label.
+
+### Mock screens
+
+`assets/img/mock/manifest.json` uses the same schema and file names for every project without real screenshots
+(`source` names the artboard). Its shots fill those story chapters and project cards with a small
+"Vista ilustrativa" / "Illustrative view" label. Without the manifest those projects keep their referential
+artwork (case image and SVG cover).
 
 ## Requirements
 
@@ -73,17 +90,19 @@ python3 tools/build.py --pdf    # also print the four PDFs into site/files/
 ```
 
 Options: `--content FILE` (default `content/portfolio.json`), `--out DIR` (default `site/`) and
-`--real-images DIR` (default `assets/img/real`, the folder of the real screenshots and their `manifest.json`).
+`--real-images DIR` (default `assets/img/real`, the folder of the real screenshots and their `manifest.json`) and
+`--mock-images DIR` (default `assets/img/mock`, the folder of the mock screens and their `manifest.json`).
 
 The build validates the content first. Every `{"es": ..., "en": ...}` object needs both non-empty strings;
 otherwise it prints `content error: <json path> missing <lang>` (for example
 `content error: projects[3].title missing en`), exits 1 and writes nothing.
 The image manifest is checked too: `hero` and `hero-mobile` are required and every listed file must exist
 (`content error: image manifest has no 'hero'`, `content error: image 'hero' file missing: hero-960.webp`).
-A real-screenshot manifest is checked the same way
-(`content error: real image 'agent-cockpit' file missing: agent-cockpit-01-chat-800.webp`).
-The build then copies every manifest image into `site/assets/img/` and every real screenshot into
-`site/assets/img/real/`.
+Real-screenshot and mock-screen manifests are checked the same way
+(`content error: real image 'agent-cockpit' file missing: agent-cockpit-01-chat-800.webp`,
+`content error: mock image 'roblox-game' file missing: roblox-game-01-carrera-1600.webp`).
+The build then copies every manifest image into `site/assets/img/`, every real screenshot into
+`site/assets/img/real/` and every mock screen into `site/assets/img/mock/`.
 With `--pdf` and no Chrome binary it prints `pdf error: no Chrome/Chromium binary found` and exits 1
 after writing the HTML.
 
