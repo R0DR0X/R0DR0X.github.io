@@ -906,5 +906,24 @@ class ContrastTest(unittest.TestCase):
         self.assertIn("all pairs pass", result.stdout)
 
 
+class PublishedSiteTest(unittest.TestCase):
+    """The build with assets/img/real keeps the link, alt and id rules."""
+
+    @unittest.skipUnless((ROOT / "assets" / "img" / "real" / "manifest.json").is_file(), "no real screenshots")
+    def test_published_pages_keep_global_rules(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "out"
+            self.assertEqual(run_build(out, CONTENT).returncode, 0)
+            for rel in PAGES.values():
+                root = Tree((out / rel).read_text(encoding="utf-8")).root
+                ids = [n.attrs["id"] for n in root.walk() if "id" in n.attrs]
+                self.assertEqual(len(ids), len(set(ids)), rel)
+                for img in root.find_all("img"):
+                    self.assertTrue("alt" in img.attrs and img.attrs.get("width") and img.attrs.get("height"), rel)
+                    self.assertIsNone(VOSEO.search(img.attrs.get("alt", "")), rel)
+                hrefs = {a.attrs.get("href", "") for a in root.find_all("a")}
+                self.assertLessEqual({h for h in hrefs if h.startswith("http")}, ALLOWED_HTTP_ANCHORS, rel)
+
+
 if __name__ == "__main__":
     unittest.main()
