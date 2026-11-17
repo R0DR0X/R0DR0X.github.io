@@ -1,0 +1,258 @@
+{
+  "ad-intelligence": [
+    {
+      "file": "ad-intelligence-01-ranking",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Radar de nichos: ranking de anuncios ganadores de hogar y cocina por score de supervivencia, con indicadores de anuncios analizados y costo, y la curva de Kaplan–Meier.",
+        "en": "Niche radar: ranking of winning home and kitchen ads by survival score, with ads-analyzed and cost indicators and the Kaplan–Meier curve."
+      },
+      "area": "ranking",
+      "source": "03-historia-scroll.html"
+    },
+    {
+      "file": "ad-intelligence-02-recolector",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Recolector paralelo del radar de nichos: anuncios por minuto frente a la versión secuencial, costos de transcripción y agrupación, y la cola de trabajos de OCR, CLIP, Whisper y LLM.",
+        "en": "Niche radar parallel collector: ads per minute versus the sequential version, transcription and clustering costs, and the OCR, CLIP, Whisper and LLM job queue."
+      },
+      "area": "recolector",
+      "source": "generated"
+    }
+  ],
+  "construction-platform": [
+    {
+      "file": "construction-platform-01-comparativo",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Plataforma de la constructora: comparativo de cotizaciones de cemento y acero con el mejor precio resaltado, curva de valor ganado de la obra y facturas leídas y asignadas automáticamente.",
+        "en": "Construction platform: cement and steel quote comparison with the best price highlighted, the site earned-value curve and invoices read and assigned automatically."
+      },
+      "area": "compras",
+      "source": "03-historia-scroll.html"
+    },
+    {
+      "file": "construction-platform-02-asistente",
+      "device": "phone",
+      "width": 800,
+      "height": 1600,
+      "alt": {
+        "es": "Asistente de WhatsApp para ingenieros de obra: una nota de voz transcrita, la respuesta con el metrado y el mejor precio, y la solicitud de cotización generada en DOCX.",
+        "en": "WhatsApp assistant for site engineers: a transcribed voice note, the answer with the quantity takeoff and best price, and the quote request generated as a DOCX."
+      },
+      "area": "asistente",
+      "source": "generated"
+    }
+  ],
+  "road-intelligence": [
+    {
+      "file": "road-intelligence-01-red",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Visor de inteligencia vial: red nacional de tránsito con corredores resaltados, error en tiempos típicos antes y después de calibrar, y estado de los corredores urbanos.",
+        "en": "Road intelligence viewer: national traffic network with highlighted corridors, typical travel-time error before and after calibration, and urban corridor status."
+      },
+      "area": "transito",
+      "source": "03-historia-scroll.html"
+    }
+  ],
+  "flood-warning": [
+    {
+      "file": "flood-warning-01-puentes",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Alerta temprana de inundaciones: caudal pronosticado por ensamble con umbrales de Gumbel, estado de los seis puentes vigilados del piloto en Piura y métricas de validación.",
+        "en": "Flood early warning: ensemble streamflow forecast with Gumbel thresholds, status of the six monitored bridges in the Piura pilot and validation metrics."
+      },
+      "area": "puentes",
+      "source": "03-historia-scroll.html"
+    },
+    {
+      "file": "flood-warning-02-alerta",
+      "device": "phone",
+      "width": 800,
+      "height": 1600,
+      "alt": {
+        "es": "Alerta en el celular: un puente supera el umbral de caudal, con el pronóstico del pico, el estado de los puentes cercanos y el riesgo de huaicos.",
+        "en": "Phone alert: a bridge exceeds its streamflow threshold, with the forecast peak, the status of nearby bridges and the debris-flow risk."
+      },
+      "area": "alertas",
+      "source": "generated"
+    }
+  ],
+  "meeting-copilot": [
+    {
+      "file": "meeting-copilot-01-en-vivo",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Copiloto de reuniones: transcripción en vivo por voces, una pregunta abierta, un conflicto con una decisión previa, búsqueda semántica y los acuerdos de la reunión.",
+        "en": "Meeting copilot: live transcript by speaker, an open question, a conflict with a previous decision, semantic search and the meeting agreements."
+      },
+      "area": "transcripcion",
+      "source": "03-historia-scroll.html"
+    }
+  ],
+  "stamp-platform": [
+    {
+      "file": "stamp-platform-01-catalogo",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Plataforma para coleccionistas: catálogo de estampillas con filtros y búsqueda por vectores, y una subasta en vivo con las últimas pujas.",
+        "en": "Collector platform: stamp catalog with filters and vector search, plus a live auction with the latest bids."
+      },
+      "area": "catalogo",
+      "source": "generated"
+    }
+  ],
+  "personal-finance": [
+    {
+      "file": "personal-finance-01-sobres",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Panel local de finanzas personales: presupuesto por sobres semanales, movimientos clasificados y un cargo duplicado omitido automáticamente.",
+        "en": "Local personal finance dashboard: weekly envelope budget, classified transactions and a duplicate charge skipped automatically."
+      },
+      "area": "presupuesto",
+      "source": "generated"
+    }
+  ],
+  "personal-agent": [
+    {
+      "file": "personal-agent-01-telegram",
+      "device": "phone",
+      "width": 800,
+      "height": 1600,
+      "alt": {
+        "es": "Asistente personal en Telegram: emite un comprobante del mes solo después de una confirmación y un token de un solo uso, y entrega el PDF.",
+        "en": "Personal assistant on Telegram: it issues the monthly receipt only after a confirmation and a single-use token, then sends the PDF."
+      },
+      "area": "telegram",
+      "source": "generated"
+    },
+    {
+      "file": "personal-agent-02-sesiones",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Supervisor del asistente personal: sesiones de agentes de código en tmux con su estado, una solicitud de permiso pendiente y el ruteo de modelos.",
+        "en": "Personal assistant supervisor: coding-agent sessions in tmux with their status, a pending permission request and model routing."
+      },
+      "area": "sesiones",
+      "source": "generated"
+    }
+  ],
+  "genmedia-mcp": [
+    {
+      "file": "genmedia-mcp-01-herramientas",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Servidor MCP de generación de imágenes y video: herramientas operativas, últimos resultados generados y un trabajo de video completado.",
+        "en": "Image and video generation MCP server: working tools, the latest generated results and a completed video job."
+      },
+      "area": "herramientas",
+      "source": "generated"
+    }
+  ],
+  "roblox-game": [
+    {
+      "file": "roblox-game-01-carrera",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Juego de carreras con combate vehicular para Roblox: vista de carrera con posición, vuelta, mapa del circuito, armas, velocidad y blindaje.",
+        "en": "Vehicular-combat racing game for Roblox: race view with position, lap, track map, weapons, speed and armor."
+      },
+      "area": "juego",
+      "source": "generated"
+    }
+  ],
+  "exporter-web-bi": [
+    {
+      "file": "exporter-web-bi-01-dashboard",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Dashboard ejecutivo de la exportadora: ventas FOB por mes, participación por mercado y cuentas por cobrar.",
+        "en": "Exporter executive dashboard: monthly FOB sales, share by market and accounts receivable."
+      },
+      "area": "bi",
+      "source": "generated"
+    },
+    {
+      "file": "exporter-web-bi-02-sitio",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Sitio B2B de la exportadora: portada con diagrama interactivo de cortes y globo con rutas de exportación.",
+        "en": "Exporter B2B website: home page with an interactive cutting diagram and a globe with export routes."
+      },
+      "area": "sitio",
+      "source": "generated"
+    }
+  ],
+  "company-website": [
+    {
+      "file": "company-website-01-inicio",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Sitio corporativo bilingüe: portada con selector de idioma, video promocional y artículos del blog.",
+        "en": "Bilingual company website: home page with a language switch, a promo video and blog articles."
+      },
+      "area": "sitio",
+      "source": "generated"
+    }
+  ],
+  "ad-tracker": [
+    {
+      "file": "ad-tracker-01-tracker",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Tracker publicitario en Google Sheets: filas cruzadas por código de video y día de entrega, con gasto, ventas, CPA y estado del cruce.",
+        "en": "Ad tracker in Google Sheets: rows joined by video code and delivery day, with spend, sales, CPA and join status."
+      },
+      "area": "tracker",
+      "source": "generated"
+    }
+  ],
+  "finance-case": [
+    {
+      "file": "finance-case-01-modelo",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Caso de finanzas operativas: modelo de flujo de caja con la brecha entre flujo libre y dividendos, y las dos tesis de inversión.",
+        "en": "Operating-finance case: cash-flow model showing the gap between free cash flow and dividends, and the two investment theses."
+      },
+      "area": "modelo",
+      "source": "generated"
+    }
+  ]
+}
