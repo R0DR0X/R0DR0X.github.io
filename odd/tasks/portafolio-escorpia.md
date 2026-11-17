@@ -22,8 +22,11 @@ Branch `feat/escorpia-redesign` in `~/portafolio`. Design directions live in `de
 - S15. Verbatim: "dale agarra logica tienes el mcp de flow para  generar imagenes en caso de ser necesario dale no la cagues dame algo bie n".
 - S16. Verbatim: "espero que esta version este bien optimizada a mobil xq la anterior se veia bien en pc mas no en mobil".
 
-## Tasks
+- S17. Brand, verbatim: "wiincomerce". The e-commerce product is named "WiinComerce" everywhere (it replaces "Win Comerce", L7).
+- S18. Credit, verbatim: "si agrega credito".
+- S19. Mobile devices, verbatim: "el telefono encima y mas grande".
 
+## Tasks
 - [x] T1 (S1, S2) worker — artboard `design/portafolio-escorpia/01-escorpia-fiel.html` (direction D1, see L3). Commit: 98d52c5
 - [x] T2 (S1, S2) worker — artboard `design/portafolio-escorpia/02-orbita-3d.html` (direction D2, see L3). Commit: 98d52c5
 - [x] T3 (S1, S2) worker — artboard `design/portafolio-escorpia/03-historia-scroll.html` (direction D3, see L3). Commit: 98d52c5
@@ -37,6 +40,9 @@ Branch `feat/escorpia-redesign` in `~/portafolio`. Design directions live in `de
 - [x] T11 (S11, S12, S13, S14) worker — in `tools/` + tests: laptop and phone side by side without overlap, freshia phone-first with a background laptop showing only a terminal, hero sphere unfolds on scroll as in `02-orbita-3d.html`, every project (story chapters and the project grid) shows a good image from real or mock manifests, mobile hero labels no longer overlap the badge. Commit: a2b44e9, 208028e
 - [x] T11b (S12, S16) worker — mobile hero fixes found by the parent's 390x844 check (L13). Commit: a2b44e9, 208028e
 - [x] T12 (S6, S11-S16) parent — rebuild, full tests, independent verify (Risk item 1), push to `main`, live check. Commit: see L14
+
+- [x] T13 (S17, S18, S19) worker — rename to WiinComerce, add the vocero-crm credit, mobile chapter devices stacked with the phone above and larger (L17). Commit: 935571c, 71cee7c
+- [ ] T14 (S6, S17-S19) parent — rebuild, tests, independent verify (Risk item 1), push to `main`, live check. Commit: —
 
 ## Log
 
@@ -78,3 +84,6 @@ Branch `feat/escorpia-redesign` in `~/portafolio`. Design directions live in `de
 - L13. Evidence (parent, 2026-11-17): T10 delivered 19 mock shots (38 WebP, 2.0 MB) for the 14 projects; T11 delivered side-by-side devices, freshia phone-first with an HTML terminal laptop, the hero unroll and card images; tests 66 OK, contrast OK, names OK, pages 167,247 B (ES) / 164,619 B (EN). Parent check at 390x844 (Playwright, instant scroll; script kept at `/tmp/pf-mob.laqR/shot.cjs`): story chapters, devices, freshia and the grid look right and nothing overflows, but (a) at the end of the hero unroll only tiles 01-04 are visible and 05-08 are cut off by the "Perfil" section, and (b) mid-unroll the fading hero copy ("Cada nodo es una habilidad…") still peeks out right under the sticky header. Both must be fixed for S16.
 - L14. T12 evidence (2026-11-17): independent `gentle-ai-verify` (Risk item 1) returned PASS for S11, S12, S13, S14, S16 and PRIVACY on de068ca (67 tests OK, contrast 28/28, `site/` byte-identical to a fresh build, zero laptop/phone intersection in every chapter at 360/390/1280/1440, all 8 tiles visible by 80 % of the pinned hero, every card and chapter with an image, no JS errors or external requests). Its privacy probe became `PublishedPrivacyTest`. Advisories for the owner: on phones the chapter phone mock is ~70 px wide (decorative; the module thumbnails and cards show the screens full width); `exporter-web-bi-01-dashboard`, `ad-tracker-01` and `construction-platform-01` show invented but believable figures, labelled "Vista ilustrativa".
 - L15. Delivery (2026-11-17): pushed `f67795c..7605abd`; Pages run 44183468073 `success` on 7605abd; live `/` and `/en/` 200 and byte-identical to `site/`; all 34 mock image URLs referenced by the ES page return 200. All tasks T1-T12 done.
+- L16. Owner's answers (2026-11-17), verbatim: "wiincomerce si agrega credito, si estan bien, el telefono encima y mas grande" — to the questions: brand "WiinComerce" or "Win Comerce"; add the vocero-crm credit; are the invented figures in the illustrative screens fine ("si estan bien": yes, keep them); on phones, put the chapter phone below the laptop and larger.
+- L17. Decisions for T13 (parent): (a) S17: the visible name becomes "WiinComerce" in ES and EN pages, PDFs, alt texts and manifest labels; `research/denylist.txt` (git-ignored) dropped `wiincomerce` and `vocero` (owner made them public). (b) S18: the WiinComerce chapter credits the CRM base, per `wiincomerce-erp/NOTICE.md`: "WiinComerce is based on vocero-crm by Kevin Belier (MIT), https://github.com/kevinrivm/vocero-crm" — a short ES/EN credit line in the WhatsApp CRM module with a link to that repo; the outbound allow-list grows by exactly that URL. (c) S19: "encima" is read as "above", because S11 forbids overlapping devices: on narrow screens (the per-chapter devices, ≤ the existing mobile breakpoint) the phone sits above the laptop, centered, clearly larger than today (target ≥ 150 px wide at 390 px, readable screen), with a gap and no overlap; freshia keeps its phone-first composition but stacked the same way (phone above, terminal laptop below, terminal fully visible); desktop layout unchanged.
+
