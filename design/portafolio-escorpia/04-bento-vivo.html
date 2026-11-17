@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iván Rodrigo Pianto Antón · Portafolio — D4 Bento vivo</title>
+<meta name="description" content="Ingeniero de software full stack · Arquitecto de sistemas de IA · Tech lead">
+<script>document.documentElement.classList.add('js');try{if(localStorage.getItem('theme')==='dark')document.documentElement.dataset.theme='dark';if(localStorage.getItem('motion')==='paused')document.documentElement.classList.add('paused');}catch(e){}</script>
+<style>
+:root{--bg:#040812;--bg-alt:#08111D;--surface:#111E31;--primary:#00D4FF;--primary-light:#47E8FF;--text-soft:#C6D1DD;--ok:#25D366;--paper:#FFFFFF;--mist:#F2F7FA;--line:#DCE6EE;--muted:#44546A;--hair-dark:rgba(255,255,255,.1);
+--c-page:var(--paper);--c-text:var(--bg);--c-muted:var(--muted);--c-mist:var(--mist);--c-card:var(--paper);--c-line:var(--line);--c-line-strong:rgba(68,84,106,.45);--c-strong:var(--bg);--c-on-strong:var(--paper);--c-focus:var(--bg);--c-header:rgba(255,255,255,.9);--c-trace:rgba(68,84,106,.28);--highlight:rgba(0,212,255,.45);
+--font-body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--font-heading:var(--font-body);--font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+--max:1240px;--r:18px;--shadow-light:0 18px 44px rgba(4,8,18,.10);--shadow-dark:0 30px 80px rgba(4,8,18,.65);color-scheme:light}
+[data-theme="dark"]{--c-page:var(--bg);--c-text:#FFFFFF;--c-muted:var(--text-soft);--c-mist:var(--bg-alt);--c-card:var(--surface);--c-line:rgba(255,255,255,.12);--c-line-strong:rgba(71,232,255,.45);--c-strong:#FFFFFF;--c-on-strong:var(--bg);--c-focus:var(--primary-light);--c-header:rgba(4,8,18,.88);--c-trace:rgba(71,232,255,.2);--highlight:rgba(0,212,255,.32);--shadow-light:0 20px 50px rgba(0,0,0,.45);color-scheme:dark}
+.on-dark{--c-text:#FFFFFF;--c-muted:var(--text-soft);--c-mist:var(--bg-alt);--c-card:var(--surface);--c-line:rgba(255,255,255,.12);--c-line-strong:rgba(71,232,255,.55);--c-strong:#FFFFFF;--c-on-strong:var(--bg);--c-focus:var(--primary-light);--c-trace:rgba(71,232,255,.24);--highlight:rgba(0,212,255,.45);color:var(--c-text)}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-padding-top:84px}
+body{margin:0;font-family:var(--font-body);color:var(--c-text);background:var(--c-page);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+svg{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--c-focus);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--bg);color:var(--paper);padding:8px 14px;border-radius:8px;z-index:99}
+.skip:focus{left:12px}
+.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:-1px;padding:0;border:0}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+.icon{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.trace{fill:none;stroke:var(--c-trace);stroke-width:1.4}
+.trace-node{fill:var(--c-page);stroke:var(--c-trace);stroke-width:1.4}
+.trace-pulse{fill:none;stroke:var(--primary-light);stroke-width:2;stroke-linecap:round;stroke-dasharray:26 900;stroke-dashoffset:0;filter:drop-shadow(0 0 4px rgba(0,212,255,.9))}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:11px;font:600 15px/1.2 var(--font-body);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.btn-cyan{background:var(--primary);color:var(--bg);box-shadow:0 12px 30px rgba(0,212,255,.25)}
+.btn-cyan:hover{background:var(--primary-light)}
+.btn-ghost{background:rgba(255,255,255,.04);color:var(--paper);border-color:rgba(255,255,255,.22)}
+.btn-ghost:hover{border-color:var(--primary-light)}
+.btn-dark{background:var(--c-strong);color:var(--c-on-strong)}
+.btn-line{background:var(--c-card);color:var(--c-text);border-color:var(--c-line)}
+.btn-line:hover{border-color:var(--c-muted)}
+.btn-sm{min-height:40px;padding:0 15px;font-size:14px;border-radius:10px}
+.btn .icon{width:16px;height:16px}
+/* labels */
+.tagline{display:inline-flex;align-items:center;gap:10px;font:600 12.5px/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--c-muted);margin:0 0 16px}
+.tagline::before{content:"";order:-2;width:26px;height:1.5px;background:currentColor}
+.tagline::after{content:"";order:-1;width:8px;height:8px;border-radius:50%;border:1.5px solid currentColor;margin-left:-10px}
+.on-dark .tagline{color:var(--primary-light)}
+h1,h2,h3{font-family:var(--font-heading);text-wrap:balance}
+h2{font:750 clamp(30px,3.6vw,46px)/1.1 var(--font-heading);letter-spacing:-.035em;margin:0}
+mark{background:linear-gradient(transparent 56%,var(--highlight) 56%,var(--highlight) 92%,transparent 92%);color:inherit;padding:0 .06em}
+.sec-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;align-items:end;margin-bottom:36px}
+.sec-lead{font-size:18px;color:var(--c-muted);margin:0;max-width:560px}
+.chipx{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:7px;border:1px solid var(--c-line);background:var(--c-card);color:var(--c-text);font:600 11.5px/1.2 var(--font-mono);white-space:nowrap}
+.chipx.cy::before,.chip-dot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--primary);flex:none}
+.chipx.ok::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
+.chip-dot{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;margin:0;padding:6px 12px;border-radius:999px;border:1px solid rgba(71,232,255,.3);background:rgba(17,30,49,.7);font:600 12px/1.2 var(--font-mono);letter-spacing:.04em;color:var(--text-soft)}
+.pill{display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid var(--c-line);background:var(--c-mist);font-size:13.5px;font-weight:600;color:var(--c-text)}
+/* announce + header */
+.announce{background:var(--bg);color:var(--text-soft);text-align:center;font-size:14px;padding:9px 16px;border-bottom:1px solid var(--hair-dark)}
+.announce a{color:var(--paper);text-decoration:none;display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}
+.announce a:hover span:nth-child(2){text-decoration:underline}
+.announce .chip{font:600 11px/1 var(--font-mono);letter-spacing:.06em;color:var(--bg);background:var(--primary);padding:4px 7px;border-radius:5px}
+.site-header{position:sticky;top:0;z-index:30;background:var(--c-header);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--c-line)}
+.site-header .wrap{display:flex;align-items:center;gap:20px;min-height:68px;flex-wrap:wrap}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;letter-spacing:-.01em;flex:none}
+.mono-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--bg);color:var(--primary-light);font:700 13px/1 var(--font-mono);box-shadow:0 0 0 3px rgba(0,212,255,.18)}
+[data-theme="dark"] .mono-mark{background:var(--surface)}
+.main-nav{flex:1;min-width:0}
+.main-nav ul{list-style:none;display:flex;gap:2px;margin:0;padding:0;justify-content:center;flex-wrap:wrap}
+.main-nav a{display:inline-flex;align-items:center;min-height:40px;padding:0 11px;white-space:nowrap;border-radius:8px;font-size:15px;color:var(--c-muted);text-decoration:none}
+.main-nav a:hover,.main-nav a[aria-current]{color:var(--c-text);background:var(--c-mist)}
+.main-nav a[aria-current]::before{content:"";width:6px;height:6px;margin-right:7px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px rgba(0,212,255,.2)}
+.head-actions{display:flex;align-items:center;gap:4px;flex:none;margin-left:auto}
+.ghost-btn{display:inline-flex;align-items:center;gap:7px;min-height:44px;min-width:44px;justify-content:center;padding:0 10px;border:1px solid transparent;background:transparent;font:500 14px var(--font-body);color:var(--c-text);border-radius:10px;cursor:pointer}
+.ghost-btn:hover{background:var(--c-mist);border-color:var(--c-line)}
+.ghost-btn[aria-pressed="true"]{background:var(--c-mist);border-color:var(--c-line-strong)}
+.theme .i-sun,[data-theme="dark"] .theme .i-moon{display:none}
+[data-theme="dark"] .theme .i-sun{display:block}
+#motion-toggle .i-play,.paused #motion-toggle .i-pause{display:none}
+.paused #motion-toggle .i-play{display:block}
+.menu-btn{display:none}
+html:not(.js) .head-actions{display:none}
+/* sections */
+.sec{position:relative;padding:104px 0}
+.sec.mist{background:var(--c-mist)}
+.top{position:relative;isolation:isolate;padding:48px 0 96px;overflow:hidden}
+.top::before{content:"";position:absolute;left:0;right:0;top:0;height:560px;background:var(--bg);z-index:-2}
+.top-glow{position:absolute;left:50%;top:-300px;width:1300px;height:860px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(0,212,255,.22),rgba(0,212,255,.05) 60%,transparent);z-index:-1;pointer-events:none}
+.top-trace{position:absolute;left:50%;top:0;width:1440px;max-width:none;height:560px;transform:translateX(-50%);z-index:-1;pointer-events:none;--c-trace:rgba(71,232,255,.2)}
+.top-trace .trace-node{fill:var(--bg)}
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;grid-auto-flow:dense;list-style:none;margin:0;padding:0}
+.cell{min-width:0;display:flex;grid-column:span 4}
+.c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}.c12{grid-column:span 12}.r2{grid-row:span 2}
+.tile{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;gap:12px;padding:22px;background:var(--c-card);color:var(--c-text);border:1px solid var(--c-line);border-radius:var(--r);transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transform-style:preserve-3d}
+.tile:hover{box-shadow:var(--shadow-light);border-color:var(--c-line-strong)}
+.tile.on-dark{background:var(--bg);border-color:rgba(71,232,255,.22)}
+.tile.on-dark:hover{border-color:rgba(71,232,255,.6);box-shadow:0 24px 60px rgba(4,8,18,.35),0 0 0 1px rgba(0,212,255,.25)}
+[data-theme="dark"] .tile.on-dark{background:#050B17}
+.spot{position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),rgba(0,212,255,.17),rgba(0,212,255,.05) 45%,transparent 70%);opacity:0;z-index:0}
+.tile:hover>.spot,.tile:focus-within>.spot{opacity:1}
+.tile>*:not(.spot){position:relative;z-index:1}
+.t-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.t-num{font:600 12px/1.3 var(--font-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--c-muted)}
+.on-dark .t-num{color:var(--primary-light)}
+.t-ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--c-mist);border:1px solid var(--c-line);flex:none}
+.on-dark .t-ic{color:var(--primary-light)}
+.tile h3{font:720 21px/1.22 var(--font-heading);letter-spacing:-.02em;margin:0}
+.tile p{margin:0}
+.tile .muted{color:var(--c-muted);font-size:15px}
+.stack{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.t-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--c-line)}
+.t-foot .open{margin-left:auto}
+/* hero tile */
+.hero{padding:40px;gap:18px;overflow:hidden;background:radial-gradient(600px 320px at 85% 0%,rgba(0,212,255,.16),transparent 70%),var(--bg)!important}
+.hero::after{content:"";position:absolute;inset:0;border-radius:inherit;background-image:linear-gradient(rgba(71,232,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(71,232,255,.06) 1px,transparent 1px);background-size:32px 32px;-webkit-mask-image:radial-gradient(500px 300px at 90% 10%,#000,transparent);mask-image:radial-gradient(500px 300px at 90% 10%,#000,transparent);pointer-events:none}
+.hero h1{font:780 clamp(36px,4.6vw,62px)/1.02 var(--font-heading);letter-spacing:-.045em;margin:6px 0 0}
+.hero h1 .h1-l2{color:var(--primary-light)}
+.roles{display:flex;flex-wrap:wrap;gap:8px}
+.hero .lead{font-size:18px;line-height:1.6;color:var(--text-soft);max-width:640px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+/* terminal */
+.term{padding:0;overflow:hidden;gap:0}
+.term .tbar{display:flex;align-items:center;gap:6px;height:40px;padding:0 14px;border-bottom:1px solid var(--hair-dark);background:var(--bg-alt);border-radius:var(--r) var(--r) 0 0}
+.term .tbar i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.18)}
+.term .tbar span{margin-left:8px;font:12px var(--font-mono);color:var(--text-soft)}
+.term-pre,.term-anim{margin:0;padding:18px;font:13.5px/1.7 var(--font-mono);color:var(--text-soft);white-space:pre-wrap;word-break:break-word;flex:1}
+.term .ln{display:block}
+.term .cmd{color:var(--paper)}
+.term .cmd::before{content:"$ ";color:var(--primary-light)}
+.term .out.hi{color:var(--primary-light)}
+.caret{display:inline-block;width:8px;height:1.1em;vertical-align:-.18em;background:var(--primary);margin-left:2px}
+.term .tfoot{display:flex;gap:6px;flex-wrap:wrap;padding:0 18px 18px}
+/* stats */
+.stat{gap:8px}
+.stat .num{font:780 clamp(32px,3vw,42px)/1 var(--font-heading);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.stat .lbl{font-size:14.5px;color:var(--c-muted);line-height:1.45}
+.mini{height:42px;margin-top:auto;display:flex;align-items:flex-end;gap:4px;position:relative}
+.mini.bars i{flex:1;border-radius:3px 3px 0 0;background:var(--c-line);transform-origin:bottom}
+.mini.bars i.hi{background:var(--c-text)}
+.mini.dots{display:grid;grid-template-columns:repeat(14,1fr);gap:3px;align-items:center;overflow:hidden;border-radius:6px}
+.mini.dots i{aspect-ratio:1;border-radius:2px;background:var(--c-line)}
+.mini.dots i.hi{background:var(--primary)}
+.beam{position:absolute;left:0;right:0;top:0;height:2px;background:var(--primary);box-shadow:0 0 10px var(--primary)}
+.mini.wave svg{width:100%;height:42px}
+.mini.wave .w1{fill:none;stroke:var(--c-line-strong);stroke-width:1.4}
+.mini.wave .w2{fill:none;stroke:var(--primary);stroke-width:2;stroke-dasharray:18 10}
+.mini.stamps{gap:6px;align-items:center}
+.mini.stamps i{width:34px;height:40px;border-radius:3px;background:radial-gradient(circle at 50% 0,transparent 2.5px,var(--c-mist) 3px) 0 0/7px 7px;border:1px dashed var(--c-line-strong);display:block}
+.mini.stamps i.hi{border-style:solid;border-color:var(--primary);background-color:rgba(0,212,255,.12)}
+.mini.stamps b{margin-left:auto;font:600 11px var(--font-mono);color:var(--c-muted)}
+/* heatmap */
+.hm-grid{display:grid;grid-template-columns:96px repeat(35,minmax(0,1fr));gap:3px;align-items:center;position:relative}
+.hm-grid .rl{font:600 11px/1.2 var(--font-mono);color:var(--c-muted);padding-right:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hm-grid i{display:block;height:24px;border-radius:3px;background:var(--c-line)}
+.hm-grid i.l1{background:rgba(0,212,255,.3)}.hm-grid i.l2{background:rgba(0,212,255,.6)}.hm-grid i.l3{background:var(--primary)}.hm-grid i.l4{background:var(--c-text)}
+.hm-grid i.now{box-shadow:0 0 0 2px var(--c-card),0 0 0 3.5px var(--primary)}
+.hm-years{display:grid;grid-template-columns:96px repeat(35,minmax(0,1fr));gap:3px;font:600 11px var(--font-mono);color:var(--c-muted);margin-bottom:6px}
+.hm-years span:nth-child(2){grid-column:2/span 12}.hm-years span:nth-child(3){grid-column:14/span 12}.hm-years span:nth-child(4){grid-column:26/span 11}
+.hm-wrap{position:relative;overflow:hidden}
+.hm-scan{position:absolute;top:0;bottom:0;left:96px;width:3px;border-radius:2px;background:var(--primary);box-shadow:0 0 12px var(--primary);opacity:.0}
+.hm-legend{display:flex;align-items:center;gap:5px;font:600 11px var(--font-mono);color:var(--c-muted);flex-wrap:wrap}
+.hm-legend i{width:12px;height:12px;border-radius:3px;background:var(--c-line);display:inline-block}
+.hm-legend i.l1{background:rgba(0,212,255,.3)}.hm-legend i.l2{background:rgba(0,212,255,.6)}.hm-legend i.l3{background:var(--primary)}.hm-legend i.l4{background:var(--c-text)}
+.hm-areas{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.hm-note{font-size:14px;color:var(--c-muted)}
+.hm-note b{color:var(--c-text)}
+/* contact quick */
+.facts{display:grid;gap:0;margin:0}
+.facts>div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--c-line)}
+.facts>div:last-child{border-bottom:0}
+.facts dt{font:600 11.5px/1.6 var(--font-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--c-muted)}
+.facts dd{margin:0;font-size:15px;overflow-wrap:anywhere}
+.facts a{font-weight:600;text-decoration-color:var(--primary);text-decoration-thickness:2px;text-underline-offset:3px}
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px}
+.fchip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--c-line);background:var(--c-card);color:var(--c-text);font:600 14px var(--font-body);cursor:pointer}
+.fchip:hover{border-color:var(--c-line-strong)}
+.fchip .n{font:600 11.5px/1 var(--font-mono);padding:4px 6px;border-radius:6px;background:var(--c-mist);border:1px solid var(--c-line);color:var(--c-muted)}
+.fchip[aria-pressed="true"]{background:var(--c-strong);color:var(--c-on-strong);border-color:var(--c-strong)}
+.fchip[aria-pressed="true"] .n{background:var(--primary);color:var(--bg);border-color:var(--primary)}
+.fchip[aria-pressed="true"]::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--primary)}
+.fsep{width:1px;height:28px;background:var(--c-line);margin:0 4px}
+.fbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.count{margin:0;font:600 13px var(--font-mono);color:var(--c-muted)}
+.count b{color:var(--c-text)}
+.linkbtn{background:none;border:0;padding:6px 4px;min-height:44px;font:600 14px var(--font-body);color:var(--c-text);text-decoration:underline;text-decoration-color:var(--primary);text-decoration-thickness:2px;text-underline-offset:4px;cursor:pointer}
+.empty{display:grid;justify-items:start;gap:14px;padding:32px;border:1px dashed var(--c-line-strong);border-radius:var(--r);background:var(--c-card);margin-bottom:16px}
+.empty p{margin:0;color:var(--c-muted)}
+.empty strong{display:block;color:var(--c-text);font-size:19px;margin-bottom:4px}
+/* project tiles */
+.proj{cursor:pointer}
+.proj .sum{color:var(--c-muted);font-size:15px}
+.open{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--c-line);background:var(--c-mist);color:var(--c-text);font:600 14px var(--font-body);cursor:pointer}
+.open:hover{border-color:var(--primary)}
+.open .icon{width:15px;height:15px}
+.period{font:600 11.5px var(--font-mono);color:var(--c-muted)}
+.det summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;gap:10px;list-style:none}
+.det summary::-webkit-details-marker{display:none}
+.det summary::after{content:"+";display:grid;place-items:center;width:24px;height:24px;border-radius:7px;border:1px solid var(--c-line);font:600 16px/1 var(--font-mono);color:var(--c-text)}
+.det[open] summary::after{content:"−"}
+.det-body{display:grid;gap:12px;padding-top:8px}
+.det-h{font:600 11.5px var(--font-mono)!important;text-transform:uppercase;letter-spacing:.07em;color:var(--c-muted);margin:6px 0 0!important}
+.hl{margin:0;padding:0 0 0 18px;display:grid;gap:7px;font-size:15px}
+.hl li::marker{color:var(--primary)}
+.det-body .facts>div{grid-template-columns:88px minmax(0,1fr)}
+/* screens */
+.shot{position:relative;margin:0;height:250px;border-radius:12px;transform:translateZ(28px)}
+.shot figcaption{position:absolute;right:8px;top:3px;z-index:3;display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1 var(--font-mono);color:var(--paper);background:rgba(4,8,18,.88);border:1px solid rgba(255,255,255,.18);padding:6px 8px;border-radius:6px}
+.shot figcaption::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--primary)}
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;border-radius:12px;overflow:hidden;background:var(--bg-alt);border:1px solid rgba(255,255,255,.1);color:var(--text-soft);font:500 10.5px/1.3 var(--font-mono);box-shadow:0 14px 30px rgba(4,8,18,.16)}
+.on-dark .scr,[data-theme="dark"] .scr{border-color:rgba(71,232,255,.22)}
+.sbar{display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;background:var(--bg);border-bottom:1px solid var(--hair-dark);flex:none}
+.sbar i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18)}
+.sbar span{margin-left:8px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.sbody{position:relative;flex:1;min-height:0;padding:10px;overflow:hidden}
+.sbody svg{display:block;width:100%;height:100%}
+.sv-t{fill:var(--text-soft);font:600 8px var(--font-mono)}
+.chp{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:6px;background:var(--surface);border:1px solid var(--hair-dark);color:var(--paper);font:600 9.5px/1.1 var(--font-mono);white-space:nowrap}
+.chp.cy::before,.chp.ok::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--primary)}
+.chp.ok::before{background:var(--ok)}
+.chp.hot{border-color:var(--primary);box-shadow:0 0 10px rgba(0,212,255,.35)}
+.ovl{position:absolute;display:flex;gap:6px;flex-wrap:wrap;z-index:2}
+/* erp */
+.m-erp{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px}
+.m-erp .side{display:flex;flex-direction:column;gap:8px}
+.m-erp .side b{width:18px;height:18px;border-radius:5px;background:var(--primary)}
+.m-erp .side i{height:6px;border-radius:3px;background:rgba(255,255,255,.14)}
+.m-erp .side i.on{background:var(--primary-light)}
+.m-erp .main{display:flex;flex-direction:column;gap:8px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.kpis span{padding:5px 7px;border-radius:7px;background:var(--surface);border:1px solid var(--hair-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:9.5px}
+.kpis em{display:block;font:700 14px/1.15 var(--font-body);color:var(--paper);font-style:normal}
+.kpis .ok em{color:var(--ok)}
+.kb{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;flex:1;min-height:0}
+.kb .col{display:flex;flex-direction:column;gap:5px;padding:6px;border-radius:7px;background:rgba(255,255,255,.035);border:1px dashed rgba(255,255,255,.12);min-width:0}
+.kb u{text-decoration:none;font-size:9px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kb .col i{height:15px;flex:none;border-radius:5px;background:var(--surface);border:1px solid var(--hair-dark)}
+.kb .mover{position:absolute;top:28px;left:6px;width:calc((100% - 12px)/3 - 12px);height:15px;border-radius:5px;background:rgba(0,212,255,.28);border:1px solid var(--primary);box-shadow:0 0 12px rgba(0,212,255,.5)}
+.mb{display:flex;align-items:flex-end;gap:4px;height:30px;flex:none}
+.mb i{flex:1;border-radius:3px 3px 0 0;background:rgba(255,255,255,.14);transform-origin:bottom}
+.mb i.hi{background:var(--primary)}
+/* dag */
+.m-dag{display:flex;flex-direction:column;gap:6px}
+.m-dag svg{flex:1;min-height:0}
+.m-dag .e{fill:none;stroke:rgba(71,232,255,.25);stroke-width:1.2}
+.m-dag .p{fill:none;stroke:var(--primary-light);stroke-width:2;stroke-linecap:round;stroke-dasharray:16 700;stroke-dashoffset:16;filter:drop-shadow(0 0 3px rgba(0,212,255,.9))}
+.m-dag .n{fill:var(--surface);stroke:var(--primary);stroke-width:1.4}
+.m-dag .h{fill:var(--paper);stroke:var(--primary);stroke-width:2}
+.bub{align-self:flex-start;max-width:92%;padding:6px 9px;border-radius:9px 9px 9px 3px;background:var(--surface);border:1px solid rgba(37,211,102,.45);color:var(--paper);font:500 10px/1.3 var(--font-body)}
+.bub b{color:var(--ok);font:700 9px var(--font-mono);margin-right:5px}
+/* radar */
+.m-radar{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:10px}
+.ads{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;gap:6px;min-height:0}
+.ad{border-radius:6px;background:var(--surface);border:1px solid var(--hair-dark);padding:4px;display:flex;flex-direction:column;gap:3px;min-height:0;overflow:hidden}
+.ad i{flex:1;min-height:12px;border-radius:4px;background:linear-gradient(135deg,#1b3150,#0c1a2c)}
+.ad:nth-child(2) i{background:linear-gradient(135deg,#0e4559,#0c1a2c)}
+.ad:nth-child(4) i{background:linear-gradient(135deg,#25405f,#111E31)}
+.ad:nth-child(6) i{background:linear-gradient(135deg,#08566b,#0c1a2c)}
+.ad b,.ad u{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.2);flex:none}
+.ad u{width:60%}
+.ad.win{border-color:var(--primary);box-shadow:0 0 10px rgba(0,212,255,.4)}
+.ads .beam{top:0}
+.km{display:flex;flex-direction:column;gap:6px;min-width:0}
+.km svg{flex:1;min-height:0}
+.km .ax{stroke:rgba(255,255,255,.2);fill:none}
+.km .c1{fill:none;stroke:var(--primary);stroke-width:2;stroke-dasharray:420;stroke-dashoffset:0}
+.km .c2{fill:none;stroke:rgba(198,209,221,.6);stroke-width:1.5;stroke-dasharray:4 3}
+.rank{display:grid;gap:4px}
+.rank span{display:grid;grid-template-columns:18px minmax(0,1fr);gap:6px;align-items:center;font-size:9px}
+.rank span i{height:6px;border-radius:3px;background:rgba(255,255,255,.16);transform-origin:left}
+.rank span:first-child i{background:var(--primary)}
+/* obra */
+.m-obra{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:10px}
+.doc{position:relative;border-radius:6px;background:#E9F0F5;padding:10px;display:flex;flex-direction:column;gap:5px;overflow:hidden;min-height:0}
+.doc b{height:8px;width:55%;border-radius:2px;background:#44546A}
+.doc i{height:4px;border-radius:2px;background:#B6C4D1}
+.doc i:nth-child(3n){width:70%}
+.doc .qr{position:absolute;right:8px;bottom:8px;width:34px;height:34px;background:conic-gradient(#040812 25%,transparent 0 50%,#040812 0 75%,transparent 0) 0 0/8px 8px;border:3px solid #040812;border-radius:2px}
+.doc .beam{height:3px}
+.fields{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fields .chp{justify-content:flex-start}
+.ev{position:relative;flex:1;min-height:0;border-radius:6px;background:var(--surface);border:1px solid var(--hair-dark);padding:4px}
+.ev-l{position:absolute;left:8px;top:6px;font-size:9.5px;color:var(--text-soft)}
+.ev path,.km path{vector-effect:non-scaling-stroke}
+.ev .pv{fill:none;stroke:rgba(198,209,221,.6);stroke-width:1.5;stroke-dasharray:4 3}
+.ev .evl{fill:none;stroke:var(--primary);stroke-width:2;stroke-dasharray:240;stroke-dashoffset:0}
+/* vial */
+.m-vial svg .land{fill:rgba(255,255,255,.03);stroke:rgba(255,255,255,.12)}
+.m-vial svg .rd{fill:none;stroke:rgba(198,209,221,.35);stroke-width:1.6}
+.m-vial svg .rdp{fill:none;stroke:var(--primary-light);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:10 200;filter:drop-shadow(0 0 3px rgba(0,212,255,.9))}
+.m-vial svg .ct{fill:var(--bg);stroke:var(--primary);stroke-width:1.6}
+.err{top:10px;right:10px;width:46%;flex-direction:column;gap:5px;padding:8px;border-radius:8px;background:rgba(4,8,18,.85);border:1px solid var(--hair-dark)}
+.err .r{display:grid;grid-template-columns:44px minmax(0,1fr) 36px;gap:6px;align-items:center;font-size:9px}
+.err .r i{height:6px;border-radius:3px;background:rgba(198,209,221,.45);transform-origin:left}
+.err .r.af i{background:var(--primary);width:23%}
+/* alerta */
+.m-alerta .rain rect{fill:rgba(71,232,255,.35);transform-box:fill-box;transform-origin:top}
+.m-alerta .thr{stroke:rgba(255,255,255,.55);stroke-dasharray:5 4;stroke-width:1.2}
+.m-alerta .q{fill:none;stroke:var(--primary);stroke-width:2.2;stroke-dasharray:520;stroke-dashoffset:0}
+.m-alerta .qa{fill:rgba(0,212,255,.12)}
+.m-alerta .pk{fill:var(--primary)}
+.m-alerta .ring{fill:none;stroke:var(--primary);stroke-width:1.5;transform-box:fill-box;transform-origin:center}
+/* voz */
+.m-voz{display:flex;flex-direction:column;gap:8px}
+.m-voz .row{display:flex;gap:6px;flex-wrap:wrap}
+.onair::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px rgba(0,212,255,.25)}
+.eq{display:flex;align-items:center;gap:3px;height:44px;flex:none}
+.eq i{flex:1;border-radius:2px;background:var(--primary-light);height:30%;opacity:.85}
+.eq i:nth-child(3n){background:rgba(198,209,221,.5)}
+.tl{display:flex;flex-direction:column;gap:4px;padding:6px 8px;border-radius:7px;background:var(--surface);border:1px solid var(--hair-dark);min-width:0}
+.tl q{color:var(--paper);font:500 10.5px/1.3 var(--font-body);quotes:"«" "»";white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl .chp{align-self:flex-start}
+/* cockpit */
+.m-cockpit{display:grid;grid-template-columns:118px minmax(0,1fr);gap:12px;align-items:stretch}
+.ph{border-radius:18px;border:1px solid rgba(255,255,255,.2);background:var(--bg);padding:14px 8px 8px;position:relative;display:flex;flex-direction:column;gap:3px;font-size:9px;min-height:0;overflow:hidden}
+.ph::before{content:"";position:absolute;top:6px;left:50%;width:34px;height:4px;margin-left:-17px;border-radius:3px;background:rgba(255,255,255,.18)}
+.ph .c{color:var(--paper)}
+.ph .c::before{content:"$ ";color:var(--primary-light)}
+.ph .g{color:var(--ok)}
+.ph .caret{width:6px}
+.side-c{display:flex;flex-direction:column;gap:8px;min-width:0}
+.appr{padding:8px;border-radius:9px;background:var(--surface);border:1px solid var(--primary);display:flex;flex-direction:column;gap:6px}
+.appr code{font:600 10.5px var(--font-mono);color:var(--paper)}
+.appr .bt{display:flex;gap:6px}
+.appr .bt span{padding:4px 8px;border-radius:6px;font:700 9.5px var(--font-body);border:1px solid var(--hair-dark)}
+.appr .bt span:first-child{background:var(--primary);color:var(--bg);border-color:var(--primary)}
+/* skills, method, exp */
+.chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.tdd{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.tdd .chipx{transition:none}
+.tdd .arrow{color:var(--c-muted);font:600 12px var(--font-mono)}
+.step-n{font:780 40px/1 var(--font-heading);letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.3px var(--c-text)}
+.on-dark .step-n{-webkit-text-stroke-color:var(--primary-light)}
+.rail{height:4px;border-radius:2px;background:var(--c-line);overflow:hidden;margin-top:auto}
+.rail i{display:block;height:100%;background:var(--primary);transform-origin:left}
+.exp .period{display:inline-flex;align-self:flex-start}
+.exp .org{font-weight:600;font-size:15px}
+.more-list{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.more-list li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;font-size:15px;color:var(--c-muted)}
+.more-list li::before{content:"";width:8px;height:8px;margin:8px 0 0 4px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px rgba(0,212,255,.2)}
+/* cta */
+.cta{padding:56px;overflow:hidden;align-items:flex-start;gap:16px;background:radial-gradient(700px 320px at 100% 0,rgba(0,212,255,.18),transparent 70%),var(--bg)!important;border-radius:28px}
+.cta h2{max-width:720px}
+.cta .lead{color:var(--text-soft);font-size:18px;max-width:600px}
+.cta-trace{position:absolute!important;right:-20px;top:20px;width:520px;height:240px;pointer-events:none;z-index:0!important}
+.cta .cta-row{margin-top:8px}
+/* footer */
+.site-footer{background:var(--bg);color:var(--text-soft);padding:40px 0;font-size:14px}
+.site-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.site-footer a{color:var(--paper)}
+/* dialog */
+dialog.dlg{width:min(760px,calc(100vw - 24px));max-height:calc(100dvh - 32px);padding:0;border:1px solid var(--c-line);border-radius:22px;background:var(--c-card);color:var(--c-text);box-shadow:var(--shadow-dark)}
+dialog.dlg::backdrop{background:rgba(4,8,18,.62);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.dlg-in{display:grid;gap:16px;padding:26px}
+.dlg-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.dlg-head h2{font-size:clamp(22px,3vw,30px)}
+.dlg .shot{transform:none;height:280px}
+.dlg-close{flex:none}
+/* responsive */
+@media (max-width:1080px){
+ .bento{grid-template-columns:repeat(6,minmax(0,1fr))}
+ .c3,.c4,.c5{grid-column:span 3}.c6,.c7,.c8,.c12{grid-column:span 6}
+ .sec-head{grid-template-columns:1fr;gap:16px}
+}
+@media (max-width:860px){
+ .js .main-nav{display:none;order:3;flex-basis:100%;padding:0 0 12px}
+ .js .main-nav.open{display:block}
+ .js .main-nav ul{flex-direction:column;align-items:stretch}
+ .js .main-nav a{min-height:46px}
+ .js .menu-btn{display:inline-flex}
+ .main-nav{order:3;flex-basis:100%}
+ .main-nav ul{justify-content:flex-start}
+ .mlabel{display:none}
+}
+@media (max-width:680px){
+ .wrap{padding:0 16px}
+ .sec{padding:72px 0}
+ .top{padding:24px 0 64px}
+ .top::before{height:420px}
+ .bento{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .bento>.cell{grid-column:span 2}
+ .bento>.cell.half{grid-column:span 1}
+ .r2{grid-row:auto}
+ .tile{padding:18px}
+ .hero{padding:24px}
+ .hero h1{font-size:clamp(32px,9vw,40px)}
+ .hero .lead{font-size:16px}
+ .cta{padding:28px}
+ .stat .num{font-size:28px}
+ .stat .lbl{font-size:13px}
+ .shot{height:236px}
+ .hm-grid,.hm-years{grid-template-columns:76px repeat(35,minmax(0,1fr));gap:1.5px}
+ .hm-grid .rl{font-size:9.5px;padding-right:3px;letter-spacing:-.02em}
+ .hm-grid i{height:20px;border-radius:2px}
+ .hm-scan{left:76px}
+ .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px 14px;padding:2px 16px 8px;scroll-padding:0 16px;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+ .fchip{flex:none}
+ .announce{font-size:13px;padding:8px 12px}
+ .announce a>span:last-child{display:none}
+ .km .chp{white-space:normal}
+ .m-voz{gap:6px}
+ .m-voz .eq{height:30px}
+ .tl{padding:5px 7px}
+ .facts>div{grid-template-columns:78px minmax(0,1fr)}
+ .brand-t{display:none}
+ .m-cockpit{grid-template-columns:96px minmax(0,1fr)}
+ .err{width:56%}
+ .cta-trace{display:none}
+ .dlg-in{padding:18px}
+ .dlg .shot{height:236px}
+ .fsep{display:none}
+ .sbar span{display:none}
+}
+@media (max-width:400px){.mini.stamps b{display:none}.stat{padding:14px}}
+/* ===== motion (only when the user allows it) ===== */
+@media (prefers-reduced-motion: no-preference){
+ html{scroll-behavior:smooth}
+ .btn,.fchip,.open,.ghost-btn{transition:background .2s,border-color .2s,transform .2s,box-shadow .2s,color .2s}
+ .btn:hover{transform:translateY(-1px)}
+ .tile{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s}
+ .tile.tilting{transition:transform .08s linear,box-shadow .3s,border-color .3s}
+ .spot{transition:opacity .3s}
+ .tile.pop{animation:pop .55s cubic-bezier(.2,.8,.2,1)}
+ @keyframes pop{from{opacity:0;transform:perspective(1100px) translateZ(-140px) scale(.94)}}
+ /* assembly from depth: scroll-driven when supported */
+ .cell:nth-child(odd){--ay:-7deg}.cell:nth-child(even){--ay:7deg}
+ @supports (animation-timeline: view()){
+  html:not(.paused) .cell{animation:assemble linear both;animation-timeline:view();animation-range:entry 0% entry 90%}
+ }
+ @keyframes assemble{from{opacity:0;transform:perspective(1000px) translate3d(0,48px,-280px) rotateX(16deg) rotateY(var(--ay,0deg)) scale(.88)}to{opacity:1;transform:none}}
+ /* IntersectionObserver fallback */
+ html.io .cell{transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i,0)*70ms)}
+ html.io:not(.paused) .cell:not(.in){opacity:0;transform:perspective(1000px) translate3d(0,48px,-280px) rotateX(16deg) rotateY(var(--ay,0deg)) scale(.88)}
+ /* micro animations */
+ .trace-pulse{animation:pulse 7s linear infinite}
+ .trace-pulse.p2{animation-duration:9s;animation-delay:-3s}.trace-pulse.p3{animation-duration:8s;animation-delay:-5s}
+ @keyframes pulse{to{stroke-dashoffset:-926}}
+ .caret{animation:blink 1s steps(1) infinite}
+ @keyframes blink{50%{opacity:0}}
+ .mini.bars i,.mb i{animation:grow 1s cubic-bezier(.2,.8,.2,1) both}
+ .mini.bars i:nth-child(2n),.mb i:nth-child(2n){animation-delay:.08s}.mini.bars i:nth-child(3n),.mb i:nth-child(3n){animation-delay:.16s}.mini.bars i:nth-child(4n),.mb i:nth-child(4n){animation-delay:.24s}
+ @keyframes grow{from{transform:scaleY(.08)}}
+ .beam{animation:beam 2.6s ease-in-out infinite alternate}
+ @keyframes beam{from{top:0}to{top:calc(100% - 2px)}}
+ .mini.wave .w2{animation:flow 1.6s linear infinite}
+ @keyframes flow{to{stroke-dashoffset:-56}}
+ .mini.stamps i.hi{animation:stamp 3s ease-in-out infinite}
+ @keyframes stamp{50%{transform:translateY(-4px) rotate(-3deg)}}
+ .hm-grid i{animation:cellin .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0)*14ms)}
+ @keyframes cellin{from{opacity:0;transform:scale(.3)}}
+ .hm-grid i.now{animation:cellin .45s both,nowp 2s 1.2s ease-in-out infinite;animation-delay:calc(var(--d,0)*14ms),1.4s}
+ @keyframes nowp{50%{box-shadow:0 0 0 2px var(--c-card),0 0 0 4px var(--primary),0 0 12px var(--primary)}}
+ .hm-scan{animation:hmscan 5s ease-in-out 1.2s infinite}
+ @keyframes hmscan{0%{left:96px;opacity:0}10%{opacity:.9}90%{opacity:.9}100%{left:calc(100% - 3px);opacity:0}}
+ .kb .mover{animation:kanban 6s cubic-bezier(.6,0,.2,1) infinite}
+ @keyframes kanban{0%,22%{left:6px}36%,58%{left:calc(33.33% + 4px)}72%,94%{left:calc(66.66% + 2px)}100%{left:6px}}
+ .m-dag .p{animation:dag 4.2s linear infinite}
+ .m-dag .p.b{animation-delay:-1.4s}.m-dag .p.c{animation-delay:-2.8s}
+ @keyframes dag{to{stroke-dashoffset:-400}}
+ .m-dag .h{animation:hpulse 2.4s ease-in-out infinite}
+ @keyframes hpulse{50%{stroke-width:4;stroke:var(--primary-light)}}
+ .ad.win{animation:win 4s ease-in-out infinite}
+ @keyframes win{50%{box-shadow:0 0 18px rgba(0,212,255,.7)}}
+ .km .c1{animation:draw 5s cubic-bezier(.4,0,.2,1) infinite}
+ @keyframes draw{0%{stroke-dashoffset:420}60%,100%{stroke-dashoffset:0}}
+ .rank span i{animation:growx 1.2s cubic-bezier(.2,.8,.2,1) both}
+ @keyframes growx{from{transform:scaleX(.05)}}
+ .fields .chp{animation:fieldin 6s ease infinite both}
+ .fields .chp:nth-child(2){animation-delay:.6s}.fields .chp:nth-child(3){animation-delay:1.2s}
+ @keyframes fieldin{0%,8%{opacity:0;transform:translateX(-8px)}16%,88%{opacity:1;transform:none}100%{opacity:0}}
+ .ev .evl{animation:draw2 6s ease-out infinite}
+ @keyframes draw2{0%{stroke-dashoffset:240}50%,100%{stroke-dashoffset:0}}
+ .m-vial .rdp{animation:road 3.6s linear infinite}
+ .m-vial .rdp.b{animation-duration:4.4s;animation-delay:-1.5s}.m-vial .rdp.c{animation-duration:5s;animation-delay:-3s}
+ @keyframes road{from{stroke-dashoffset:210}to{stroke-dashoffset:0}}
+ .err .r.af i{animation:shrink 4s cubic-bezier(.6,0,.2,1) infinite}
+ @keyframes shrink{0%,15%{width:100%}55%,100%{width:23%}}
+ .m-alerta .rain rect{animation:grow 1.2s cubic-bezier(.2,.8,.2,1) both}
+ .m-alerta .q{animation:draw3 6s ease-out infinite}
+ @keyframes draw3{0%{stroke-dashoffset:520}55%,100%{stroke-dashoffset:0}}
+ .m-alerta .ring{animation:ring 2s ease-out infinite}
+ @keyframes ring{from{transform:scale(.6);opacity:1}to{transform:scale(2.6);opacity:0}}
+ .eq i{animation:eq 1.2s ease-in-out infinite}
+ .eq i:nth-child(odd){animation-delay:-.4s}.eq i:nth-child(3n){animation-delay:-.8s}.eq i:nth-child(5n){animation-duration:.9s}
+ @keyframes eq{50%{height:92%}}
+ .tl q{animation:typeq 5s steps(36) infinite}
+ .tl:nth-of-type(2) q{animation-delay:1.6s}
+ @keyframes typeq{0%{clip-path:inset(0 100% 0 0)}45%,100%{clip-path:inset(0 0 0 0)}}
+ .chp.hot{animation:hot 2s ease-in-out infinite}
+ @keyframes hot{50%{box-shadow:0 0 18px rgba(0,212,255,.75)}}
+ .appr{animation:hot 2.4s ease-in-out infinite}
+ .tdd .chipx{animation:tdd 4.5s steps(1) infinite}
+ .tdd .chipx:nth-of-type(2){animation-delay:1.5s}.tdd .chipx:nth-of-type(3){animation-delay:3s}
+ @keyframes tdd{0%{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,212,255,.22)}33%{border-color:var(--c-line);box-shadow:none}}
+ .rail i{animation:rail 1.6s cubic-bezier(.2,.8,.2,1) both}
+ @keyframes rail{from{transform:scaleX(0)}}
+ dialog.dlg[open]{animation:dlgin .35s cubic-bezier(.2,.8,.2,1)}
+ @keyframes dlgin{from{opacity:0;transform:perspective(1000px) translateZ(-120px) rotateX(8deg)}}
+ /* loops idle while their tile is off screen (JS sets .live) */
+ html.js .cell:not(.live) *{animation-play-state:paused}
+}
+/* motion pause (WCAG 2.2.2): everything shows its final, static state */
+html.paused *,html.paused *::before,html.paused *::after{animation:none!important;transition:none!important}
+@media (prefers-reduced-motion: reduce){#motion-toggle{display:none}}
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="m2 13 10 5 10-5"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/><circle cx="12" cy="12" r="2.5"/></symbol>
+<symbol id="i-ruler" viewBox="0 0 24 24"><path d="M3 17 17 3l4 4L7 21l-4-4Z"/><path d="m7 13 2 2M10 10l2 2M13 7l2 2"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M6.4 17.6 5 19"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5-12-7.5Z"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+</svg>
+<a class="skip" href="#main">Saltar al contenido</a>
+<div class="announce"><a href="#p-meeting-copilot"><span class="chip">2026</span><span>Copiloto de reuniones con reconocimiento de voz local</span><span aria-hidden="true">→</span></a></div>
+<header class="site-header">
+ <div class="wrap">
+  <a class="brand" href="#inicio"><span class="mono-mark" aria-hidden="true">IR</span><span class="brand-t">Iván R. Pianto</span><span class="sr-only"> — inicio</span></a>
+  <nav class="main-nav" id="nav" aria-label="Secciones">
+   <ul><li><a href="#proyectos">Proyectos</a></li><li><a href="#habilidades">Habilidades</a></li><li><a href="#metodo">Método</a></li><li><a href="#experiencia">Experiencia</a></li><li><a href="#contacto">Contacto</a></li></ul>
+  </nav>
+  <div class="head-actions">
+   <button type="button" class="ghost-btn" id="motion-toggle" aria-pressed="false" aria-label="Pausar animaciones"><svg class="icon i-pause" aria-hidden="true"><use href="#i-pause"/></svg><svg class="icon i-play" aria-hidden="true"><use href="#i-play"/></svg><span class="mlabel">Pausar</span></button>
+   <button type="button" class="ghost-btn theme" id="theme-toggle" aria-label="Cambiar a tema oscuro"><svg class="icon i-moon" aria-hidden="true"><use href="#i-moon"/></svg><svg class="icon i-sun" aria-hidden="true"><use href="#i-sun"/></svg></button>
+   <button type="button" class="ghost-btn menu-btn" id="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </div>
+ </div>
+</header>
+
+<main id="main">
+<section class="top" id="inicio" aria-labelledby="name">
+ <div class="top-glow" aria-hidden="true"></div>
+ <svg class="top-trace" viewBox="0 0 1440 560" aria-hidden="true" focusable="false">
+  <path class="trace" d="M0 120H180L240 60H420"/><circle class="trace-node" cx="425" cy="60" r="5"/>
+  <path class="trace" d="M1440 90H1260L1200 150H1080"/><circle class="trace-node" cx="1075" cy="150" r="5"/>
+  <path class="trace" d="M1440 420H1300L1250 370H1120"/><circle class="trace-node" cx="1115" cy="370" r="5"/>
+  <path class="trace-pulse" d="M0 120H180L240 60H420"/><path class="trace-pulse p2" d="M1440 90H1260L1200 150H1080"/><path class="trace-pulse p3" d="M1440 420H1300L1250 370H1120"/>
+ </svg>
+ <div class="wrap">
+  <div class="bento">
+   <div class="cell c8 r2"><div class="tile hero on-dark"><span class="spot" aria-hidden="true"></span>
+    <p class="chip-dot">Portafolio · Piura, Perú · actualizado 2026-11</p>
+    <h1 id="name">Iván Rodrigo <span class="h1-l2">Pianto Antón</span></h1>
+    <p class="roles"><span class="pill">Ingeniero de software full stack</span><span class="pill">Arquitecto de sistemas de IA</span><span class="pill">Tech lead</span></p>
+    <p class="lead">Construyo software que resuelve <mark>operaciones reales</mark>: ERPs multi-tenant, plataformas de e-commerce con agentes de IA, herramientas de ingeniería civil y modelos de riesgo hidrológico. Combino formación en ingeniería civil con arquitectura full stack, y trabajo con disciplina: especificaciones antes que código, pruebas primero, revisión adversarial y métricas honestas.</p>
+    <div class="cta-row"><a class="btn btn-cyan" href="#proyectos">Ver los 17 proyectos <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="btn btn-ghost" href="mailto:rodrigopianto2005@gmail.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Escribir un correo</a></div>
+   </div></div>
+   <div class="cell c4 r2"><section class="tile term on-dark" aria-labelledby="term-t"><span class="spot" aria-hidden="true"></span>
+    <div class="tbar" aria-hidden="true"><i></i><i></i><i></i><span>ivan@piura: ~/portafolio</span></div>
+    <h2 id="term-t" class="sr-only">Terminal: resumen en comandos</h2>
+    <pre class="term-pre"><span class="ln cmd">whoami</span><span class="ln out">Iván Rodrigo Pianto Antón · Piura, Perú</span><span class="ln cmd">cat rol.txt</span><span class="ln out">Ingeniero de software full stack · Arquitecto de sistemas de IA · Tech lead</span><span class="ln cmd">cat stack.txt</span><span class="ln out">TypeScript · Python · NestJS · FastAPI · PostgreSQL · Expo</span><span class="ln cmd">ls proyectos | wc -l</span><span class="ln out hi">17</span><span class="ln cmd">cat metodo.txt</span><span class="ln out">especificación antes que código → pruebas primero → revisión adversarial → métricas honestas</span></pre>
+    <div class="tfoot"><span class="chipx cy">17 proyectos</span><span class="chipx">8 destacados</span><span class="chipx">7 áreas de stack</span></div>
+   </section></div>
+   <div class="cell c3 half"><div class="tile stat"><span class="spot" aria-hidden="true"></span><p><span class="num" data-final="13,223" aria-hidden="true">13,223</span><span class="sr-only">13,223</span></p><p class="lbl">pruebas en el gate de despliegue de un ERP multi-tenant</p><div class="mini bars" aria-hidden="true"><i style="height:28%"></i><i style="height:36%"></i><i style="height:44%"></i><i style="height:40%"></i><i style="height:56%"></i><i style="height:62%"></i><i style="height:58%"></i><i style="height:72%"></i><i style="height:80%"></i><i class=hi style="height:76%"></i><i class=hi style="height:90%"></i><i class=hi style="height:100%"></i></div></div></div><div class="cell c3 half"><div class="tile stat"><span class="spot" aria-hidden="true"></span><p><span class="num" data-final="20,491" aria-hidden="true">20,491</span><span class="sr-only">20,491</span></p><p class="lbl">anuncios analizados con IA por USD 25.53</p><div class="mini dots" aria-hidden="true"><i></i><i></i><i></i><i class=hi></i><i></i><i></i><i></i><i></i><i></i><i class=hi></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class=hi></i><i></i><i></i><i></i><i></i><i class=hi></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class=hi></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class=hi></i><i></i><i></i><i></i><span class="beam"></span></div></div></div><div class="cell c3 half"><div class="tile stat"><span class="spot" aria-hidden="true"></span><p><span class="num" data-final="147k" aria-hidden="true">147k</span><span class="sr-only">147k</span></p><p class="lbl">estampillas en un catálogo reconstruido por scraping</p><div class="mini stamps" aria-hidden="true"><i></i><i class="hi"></i><i></i><b>~147.5k</b></div></div></div><div class="cell c3 half"><div class="tile stat"><span class="spot" aria-hidden="true"></span><p><span class="num" data-final="25,290" aria-hidden="true">25,290</span><span class="sr-only">25,290</span></p><p class="lbl">tramos de río en una corrida nacional de peligro de inundación</p><div class="mini wave" aria-hidden="true"><svg viewBox="0 0 200 42" preserveAspectRatio="none"><path class="w1" d="M0 30C25 18 45 38 70 26S115 14 140 24S180 34 200 20"/><path class="w2" d="M0 30C25 18 45 38 70 26S115 14 140 24S180 34 200 20"/></svg></div></div></div>
+   <div class="cell c7"><section class="tile hm" aria-labelledby="hm-t"><span class="spot" aria-hidden="true"></span>
+    <div class="t-top"><h2 id="hm-t" class="t-num">Actividad · proyectos activos por mes</h2><span class="hm-legend" aria-hidden="true">menos <i></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> más</span></div>
+    <div class="hm-wrap"><div class="hm-years" aria-hidden="true"><span></span><span>2024</span><span>2025</span><span>2026</span></div>
+    <div class="hm-grid" role="img" aria-label="Mapa de actividad: proyectos activos por mes y área entre enero de 2024 y noviembre de 2026. 2024: 2 proyectos activos; 2025: 4 proyectos activos; 2026: 17 proyectos activos. La mayor actividad está en IA y agentes durante 2026."><span class="rl" title="Plataformas y SaaS">Plataformas</span><i class="l1" style="--d:0"></i><i class="l1" style="--d:1"></i><i class="l1" style="--d:2"></i><i class="l1" style="--d:3"></i><i class="l1" style="--d:4"></i><i class="l1" style="--d:5"></i><i class="l1" style="--d:6"></i><i class="l1" style="--d:7"></i><i class="l1" style="--d:8"></i><i class="l1" style="--d:9"></i><i class="l1" style="--d:10"></i><i class="l1" style="--d:11"></i><i class="l2" style="--d:12"></i><i class="l2" style="--d:13"></i><i class="l2" style="--d:14"></i><i class="l2" style="--d:15"></i><i class="l2" style="--d:16"></i><i class="l2" style="--d:17"></i><i class="l2" style="--d:18"></i><i class="l2" style="--d:19"></i><i class="l2" style="--d:20"></i><i class="l2" style="--d:21"></i><i class="l2" style="--d:22"></i><i class="l2" style="--d:23"></i><i class="l3" style="--d:24"></i><i class="l3" style="--d:25"></i><i class="l3" style="--d:26"></i><i class="l3" style="--d:27"></i><i class="l3" style="--d:28"></i><i class="l3" style="--d:29"></i><i class="l3" style="--d:30"></i><i class="l3" style="--d:31"></i><i class="l3" style="--d:32"></i><i class="l3" style="--d:33"></i><i class="l3 now" style="--d:34"></i><span class="rl" title="IA y agentes">IA y agentes</span><i class="l1" style="--d:3"></i><i class="l1" style="--d:4"></i><i class="l1" style="--d:5"></i><i class="l1" style="--d:6"></i><i class="l1" style="--d:7"></i><i class="l1" style="--d:8"></i><i class="l1" style="--d:9"></i><i class="l1" style="--d:10"></i><i class="l1" style="--d:11"></i><i class="l1" style="--d:12"></i><i class="l1" style="--d:13"></i><i class="l1" style="--d:14"></i><i class="l2" style="--d:15"></i><i class="l2" style="--d:16"></i><i class="l2" style="--d:17"></i><i class="l2" style="--d:18"></i><i class="l2" style="--d:19"></i><i class="l2" style="--d:20"></i><i class="l2" style="--d:21"></i><i class="l2" style="--d:22"></i><i class="l2" style="--d:23"></i><i class="l2" style="--d:24"></i><i class="l2" style="--d:25"></i><i class="l2" style="--d:26"></i><i class="l4" style="--d:27"></i><i class="l4" style="--d:28"></i><i class="l4" style="--d:29"></i><i class="l4" style="--d:30"></i><i class="l4" style="--d:31"></i><i class="l4" style="--d:32"></i><i class="l4" style="--d:33"></i><i class="l4" style="--d:34"></i><i class="l4" style="--d:35"></i><i class="l4" style="--d:36"></i><i class="l4 now" style="--d:37"></i><span class="rl" title="Ingeniería y ciencia de datos">Ingeniería</span><i class="l0" style="--d:6"></i><i class="l0" style="--d:7"></i><i class="l0" style="--d:8"></i><i class="l0" style="--d:9"></i><i class="l0" style="--d:10"></i><i class="l0" style="--d:11"></i><i class="l0" style="--d:12"></i><i class="l0" style="--d:13"></i><i class="l0" style="--d:14"></i><i class="l0" style="--d:15"></i><i class="l0" style="--d:16"></i><i class="l0" style="--d:17"></i><i class="l0" style="--d:18"></i><i class="l0" style="--d:19"></i><i class="l0" style="--d:20"></i><i class="l0" style="--d:21"></i><i class="l0" style="--d:22"></i><i class="l0" style="--d:23"></i><i class="l0" style="--d:24"></i><i class="l0" style="--d:25"></i><i class="l0" style="--d:26"></i><i class="l0" style="--d:27"></i><i class="l0" style="--d:28"></i><i class="l0" style="--d:29"></i><i class="l3" style="--d:30"></i><i class="l3" style="--d:31"></i><i class="l3" style="--d:32"></i><i class="l3" style="--d:33"></i><i class="l3" style="--d:34"></i><i class="l3" style="--d:35"></i><i class="l3" style="--d:36"></i><i class="l3" style="--d:37"></i><i class="l3" style="--d:38"></i><i class="l3" style="--d:39"></i><i class="l3 now" style="--d:40"></i><span class="rl" title="Web, negocio y otros">Web y otros</span><i class="l0" style="--d:9"></i><i class="l0" style="--d:10"></i><i class="l0" style="--d:11"></i><i class="l0" style="--d:12"></i><i class="l0" style="--d:13"></i><i class="l0" style="--d:14"></i><i class="l0" style="--d:15"></i><i class="l0" style="--d:16"></i><i class="l0" style="--d:17"></i><i class="l0" style="--d:18"></i><i class="l0" style="--d:19"></i><i class="l0" style="--d:20"></i><i class="l0" style="--d:21"></i><i class="l0" style="--d:22"></i><i class="l0" style="--d:23"></i><i class="l0" style="--d:24"></i><i class="l0" style="--d:25"></i><i class="l0" style="--d:26"></i><i class="l0" style="--d:27"></i><i class="l0" style="--d:28"></i><i class="l0" style="--d:29"></i><i class="l0" style="--d:30"></i><i class="l0" style="--d:31"></i><i class="l0" style="--d:32"></i><i class="l4" style="--d:33"></i><i class="l4" style="--d:34"></i><i class="l4" style="--d:35"></i><i class="l4" style="--d:36"></i><i class="l4" style="--d:37"></i><i class="l4" style="--d:38"></i><i class="l4" style="--d:39"></i><i class="l4" style="--d:40"></i><i class="l4" style="--d:41"></i><i class="l4" style="--d:42"></i><i class="l4 now" style="--d:43"></i></div><span class="hm-scan" aria-hidden="true"></span></div>
+    <ul class="hm-areas" aria-label="Proyectos por área"><li class="chipx">Plataformas y SaaS · 3</li><li class="chipx cy">IA y agentes · 6</li><li class="chipx">Ingeniería y ciencia de datos · 3</li><li class="chipx">Web, negocio y otros · 5</li></ul>
+    <p class="hm-note">Según el periodo declarado de cada proyecto. Activos: <b>2</b> en 2024 · <b>4</b> en 2025 · <b>17</b> en 2026.</p>
+   </section></div>
+   <div class="cell c5"><section class="tile" aria-labelledby="cq-t"><span class="spot" aria-hidden="true"></span>
+    <div class="t-top"><h2 id="cq-t" class="t-num">Contacto directo</h2><span class="t-ic" aria-hidden="true"><svg class="icon"><use href="#i-mail"/></svg></span></div>
+    <dl class="facts">
+     <div><dt>Correo</dt><dd><a href="mailto:rodrigopianto2005@gmail.com">rodrigopianto2005@gmail.com</a></dd></div>
+     <div><dt>GitHub</dt><dd><a href="https://github.com/R0DR0X" rel="me noopener">github.com/R0DR0X</a></dd></div>
+     <div><dt>Base</dt><dd>Piura, Perú</dd></div>
+     <div><dt>Idiomas</dt><dd>Español — nativo · Inglés — técnico profesional</dd></div>
+    </dl>
+   </section></div>
+  </div>
+ </div>
+</section>
+
+<section class="sec mist" id="proyectos" aria-labelledby="proj-t">
+ <div class="wrap">
+  <div class="sec-head"><div><p class="tagline">Proyectos</p><h2 id="proj-t">Lo que he construido, <mark>filtrado por área</mark>.</h2></div>
+   <p class="sec-lead">17 proyectos: 8 destacados con vista previa y 9 más en formato compacto. Los nombres de clientes se mantienen anónimos.</p></div>
+  <div class="fbar"><div class="filters" id="filters" role="group" aria-label="Filtrar proyectos por área" hidden><button type="button" class="fchip" data-area="all" data-label="todas las áreas" aria-pressed="true">Todos <span class="n">17</span></button><button type="button" class="fchip" data-area="software" data-label="Plataformas y SaaS" aria-pressed="false">Plataformas y SaaS <span class="n">3</span></button><button type="button" class="fchip" data-area="ai" data-label="IA y agentes" aria-pressed="false">IA y agentes <span class="n">6</span></button><button type="button" class="fchip" data-area="engineering" data-label="Ingeniería y ciencia de datos" aria-pressed="false">Ingeniería y ciencia de datos <span class="n">3</span></button><button type="button" class="fchip" data-area="other" data-label="Web, negocio y otros" aria-pressed="false">Web, negocio y otros <span class="n">5</span></button><span class="fsep" aria-hidden="true"></span><button type="button" class="fchip" data-featured aria-pressed="false">Solo destacados</button><button type="button" class="linkbtn" id="pclear" hidden>Limpiar filtros</button></div><p class="count" id="pcount" role="status">Mostrando <b>17</b> de 17 proyectos · todas las áreas</p></div>
+  <div class="empty" id="pempty" hidden><p><strong>Ningún proyecto coincide con estos filtros.</strong><span id="pempty-msg"></span></p><button type="button" class="btn btn-dark btn-sm" id="preset">Mostrar todos los proyectos</button></div>
+  <ul class="bento" id="plist"><li class="cell c7" id="p-erp-traceability" data-area="software" data-featured="true"><article class="tile proj" aria-labelledby="t-erp-traceability"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">01 · Plataformas y SaaS</span><span class="period">2024 – hoy</span></div><figure class="shot" data-slot="erp-traceability"><!-- slot: replace .scr with the real screenshot image (T7) --><div class="scr" aria-hidden="true"><div class="sbar"><i></i><i></i><i></i><span>erp · comercio exterior</span></div><div class="sbody m-erp"><div class="side"><b></b><i class="on"></i><i></i><i></i><i></i><i></i></div><div class="main"><div class="kpis"><span><em>240</em>proformas</span><span><em>457</em>guías</span><span class="ok"><em>SUNAT</em>e-factura</span></div><div class="kb"><div class="col"><u>Proforma</u><i></i><i></i></div><div class="col"><u>Contenedor</u><i></i><i></i></div><div class="col"><u>Embarque</u><i></i></div><i class="mover"></i></div><div class="mb"><i style="height:38%"></i><i style="height:52%"></i><i style="height:46%"></i><i style="height:64%"></i><i style="height:58%"></i><i class=hi style="height:76%"></i><i style="height:70%"></i><i class=hi style="height:88%"></i><i style="height:62%"></i><i class=hi style="height:94%"></i></div></div></div></div><figcaption>Vista ilustrativa · captura pendiente</figcaption></figure><h3 id="t-erp-traceability">ERP y trazabilidad multi-tenant para agroexportación</h3><p class="sum">Plataforma SaaS que cubre acopio, producción, almacén, comercio exterior y facturación electrónica. Un panel web, una app móvil offline y bots de WhatsApp trabajan sobre el mismo backend.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">NestJS</li><li class="chipx">Fastify</li><li class="chipx">PostgreSQL 17</li><li class="chipx">Drizzle</li><li class="chipx">Redis</li></ul><div class="t-foot"><span class="chipx cy">Destacado</span></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Exportadora pesquera peruana, a través de una empresa de software</dd></div><div><dt>Rol</dt><dd>Tech lead y arquitecto</dd></div><div><dt>Periodo</dt><dd>2024 – hoy</dd></div></dl><p class="muted">Plataforma SaaS que cubre acopio, producción, almacén, comercio exterior y facturación electrónica. Un panel web, una app móvil offline y bots de WhatsApp trabajan sobre el mismo backend.</p><p class="det-h">Logros</p><ul class="hl"><li>Motor documental con extracción por IA, reglas de validación y semáforo de revisión humana; app móvil offline-first con cola SQLite.</li><li>Comercio exterior completo: proformas, contenedores, propuesta automática de packing, tablero Kanban y carga histórica de 240 proformas (~USD 49.9M).</li><li>Producción con kardex por lote, trazabilidad GS1 y mermas conciliadas con el Excel de planta (457 guías importadas sin rechazos).</li><li>Facturación electrónica SUNAT (facturas, boletas, notas y guías de remisión) mediante un adaptador desacoplado.</li><li>Bots de WhatsApp que registran llegadas y emiten proformas por texto o audio, en producción desde agosto de 2026.</li><li>Gate de despliegue con 13,223 pruebas, observabilidad con Prometheus y Grafana, e infraestructura reducida a ~USD 83/mes.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">NestJS</li><li class="chipx">Fastify</li><li class="chipx">PostgreSQL 17</li><li class="chipx">Drizzle</li><li class="chipx">Redis</li><li class="chipx">BullMQ</li><li class="chipx">Next.js 16</li><li class="chipx">React 19</li><li class="chipx">Expo</li><li class="chipx">n8n</li><li class="chipx">Gemini</li><li class="chipx">Whisper</li><li class="chipx">Docker</li><li class="chipx">GitHub Actions</li><li class="chipx">Prometheus</li><li class="chipx">Grafana</li></ul></div></details></article></li><li class="cell c5" id="p-ecommerce-platform" data-area="ai" data-featured="true"><article class="tile proj on-dark" aria-labelledby="t-ecommerce-platform"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">02 · IA y agentes</span><span class="period">2024 – hoy</span></div><figure class="shot" data-slot="ecommerce-platform"><!-- slot: replace .scr with the real screenshot image (T7) --><div class="scr" aria-hidden="true"><div class="sbar"><i></i><i></i><i></i><span>pipeline · validar producto</span></div><div class="sbody m-dag"><svg viewBox="0 0 320 142" preserveAspectRatio="xMidYMid meet"><path class="e" d="M18 70L68 22"/><path class="e" d="M68 22L112 70"/><path class="e" d="M18 70L68 70"/><path class="e" d="M68 70L112 70"/><path class="e" d="M18 70L68 118"/><path class="e" d="M68 118L112 70"/><path class="e" d="M112 70L156 22"/><path class="e" d="M112 70L156 70"/><path class="e" d="M112 70L156 118"/><path class="e" d="M156 22L208 22"/><path class="e" d="M156 70L208 70"/><path class="e" d="M156 118L208 118"/><path class="e" d="M208 22L254 70"/><path class="e" d="M208 70L254 70"/><path class="e" d="M208 118L254 70"/><path class="e" d="M254 70L302 70"/><path class="p" d="M18 70L68 22L112 70L156 22L208 22L254 70L302 70"/><path class="p b" d="M18 70L68 70L112 70L156 70L208 70L254 70L302 70"/><path class="p c" d="M18 70L68 118L112 70L156 118L208 118L254 70L302 70"/><circle class="n" cx="18" cy="70" r="7"/><circle class="n" cx="68" cy="22" r="7"/><circle class="n" cx="68" cy="70" r="7"/><circle class="n" cx="68" cy="118" r="7"/><circle class="n" cx="156" cy="22" r="7"/><circle class="n" cx="156" cy="70" r="7"/><circle class="n" cx="156" cy="118" r="7"/><circle class="n" cx="208" cy="22" r="7"/><circle class="n" cx="208" cy="70" r="7"/><circle class="n" cx="208" cy="118" r="7"/><circle class="n" cx="302" cy="70" r="7"/><rect class="h" x="106" y="64" width="12" height="12" rx="2" transform="rotate(45 112 70)"/><rect class="h" x="248" y="64" width="12" height="12" rx="2" transform="rotate(45 254 70)"/><text class="sv-t" x="4" y="92">producto</text><text class="sv-t" x="96" y="94">humano</text><text class="sv-t" x="238" y="94">humano</text><text class="sv-t" x="284" y="92">landing</text><text class="sv-t" x="140" y="138">11 agentes · 2 checkpoints</text></svg><div class="bub"><b>IA</b>¿Confirmo tu pedido con pago contra entrega?</div></div></div><figcaption>Vista ilustrativa · captura pendiente</figcaption></figure><h3 id="t-ecommerce-platform">Plataforma de e-commerce operada por agentes de IA</h3><p class="sum">Plataforma para vendedores directos con pago contra entrega: investigación de mercado, estrategia de oferta, creativos, landings, pedidos y ventas asistidas por IA.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Next.js 16</li><li class="chipx">React 19</li><li class="chipx">TypeScript</li><li class="chipx">PostgreSQL</li><li class="chipx">Cloudflare Workers</li></ul><div class="t-foot"><span class="chipx cy">Destacado</span></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Startup de e-commerce latinoamericana</dd></div><div><dt>Rol</dt><dd>Lead full stack y arquitecto de producto</dd></div><div><dt>Periodo</dt><dd>2024 – hoy</dd></div></dl><p class="muted">Plataforma para vendedores directos con pago contra entrega: investigación de mercado, estrategia de oferta, creativos, landings, pedidos y ventas asistidas por IA.</p><p class="det-h">Logros</p><ul class="hl"><li>v1: pipeline de 11 agentes de IA en DAG con 2 checkpoints humanos que valida un producto y produce avatar, competencia, branding, copy, creativos y landing en ~30–45 min.</li><li>v2: reconstrucción como SaaS multi-tenant en más de 20 cambios encadenados: identidad, billing por créditos, motor financiero, landings, publicación, pedidos y envíos.</li><li>CRM de WhatsApp con vendedora de IA que entiende audio y fotos, seguimientos automáticos, integración con courier y control del gasto en IA.</li><li>Estudio creativo automatizado: 17 anuncios del día 1 con QA de audio (−14 LUFS) y render reducido de 346 a 199 s por anuncio.</li><li>Suites de hasta 2,120 pruebas más E2E con Playwright, y revisión adversarial doble antes de cada merge.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Next.js 16</li><li class="chipx">React 19</li><li class="chipx">TypeScript</li><li class="chipx">PostgreSQL</li><li class="chipx">Cloudflare Workers</li><li class="chipx">D1</li><li class="chipx">R2</li><li class="chipx">OpenRouter</li><li class="chipx">Anthropic API</li><li class="chipx">Whisper</li><li class="chipx">Remotion</li><li class="chipx">Playwright</li><li class="chipx">Vitest</li><li class="chipx">Mercado Pago</li></ul></div></details></article></li><li class="cell c5" id="p-ad-intelligence" data-area="ai" data-featured="true"><article class="tile proj" aria-labelledby="t-ad-intelligence"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">03 · IA y agentes</span><span class="period">2026</span></div><figure class="shot" data-slot="ad-intelligence"><!-- slot: replace .scr with the real screenshot image (T7) --><div class="scr" aria-hidden="true"><div class="sbar"><i></i><i></i><i></i><span>radar · nichos</span></div><div class="sbody m-radar"><div class="ads"><span class="ad"><i></i><b></b><u></u></span><span class="ad win"><i></i><b></b><u></u></span><span class="ad"><i></i><b></b><u></u></span><span class="ad"><i></i><b></b><u></u></span><span class="ad"><i></i><b></b><u></u></span><span class="ad"><i></i><b></b><u></u></span><i class="beam"></i></div><div class="km"><span>Supervivencia · Kaplan–Meier</span><svg viewBox="0 0 120 70" preserveAspectRatio="none"><path class="ax" d="M6 4V64H118"/><path class="c2" d="M6 10H30V24H52V38H74V50H96V58H118"/><path class="c1" d="M6 8H40V12H62V18H84V22H118"/></svg><div class="rank"><span>#1<i style="width:92%"></i></span><span>#2<i style="width:74%"></i></span><span>#3<i style="width:58%"></i></span></div><span class="chp cy">20,491 anuncios · USD 25.53</span></div></div></div><figcaption>Vista ilustrativa · captura pendiente</figcaption></figure><h3 id="t-ad-intelligence">Radar de nichos: inteligencia de anuncios con IA</h3><p class="sum">Recolecta anuncios públicos por nicho y país, extrae señales con OCR, CLIP y Whisper, las etiqueta con LLMs y rankea los anuncios ganadores con un score de supervivencia.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Python 3.13</li><li class="chipx">FastAPI</li><li class="chipx">Huey</li><li class="chipx">DuckDB</li><li class="chipx">Parquet</li></ul><div class="t-foot"><span class="chipx cy">Destacado</span></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Módulo de la plataforma de e-commerce</dd></div><div><dt>Rol</dt><dd>Arquitecto y desarrollador</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Recolecta anuncios públicos por nicho y país, extrae señales con OCR, CLIP y Whisper, las etiqueta con LLMs y rankea los anuncios ganadores con un score de supervivencia.</p><p class="det-h">Logros</p><ul class="hl"><li>Recolector paralelo de 20–30 workers: 923–1,717 anuncios por minuto frente a 68 en secuencial.</li><li>20,491 anuncios analizados por USD 25.53 y 62,581 frases agrupadas por USD 0.40.</li><li>Ranking por supervivencia Kaplan–Meier y transcripción en VMs spot (10 videos por USD 0.0048).</li><li>Arquitectura hexagonal, aislamiento multi-tenant y despliegue con backup y script de rollback.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Python 3.13</li><li class="chipx">FastAPI</li><li class="chipx">Huey</li><li class="chipx">DuckDB</li><li class="chipx">Parquet</li><li class="chipx">CLIP</li><li class="chipx">Whisper</li><li class="chipx">OCR</li><li class="chipx">OpenRouter</li><li class="chipx">GCP spot VMs</li><li class="chipx">ECharts</li></ul></div></details></article></li><li class="cell c7" id="p-construction-platform" data-area="engineering" data-featured="true"><article class="tile proj" aria-labelledby="t-construction-platform"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">04 · Ingeniería y ciencia de datos</span><span class="period">2026</span></div><figure class="shot" data-slot="construction-platform"><!-- slot: replace .scr with the real screenshot image (T7) --><div class="scr" aria-hidden="true"><div class="sbar"><i></i><i></i><i></i><span>compras · lectura de facturas</span></div><div class="sbody m-obra"><div class="doc"><b></b><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span class="qr"></span><i class="beam"></i></div><div class="fields"><span class="chp ok">XML UBL leído</span><span class="chp ok">RUC validado</span><span class="chp cy">Asignada a obra</span><div class="ev"><svg viewBox="0 0 120 54" preserveAspectRatio="none"><path class="pv" d="M4 50C30 48 50 36 70 22S104 6 116 4"/><path class="evl" d="M4 50C28 49 48 40 66 28S96 14 116 10"/></svg><span class="ev-l">Valor ganado · CPI · EAC</span></div></div></div></div><figcaption>Vista ilustrativa · captura pendiente</figcaption></figure><h3 id="t-construction-platform">Plataforma para una constructora: compras, presupuestos y licitaciones</h3><p class="sum">Plataforma interna y motores que cubren compras, presupuestos, expedientes de licitación y control de obras, más un asistente de IA para los ingenieros.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Python</li><li class="chipx">FastAPI</li><li class="chipx">SQLAlchemy</li><li class="chipx">PostgreSQL</li><li class="chipx">Alpine.js</li></ul><div class="t-foot"><span class="chipx cy">Destacado</span></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Contratista de construcción del norte del Perú</dd></div><div><dt>Rol</dt><dd>Ingeniero y desarrollador</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Plataforma interna y motores que cubren compras, presupuestos, expedientes de licitación y control de obras, más un asistente de IA para los ingenieros.</p><p class="det-h">Logros</p><ul class="hl"><li>Plataforma interna con proveedores validados contra un padrón de 18.5M de RUC, solicitudes de cotización, comparativo de precios y 13 plantillas corporativas.</li><li>Lectura de facturas de compra: XML UBL, QR, texto y extracción con LLM, con asignación automática a obras (63 casos cubiertos).</li><li>Motor de APU y metrados con predictor jerárquico: 13.8% de error mediano en conjuntos ciegos, sobre un corpus de 888 obras públicas.</li><li>Portal de obras con valor ganado (CPI, EAC) y expediente de calidad; más de 10 cotizaciones en dos semanas, de hasta S/ 237k, leyendo planos DWG/DXF.</li><li>Asistente de WhatsApp para los ingenieros con reglas fuera del modelo, notas de voz y tareas en sandbox.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Python</li><li class="chipx">FastAPI</li><li class="chipx">SQLAlchemy</li><li class="chipx">PostgreSQL</li><li class="chipx">Alpine.js</li><li class="chipx">LibreOffice headless</li><li class="chipx">ezdxf</li><li class="chipx">Playwright</li><li class="chipx">faster-whisper</li><li class="chipx">systemd</li><li class="chipx">Cloudflare Tunnel</li></ul></div></details></article></li><li class="cell c6" id="p-road-intelligence" data-area="engineering" data-featured="true"><article class="tile proj" aria-labelledby="t-road-intelligence"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">05 · Ingeniería y ciencia de datos</span><span class="period">2026</span></div><figure class="shot" data-slot="road-intelligence"><!-- slot: replace .scr with the real screenshot image (T7) --><div class="scr" aria-hidden="true"><div class="sbar"><i></i><i></i><i></i><span>tránsito · red nacional</span></div><div class="sbody m-vial"><svg viewBox="0 0 320 170" preserveAspectRatio="xMidYMid meet"><path class="land" d="M30 8L120 4L170 40L210 92L240 160L60 166L40 120L18 70Z"/><path class="rd" d="M40 18L62 52L90 88L118 118L150 150M62 52L120 46L170 60M90 88L150 86L196 100M118 118L170 124M120 46L150 86L170 124"/><path class="rdp" d="M40 18L62 52L90 88L118 118L150 150"/><path class="rdp b" d="M62 52L120 46L150 86L170 124"/><path class="rdp c" d="M90 88L150 86L196 100"/><circle class="ct" cx="40" cy="18" r="4"/><circle class="ct" cx="62" cy="52" r="4"/><circle class="ct" cx="90" cy="88" r="4"/><circle class="ct" cx="118" cy="118" r="4"/><circle class="ct" cx="150" cy="150" r="4"/><circle class="ct" cx="120" cy="46" r="4"/><circle class="ct" cx="170" cy="60" r="4"/><circle class="ct" cx="150" cy="86" r="4"/><circle class="ct" cx="196" cy="100" r="4"/><circle class="ct" cx="170" cy="124" r="4"/><text class="sv-t" x="10" y="160">143k km · 253 zonas · 73 peajes</text></svg><div class="ovl err"><span>Error en tiempos típicos</span><span class="r"><span>antes</span><i></i><span>55.6%</span></span><span class="r af"><span>ahora</span><i></i><span>13.0%</span></span></div></div></div><figcaption>Vista ilustrativa · captura pendiente</figcaption></figure><h3 id="t-road-intelligence">Inteligencia vial para el Perú</h3><p class="sum">Tránsito, pavimentos, corredores urbanos y costos de obras viales sobre datos abiertos, con un diseño modular por país.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Python</li><li class="chipx">FastAPI</li><li class="chipx">OSMnx</li><li class="chipx">AequilibraE</li><li class="chipx">scikit-learn</li></ul><div class="t-foot"><span class="chipx cy">Destacado</span></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Proyecto propio</dd></div><div><dt>Rol</dt><dd>Ingeniero y desarrollador</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Tránsito, pavimentos, corredores urbanos y costos de obras viales sobre datos abiertos, con un diseño modular por país.</p><p class="det-h">Logros</p><ul class="hl"><li>Dimensionamiento de mercado con datos abiertos de contrataciones públicas: la consultoría vial mueve ≈ S/ 450M al año.</li><li>Modelo de tránsito nacional (143k km de red, 253 zonas, ODME contra 73 peajes): error en tiempos típicos de 55.6% a 13.0%.</li><li>Corredores urbanos de 12 ciudades calibrados con un MAPE fuera de muestra de 6.6% por tipo de día.</li><li>Motor de costos y soluciones con backtesting sobre expedientes reales y reglas pre-registradas; motor normativo con 355 pruebas.</li><li>Visor web 3D y documentos técnicos DOCX generados automáticamente.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Python</li><li class="chipx">FastAPI</li><li class="chipx">OSMnx</li><li class="chipx">AequilibraE</li><li class="chipx">scikit-learn</li><li class="chipx">MapLibre</li><li class="chipx">Chart.js</li><li class="chipx">python-docx</li><li class="chipx">pytest</li></ul></div></details></article></li><li class="cell c6" id="p-flood-warning" data-area="engineering" data-featured="true"><article class="tile proj on-dark" aria-labelledby="t-flood-warning"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">06 · Ingeniería y ciencia de datos</span><span class="period">2026</span></div><figure class="shot" data-slot="flood-warning"><!-- slot: replace .scr with the real screenshot image (T7) --><div class="scr" aria-hidden="true"><div class="sbar"><i></i><i></i><i></i><span>alerta · cuenca piloto</span></div><div class="sbody m-alerta"><svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet"><g class="rain"><rect x="14" y="0" width="9" height="6"/><rect x="29" y="0" width="9" height="10"/><rect x="44" y="0" width="9" height="18"/><rect x="59" y="0" width="9" height="28"/><rect x="74" y="0" width="9" height="36"/><rect x="89" y="0" width="9" height="30"/><rect x="104" y="0" width="9" height="40"/><rect x="119" y="0" width="9" height="24"/><rect x="134" y="0" width="9" height="14"/><rect x="149" y="0" width="9" height="10"/><rect x="164" y="0" width="9" height="6"/><rect x="179" y="0" width="9" height="4"/><rect x="194" y="0" width="9" height="3"/><rect x="209" y="0" width="9" height="2"/><rect x="224" y="0" width="9" height="2"/><rect x="239" y="0" width="9" height="1"/><rect x="254" y="0" width="9" height="1"/><rect x="269" y="0" width="9" height="1"/><rect x="284" y="0" width="9" height="1"/><rect x="299" y="0" width="9" height="1"/></g><path class="qa" d="M8 140C60 138 100 132 130 104S170 48 190 50S230 96 260 116S300 134 314 136V146H8Z"/><path class="q" d="M8 140C60 138 100 132 130 104S170 48 190 50S230 96 260 116S300 134 314 136"/><path class="thr" d="M8 72H314"/><text class="sv-t" x="232" y="66">umbral Gumbel</text><circle class="pk" cx="190" cy="50" r="3.5"/><circle class="ring" cx="190" cy="50" r="6"/></svg><div class="ovl" style="left:10px;bottom:8px"><span class="chp hot">Alerta · puente sobre umbral</span><span class="chp">NSE 0.793</span></div></div></div><figcaption>Vista ilustrativa · captura pendiente</figcaption></figure><h3 id="t-flood-warning">Alerta temprana de inundaciones y huaicos</h3><p class="sum">Sistema de alerta temprana basado en impactos para el Perú, desde la lluvia pronosticada hasta umbrales en puentes y tramos de río.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Python</li><li class="chipx">PyTorch</li><li class="chipx">ECMWF ENS</li><li class="chipx">GloFAS</li><li class="chipx">PISCO</li></ul><div class="t-foot"><span class="chipx cy">Destacado</span></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Proyecto propio, piloto en Piura</dd></div><div><dt>Rol</dt><dd>Ingeniero y científico de datos</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Sistema de alerta temprana basado en impactos para el Perú, desde la lluvia pronosticada hasta umbrales en puentes y tramos de río.</p><p class="det-h">Logros</p><ul class="hl"><li>Pipeline lluvia por ensamble → caudal con LSTM → umbrales de Gumbel en 6 puentes: NSE 0.793 frente a 0.597 de la línea base y Brier skill 0.60.</li><li>Corrida nacional sobre 25,290 tramos de río con control de calidad automático.</li><li>Validación honesta: la regla clásica de 20 mm no tenía skill (POD 0.03–0.16); el nuevo modelo de huaicos logró TSS 0.81 en un set 2025–26 bloqueado.</li><li>LSTM regional sobre 136 cuencas con ruteo (KGE de 0.17 a 0.52) y visor web público.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Python</li><li class="chipx">PyTorch</li><li class="chipx">ECMWF ENS</li><li class="chipx">GloFAS</li><li class="chipx">PISCO</li><li class="chipx">CHIRPS</li><li class="chipx">HydroBASINS</li><li class="chipx">FastAPI</li></ul></div></details></article></li><li class="cell c6" id="p-meeting-copilot" data-area="ai" data-featured="true"><article class="tile proj on-dark" aria-labelledby="t-meeting-copilot"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">07 · IA y agentes</span><span class="period">2026</span></div><figure class="shot" data-slot="meeting-copilot"><!-- slot: replace .scr with the real screenshot image (T7) --><div class="scr" aria-hidden="true"><div class="sbar"><i></i><i></i><i></i><span>copiloto · reunión en vivo</span></div><div class="sbody m-voz"><div class="row"><span class="chp onair">En vivo · 01:12:40</span><span class="chp">RTF 0.18 · CPU</span></div><div class="eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="tl"><q>¿Quién aprueba el presupuesto final?</q><span class="chp cy">Pregunta abierta</span></div><div class="tl"><q>Entonces volvemos al proveedor anterior.</q><span class="chp hot">Conflicto con una decisión previa</span></div></div></div><figcaption>Vista ilustrativa · captura pendiente</figcaption></figure><h3 id="t-meeting-copilot">Copiloto de reuniones con reconocimiento de voz local</h3><p class="sum">Escucha la reunión en vivo, transcribe en la CPU y marca preguntas abiertas y conflictos con decisiones previas. Productizado con cuentas, suscripciones y un cliente MCP.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Python</li><li class="chipx">FastAPI</li><li class="chipx">ONNX Runtime</li><li class="chipx">sherpa-onnx</li><li class="chipx">Silero VAD</li></ul><div class="t-foot"><span class="chipx cy">Destacado</span></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Producto propio</dd></div><div><dt>Rol</dt><dd>Autor y arquitecto</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Escucha la reunión en vivo, transcribe en la CPU y marca preguntas abiertas y conflictos con decisiones previas. Productizado con cuentas, suscripciones y un cliente MCP.</p><p class="det-h">Logros</p><ul class="hl"><li>ASR en streaming en CPU con factor de tiempo real de 0.18–0.21, validado en una reunión real de 2 h 23 min.</li><li>Detectó y corrigió un use-after-free en el detector de voz que corrompía el 5.5% de las marcas de tiempo.</li><li>Tres lentes: búsqueda semántica, preguntas sugeridas y conflictos contra un registro de 22 decisiones; benchmark de 7 modelos.</li><li>Login con Google, tokens de API guardados solo como hash, suscripciones y cliente MCP público; de 150 a 652 pruebas sin warnings.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Python</li><li class="chipx">FastAPI</li><li class="chipx">ONNX Runtime</li><li class="chipx">sherpa-onnx</li><li class="chipx">Silero VAD</li><li class="chipx">e5 embeddings</li><li class="chipx">SQLite</li><li class="chipx">MCP</li><li class="chipx">Playwright</li></ul></div></details></article></li><li class="cell c6" id="p-agent-cockpit" data-area="ai" data-featured="true"><article class="tile proj" aria-labelledby="t-agent-cockpit"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">08 · IA y agentes</span><span class="period">2025 – hoy</span></div><figure class="shot" data-slot="agent-cockpit"><!-- slot: replace .scr with the real screenshot image (T7) --><div class="scr" aria-hidden="true"><div class="sbar"><i></i><i></i><i></i><span>cockpit · sesión remota</span></div><div class="sbody m-cockpit"><div class="ph"><span class="c">pnpm test</span><span class="g">✓ servidor 889</span><span class="g">✓ móvil 1,530</span><span class="g">✓ protocolo 231</span><span class="c">git status<i class="caret"></i></span></div><div class="side-c"><div class="appr"><span>El agente pide permiso</span><code>git push origin feat</code><span class="bt"><span>Aprobar</span><span>Rechazar</span></span></div><span class="chp cy">E2E · Noise IKpsk2</span><span class="chp ok">Emparejado por QR</span></div></div></div><figcaption>Vista ilustrativa · captura pendiente</figcaption></figure><h3 id="t-agent-cockpit">Cockpit móvil para agentes de código (open source)</h3><p class="sum">Terminal y chat móvil para dirigir agentes de código que corren en tu propia computadora: transcripciones, aprobación de herramientas, notificaciones y relay cifrado.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">TypeScript</li><li class="chipx">React</li><li class="chipx">Expo</li><li class="chipx">React Native</li><li class="chipx">Vite</li></ul><div class="t-foot"><span class="chipx cy">Destacado</span></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Proyecto open source propio</dd></div><div><dt>Rol</dt><dd>Autor y arquitecto</dd></div><div><dt>Periodo</dt><dd>2025 – hoy</dd></div></dl><p class="muted">Terminal y chat móvil para dirigir agentes de código que corren en tu propia computadora: transcripciones, aprobación de herramientas, notificaciones y relay cifrado.</p><p class="det-h">Logros</p><ul class="hl"><li>Monorepo con protocolo compartido validado con zod, daemon con WebSocket y tmux, PWA y app nativa con Expo.</li><li>Emparejamiento por QR con cifrado de extremo a extremo (Noise IKpsk2) y relay en contenedor con push autoalojado.</li><li>Panel de git, PRs y CI, diagnóstico del host, temas y layout adaptable para tablet y escritorio.</li><li>Más de 2,600 pruebas entre paquetes (servidor 889, móvil 1,530, protocolo 231).</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">TypeScript</li><li class="chipx">React</li><li class="chipx">Expo</li><li class="chipx">React Native</li><li class="chipx">Vite</li><li class="chipx">xterm.js</li><li class="chipx">node-pty</li><li class="chipx">WebSocket</li><li class="chipx">Noise protocol</li><li class="chipx">Docker</li><li class="chipx">nginx</li><li class="chipx">Playwright</li></ul></div></details></article></li><li class="cell c4" id="p-stamp-platform" data-area="software" data-featured="false"><article class="tile proj" aria-labelledby="t-stamp-platform"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">09 · Plataformas y SaaS</span><span class="period">2026</span></div><div class="t-top"><span class="t-ic" aria-hidden="true"><svg class="icon"><use href="#i-layers"/></svg></span></div><h3 id="t-stamp-platform">Plataforma y marketplace para coleccionistas de estampillas</h3><p class="sum">Catálogo de ~147k estampillas, subastas en tiempo real, cuentas de coleccionista y enriquecimiento con IA, todo en el edge.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Next.js 16</li><li class="chipx">Cloudflare Workers</li><li class="chipx">D1</li><li class="chipx">R2</li></ul><div class="t-foot"></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Proyecto propio</dd></div><div><dt>Rol</dt><dd>Desarrollador full stack</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Catálogo de ~147k estampillas, subastas en tiempo real, cuentas de coleccionista y enriquecimiento con IA, todo en el edge.</p><p class="det-h">Logros</p><ul class="hl"><li>Catálogo de 10k a ~147.5k estampillas con un scraper en dos fases: persistencia de 0% a 95.4% y cobertura de imágenes de 97.6%.</li><li>Subastas con pujas atómicas y concurrencia optimista; búsqueda e identificación por vectores.</li><li>Hardening de seguridad: se eliminó un endpoint SQL público y se corrigieron SSRF, suplantación de pujas y pre-secuestro de cuentas OAuth.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Next.js 16</li><li class="chipx">Cloudflare Workers</li><li class="chipx">D1</li><li class="chipx">R2</li><li class="chipx">Vectorize</li><li class="chipx">Workers AI</li><li class="chipx">Playwright</li><li class="chipx">Vitest</li><li class="chipx">n8n</li></ul></div></details></article></li><li class="cell c4" id="p-personal-finance" data-area="software" data-featured="false"><article class="tile proj" aria-labelledby="t-personal-finance"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">10 · Plataformas y SaaS</span><span class="period">2025 – hoy</span></div><div class="t-top"><span class="t-ic" aria-hidden="true"><svg class="icon"><use href="#i-layers"/></svg></span></div><h3 id="t-personal-finance">Motor de finanzas personales para agentes de IA</h3><p class="sum">Libro contable de línea de comandos que un agente de IA puede operar: importa correos bancarios y estados de cuenta, deduplica, clasifica y presupuesta.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Python</li><li class="chipx">SQLite</li><li class="chipx">openpyxl</li><li class="chipx">Gmail API</li></ul><div class="t-foot"></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Proyecto propio</dd></div><div><dt>Rol</dt><dd>Autor</dd></div><div><dt>Periodo</dt><dd>2025 – hoy</dd></div></dl><p class="muted">Libro contable de línea de comandos que un agente de IA puede operar: importa correos bancarios y estados de cuenta, deduplica, clasifica y presupuesta.</p><p class="det-h">Logros</p><ul class="hl"><li>Parsers de correos bancarios y estados de cuenta PDF/XLSX con deduplicación bidireccional.</li><li>Presupuesto por sobres semanales, clasificador softmax con guardas, patrimonio neto y tipo de cambio.</li><li>Dashboard local protegido (Origin, Sec-Fetch-Site, CSP y escritor único); 212 pruebas.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Python</li><li class="chipx">SQLite</li><li class="chipx">openpyxl</li><li class="chipx">Gmail API</li><li class="chipx">pytest</li><li class="chipx">uv</li></ul></div></details></article></li><li class="cell c4" id="p-personal-agent" data-area="ai" data-featured="false"><article class="tile proj on-dark" aria-labelledby="t-personal-agent"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">11 · IA y agentes</span><span class="period">2026</span></div><div class="t-top"><span class="t-ic" aria-hidden="true"><svg class="icon"><use href="#i-spark"/></svg></span></div><h3 id="t-personal-agent">Asistente personal de IA y automatizaciones</h3><p class="sum">Asistente en Telegram que corre como servicio, con skills propias, monitores programados y control de sesiones de agentes de código.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Python</li><li class="chipx">Telegram Bot API</li><li class="chipx">systemd</li><li class="chipx">cron</li></ul><div class="t-foot"></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Uso propio</dd></div><div><dt>Rol</dt><dd>Autor</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Asistente en Telegram que corre como servicio, con skills propias, monitores programados y control de sesiones de agentes de código.</p><p class="det-h">Logros</p><ul class="hl"><li>Skill que emite un comprobante tributario recurrente por automatización de navegador, con doble guarda (confirmación + token de un solo uso) tras un incidente real.</li><li>Supervisor de sesiones de agentes vía hooks y tmux; la primera versión salió con 182 pruebas.</li><li>Ruteo de modelos por costo y latencia con cadena de fallback, memoria persistente y un tope de 3 mensajes proactivos al día.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Python</li><li class="chipx">Telegram Bot API</li><li class="chipx">systemd</li><li class="chipx">cron</li><li class="chipx">tmux</li><li class="chipx">Chrome DevTools Protocol</li><li class="chipx">OpenRouter</li><li class="chipx">SQLite</li></ul></div></details></article></li><li class="cell c4" id="p-genmedia-mcp" data-area="ai" data-featured="false"><article class="tile proj" aria-labelledby="t-genmedia-mcp"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">12 · IA y agentes</span><span class="period">2026</span></div><div class="t-top"><span class="t-ic" aria-hidden="true"><svg class="icon"><use href="#i-spark"/></svg></span></div><h3 id="t-genmedia-mcp">Servidor MCP para generar imágenes y video con IA</h3><p class="sum">Servidor MCP que opera una app web de generación con IA mediante Chrome DevTools Protocol y que usan varios agentes.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Node.js</li><li class="chipx">Playwright</li><li class="chipx">Chrome DevTools Protocol</li><li class="chipx">MCP</li></ul><div class="t-foot"></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Fork local de un proyecto open source</dd></div><div><dt>Rol</dt><dd>Mantenedor</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Servidor MCP que opera una app web de generación con IA mediante Chrome DevTools Protocol y que usan varios agentes.</p><p class="det-h">Logros</p><ul class="hl"><li>Compilador de prompts de video y generación end-to-end verificada con una prueba pagada aprobada de antemano.</li><li>Reparación completa tras un cambio de interfaz: de 5 funciones operativas y 8 rotas a 18 y 0; 235 pruebas.</li><li>No se publicó upstream porque un mapa de selectores contenía datos personales.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Node.js</li><li class="chipx">Playwright</li><li class="chipx">Chrome DevTools Protocol</li><li class="chipx">MCP</li><li class="chipx">systemd</li><li class="chipx">Xvfb</li></ul></div></details></article></li><li class="cell c4" id="p-roblox-game" data-area="other" data-featured="false"><article class="tile proj" aria-labelledby="t-roblox-game"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">13 · Web, negocio y otros</span><span class="period">2026</span></div><div class="t-top"><span class="t-ic" aria-hidden="true"><svg class="icon"><use href="#i-globe"/></svg></span></div><h3 id="t-roblox-game">Juego de carreras con combate vehicular para Roblox</h3><p class="sum">Juego construido desde el código en Linux, con diseño de sistemas, economía y multijugador competitivo.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Luau</li><li class="chipx">Rojo</li><li class="chipx">Lune</li><li class="chipx">selene</li></ul><div class="t-foot"></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Proyecto propio, inspirado en un clásico del cine de culto</dd></div><div><dt>Rol</dt><dd>Diseñador y desarrollador</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Juego construido desde el código en Linux, con diseño de sistemas, economía y multijugador competitivo.</p><p class="det-h">Logros</p><ul class="hl"><li>Documento de diseño con 36 decisiones registradas, hoja de balance y economía.</li><li>12 fases: progresión, arsenal, historia, ranked, monetización, live ops, localización y accesibilidad.</li><li>Servidor autoritativo y 921 pruebas unitarias con lint, formato y tipos limpios.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Luau</li><li class="chipx">Rojo</li><li class="chipx">Lune</li><li class="chipx">selene</li><li class="chipx">StyLua</li><li class="chipx">luau-lsp</li><li class="chipx">Roblox Studio MCP</li></ul></div></details></article></li><li class="cell c4" id="p-exporter-web-bi" data-area="other" data-featured="false"><article class="tile proj" aria-labelledby="t-exporter-web-bi"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">14 · Web, negocio y otros</span><span class="period">2026</span></div><div class="t-top"><span class="t-ic" aria-hidden="true"><svg class="icon"><use href="#i-globe"/></svg></span></div><h3 id="t-exporter-web-bi">Web, BI y análisis de procesos para una exportadora</h3><p class="sum">Sitio corporativo B2B, dashboard ejecutivo y relevamiento de la operación de planta para especificar el módulo de producción.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Next.js</li><li class="chipx">Tailwind</li><li class="chipx">Framer Motion</li><li class="chipx">Python</li></ul><div class="t-foot"></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Exportadora peruana de productos marinos congelados</dd></div><div><dt>Rol</dt><dd>Desarrollador y analista</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Sitio corporativo B2B, dashboard ejecutivo y relevamiento de la operación de planta para especificar el módulo de producción.</p><p class="det-h">Logros</p><ul class="hl"><li>Sitio B2B guiado por datos: diagrama SVG interactivo de cortes, globo animado de rutas de exportación y catálogo con filtros.</li><li>Dashboard ejecutivo de 12 pestañas: ventas FOB, mercados, precios, inventario, rentabilidad, cuentas por cobrar y documentos de comercio exterior.</li><li>Ingeniería inversa de la operación en Excel (~306k fórmulas, Power Query y 991 líneas de VBA) y mapeo de procesos desde 10 audios transcritos (~60k palabras).</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Next.js</li><li class="chipx">Tailwind</li><li class="chipx">Framer Motion</li><li class="chipx">Python</li><li class="chipx">Streamlit</li><li class="chipx">pandas</li><li class="chipx">Plotly</li><li class="chipx">Power Query</li><li class="chipx">VBA</li><li class="chipx">Whisper</li></ul></div></details></article></li><li class="cell c4" id="p-company-website" data-area="other" data-featured="false"><article class="tile proj" aria-labelledby="t-company-website"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">15 · Web, negocio y otros</span><span class="period">2026</span></div><div class="t-top"><span class="t-ic" aria-hidden="true"><svg class="icon"><use href="#i-globe"/></svg></span></div><h3 id="t-company-website">Sitio corporativo bilingüe con SEO y medios generados con IA</h3><p class="sum">Sitio de marca y landing de cliente con posicionamiento en buscadores y en motores de IA.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">HTML</li><li class="chipx">CSS</li><li class="chipx">JavaScript</li><li class="chipx">JSON-LD</li></ul><div class="t-foot"></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Empresa peruana de software e IA</dd></div><div><dt>Rol</dt><dd>Desarrollador web</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Sitio de marca y landing de cliente con posicionamiento en buscadores y en motores de IA.</p><p class="det-h">Logros</p><ul class="hl"><li>Landing de cliente reconstruida desde mockups, con imágenes generadas por IA en WebP y logo vectorizado.</li><li>SEO de marca con JSON-LD, blog ES/EN (3 + 3 artículos) y video promocional de 26 s con marcado VideoObject.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">HTML</li><li class="chipx">CSS</li><li class="chipx">JavaScript</li><li class="chipx">JSON-LD</li><li class="chipx">ffmpeg</li><li class="chipx">Cloudflare Workers</li></ul></div></details></article></li><li class="cell c4" id="p-ad-tracker" data-area="other" data-featured="false"><article class="tile proj" aria-labelledby="t-ad-tracker"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">16 · Web, negocio y otros</span><span class="period">2026</span></div><div class="t-top"><span class="t-ic" aria-hidden="true"><svg class="icon"><use href="#i-globe"/></svg></span></div><h3 id="t-ad-tracker">Automatización de un tracker publicitario</h3><p class="sum">Llena el tracker de anuncios del cliente a partir de las hojas diarias del media buyer.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Google Apps Script</li><li class="chipx">Google Sheets</li><li class="chipx">Node.js tests</li></ul><div class="t-foot"></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Cliente de e-commerce en Perú</dd></div><div><dt>Rol</dt><dd>Desarrollador</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Llena el tracker de anuncios del cliente a partir de las hojas diarias del media buyer.</p><p class="det-h">Logros</p><ul class="hl"><li>Cruce por clave compuesta (código de video + día de entrega) y manejo de filas con varios códigos.</li><li>Núcleo puro testeable con I/O delgado: de 46 a 99 pruebas, y una demo cuyos resultados exactos se predijeron y verificaron en producción.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Google Apps Script</li><li class="chipx">Google Sheets</li><li class="chipx">Node.js tests</li></ul></div></details></article></li><li class="cell c4" id="p-finance-case" data-area="other" data-featured="false"><article class="tile proj" aria-labelledby="t-finance-case"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">17 · Web, negocio y otros</span><span class="period">2026</span></div><div class="t-top"><span class="t-ic" aria-hidden="true"><svg class="icon"><use href="#i-globe"/></svg></span></div><h3 id="t-finance-case">Caso de finanzas operativas: decisión de inversión de USD 100M</h3><p class="sum">Modelo financiero y dos tesis opuestas sobre una multinacional de artículos deportivos, construidos desde sus reportes anuales y trimestrales.</p><ul class="stack" aria-label="Tecnologías principales"><li class="chipx">Python</li><li class="chipx">openpyxl</li><li class="chipx">python-pptx</li><li class="chipx">python-docx</li></ul><div class="t-foot"></div><details class="det"><summary>Ver detalles</summary><div class="det-body"><dl class="facts"><div><dt>Contexto</dt><dd>Curso universitario</dd></div><div><dt>Rol</dt><dd>Analista y expositor</dd></div><div><dt>Periodo</dt><dd>2026</dd></div></dl><p class="muted">Modelo financiero y dos tesis opuestas sobre una multinacional de artículos deportivos, construidos desde sus reportes anuales y trimestrales.</p><p class="det-h">Logros</p><ul class="hl"><li>Modelo Excel formulado: historia FY19–FY26, proyección FY27, trampa de capital de trabajo y brecha entre flujo de caja libre y dividendos.</li><li>Dos tesis completas (mantener y comprar), cada una con deck de 14 diapositivas con gráficos nativos, guion y 26–27 preguntas de defensa.</li><li>Renderizador JSON → PPTX/DOCX con validador de contenido; detectó y corrigió una afirmación inexacta del propio caso.</li></ul><p class="det-h">Stack</p><ul class="stack"><li class="chipx">Python</li><li class="chipx">openpyxl</li><li class="chipx">python-pptx</li><li class="chipx">python-docx</li><li class="chipx">Excel</li></ul></div></details></article></li></ul>
+ </div>
+</section>
+
+<section class="sec" id="habilidades" aria-labelledby="sk-t">
+ <div class="wrap">
+  <div class="sec-head"><div><p class="tagline">Habilidades</p><h2 id="sk-t">Stack y <mark>dominio</mark>.</h2></div>
+   <p class="sec-lead">Herramientas agrupadas por capa, más el conocimiento de ingeniería civil, comercio exterior y finanzas que da contexto a cada sistema.</p></div>
+  <div class="bento"><div class="cell c4"><section class="tile" aria-labelledby="sk-0"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">01 · 9 herramientas</span></div><h3 id="sk-0">Frontend y móvil</h3><ul class="chips"><li class="chipx">TypeScript</li><li class="chipx">React 19</li><li class="chipx">Next.js 16</li><li class="chipx">Tailwind CSS 4</li><li class="chipx">Expo</li><li class="chipx">React Native</li><li class="chipx">Vite</li><li class="chipx">Alpine.js</li><li class="chipx">MapLibre</li></ul></section></div><div class="cell c4"><section class="tile" aria-labelledby="sk-1"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">02 · 10 herramientas</span></div><h3 id="sk-1">Backend y APIs</h3><ul class="chips"><li class="chipx">Node.js</li><li class="chipx">NestJS</li><li class="chipx">Fastify</li><li class="chipx">Express</li><li class="chipx">Python</li><li class="chipx">FastAPI</li><li class="chipx">WebSockets</li><li class="chipx">MCP</li><li class="chipx">BullMQ</li><li class="chipx">Google Apps Script</li></ul></section></div><div class="cell c4"><section class="tile" aria-labelledby="sk-2"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">03 · 10 herramientas</span></div><h3 id="sk-2">Datos</h3><ul class="chips"><li class="chipx">PostgreSQL</li><li class="chipx">SQLite</li><li class="chipx">Cloudflare D1</li><li class="chipx">Redis</li><li class="chipx">Drizzle</li><li class="chipx">SQLAlchemy</li><li class="chipx">DuckDB</li><li class="chipx">pandas</li><li class="chipx">Excel · Power Query · VBA</li><li class="chipx">Streamlit</li></ul><div class="mini bars" aria-hidden="true"><i style="height:30%"></i><i style="height:48%"></i><i style="height:40%"></i><i style="height:62%"></i><i style="height:55%"></i><i class=hi style="height:74%"></i><i style="height:66%"></i><i class=hi style="height:88%"></i><i style="height:70%"></i><i class=hi style="height:92%"></i><i style="height:80%"></i><i class=hi style="height:96%"></i></div></section></div><div class="cell c6"><section class="tile on-dark" aria-labelledby="sk-3"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">04 · 7 herramientas</span></div><h3 id="sk-3">IA y machine learning</h3><ul class="chips"><li class="chipx">Orquestación multiagente</li><li class="chipx">Extracción documental con LLM</li><li class="chipx">Voz a texto (Whisper, ONNX)</li><li class="chipx">Embeddings y búsqueda vectorial</li><li class="chipx">PyTorch</li><li class="chipx">scikit-learn</li><li class="chipx">Evaluación de modelos</li></ul><div class="eq" aria-hidden="true" style="height:40px"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></section></div><div class="cell c6"><section class="tile" aria-labelledby="sk-4"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">05 · 10 herramientas</span></div><h3 id="sk-4">Cloud y DevOps</h3><ul class="chips"><li class="chipx">Docker</li><li class="chipx">nginx</li><li class="chipx">GitHub Actions</li><li class="chipx">Cloudflare</li><li class="chipx">Vercel</li><li class="chipx">Google Cloud</li><li class="chipx">systemd</li><li class="chipx">Prometheus</li><li class="chipx">Grafana</li><li class="chipx">Linux</li></ul></section></div><div class="cell c4"><section class="tile" aria-labelledby="sk-5"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">06 · 6 herramientas</span></div><h3 id="sk-5">Calidad</h3><ul class="chips"><li class="chipx">TDD</li><li class="chipx">Vitest</li><li class="chipx">Jest</li><li class="chipx">pytest</li><li class="chipx">Playwright</li><li class="chipx">Revisión adversarial</li></ul><div class="tdd" aria-label="Ciclo TDD"><span class="chipx">rojo</span><span class="arrow" aria-hidden="true">→</span><span class="chipx">verde</span><span class="arrow" aria-hidden="true">→</span><span class="chipx">refactor</span></div></section></div><div class="cell c8"><section class="tile" aria-labelledby="sk-6"><span class="spot" aria-hidden="true"></span><div class="t-top"><span class="t-num">07 · 9 herramientas</span></div><h3 id="sk-6">Ingeniería y dominio</h3><ul class="chips"><li class="chipx">Presupuestos (APU y metrados)</li><li class="chipx">Contrataciones públicas</li><li class="chipx">Control de obras (valor ganado)</li><li class="chipx">Modelación de tránsito</li><li class="chipx">Hidrología y alerta temprana</li><li class="chipx">Comercio exterior</li><li class="chipx">Facturación electrónica</li><li class="chipx">Análisis financiero</li><li class="chipx">Diseño de juegos</li></ul></section></div></div>
+ </div>
+</section>
+
+<section class="sec mist" id="metodo" aria-labelledby="me-t">
+ <div class="wrap">
+  <div class="sec-head"><div><p class="tagline">Método</p><h2 id="me-t">Cómo <mark>trabajo</mark>.</h2></div>
+   <p class="sec-lead">Seis reglas que se repiten en todos los proyectos, del ERP en producción al modelo de alerta temprana.</p></div>
+  <ol class="bento"><li class="cell c4"><article class="tile" aria-labelledby="m-0"><span class="spot" aria-hidden="true"></span><span class="step-n" aria-hidden="true">01</span><h3 id="m-0">Especificación antes que código</h3><p class="muted">Cada feature grande arranca con un documento de specs que cita el pedido literal, tareas trazables y un log de decisiones.</p><span class="rail" aria-hidden="true"><i style="width:16%"></i></span></article></li><li class="cell c4"><article class="tile on-dark" aria-labelledby="m-1"><span class="spot" aria-hidden="true"></span><span class="step-n" aria-hidden="true">02</span><h3 id="m-1">Pruebas primero</h3><p class="muted">TDD estricto: rojo, verde, refactor. Suites que van de cientos a más de 13 mil pruebas, con gates antes de desplegar.</p><span class="rail" aria-hidden="true"><i style="width:33%"></i></span></article></li><li class="cell c4"><article class="tile" aria-labelledby="m-2"><span class="spot" aria-hidden="true"></span><span class="step-n" aria-hidden="true">03</span><h3 id="m-2">Revisión adversarial</h3><p class="muted">Revisión doble a ciegas y por lentes (riesgo, resiliencia, legibilidad, confiabilidad) sobre PRs chicos y encadenados.</p><span class="rail" aria-hidden="true"><i style="width:50%"></i></span></article></li><li class="cell c4"><article class="tile" aria-labelledby="m-3"><span class="spot" aria-hidden="true"></span><span class="step-n" aria-hidden="true">04</span><h3 id="m-3">Métricas honestas</h3><p class="muted">Sets de prueba bloqueados, backtests con reglas pre-registradas y reporte explícito de lo que todavía no funciona.</p><span class="rail" aria-hidden="true"><i style="width:66%"></i></span></article></li><li class="cell c4"><article class="tile" aria-labelledby="m-4"><span class="spot" aria-hidden="true"></span><span class="step-n" aria-hidden="true">05</span><h3 id="m-4">IA con costo controlado</h3><p class="muted">Ruteo de modelos por costo, latencia y calidad, libros de gasto y pruebas pagadas solo con aprobación.</p><span class="rail" aria-hidden="true"><i style="width:83%"></i></span></article></li><li class="cell c4"><article class="tile" aria-labelledby="m-5"><span class="spot" aria-hidden="true"></span><span class="step-n" aria-hidden="true">06</span><h3 id="m-5">Seguridad por diseño</h3><p class="muted">Guardas para acciones irreversibles, cifrado de extremo a extremo, sandboxing de agentes e higiene de datos personales.</p><span class="rail" aria-hidden="true"><i style="width:100%"></i></span></article></li></ol>
+ </div>
+</section>
+
+<section class="sec" id="experiencia" aria-labelledby="ex-t">
+ <div class="wrap">
+  <div class="sec-head"><div><p class="tagline">Experiencia</p><h2 id="ex-t">Dónde he <mark>trabajado</mark>.</h2></div>
+   <p class="sec-lead">Roles de liderazgo técnico en producto y trabajo independiente en ingeniería aplicada.</p></div>
+  <ul class="bento"><li class="cell c4"><article class="tile exp on-dark" aria-labelledby="x-0"><span class="spot" aria-hidden="true"></span><span class="chipx cy period">2024 – hoy</span><h3 id="x-0">Tech lead y arquitecto de sistemas e IA</h3><p class="org">Empresa peruana de software e IA</p><p class="muted">Arquitectura y desarrollo de un ERP multi-tenant de trazabilidad y comercio exterior en producción, con automatización por agentes de IA.</p></article></li><li class="cell c4"><article class="tile exp" aria-labelledby="x-1"><span class="spot" aria-hidden="true"></span><span class="chipx cy period">2024 – 2025</span><h3 id="x-1">Lead full stack</h3><p class="org">Startup de e-commerce latinoamericana</p><p class="muted">Arquitectura frontend y backend de un CRM y ERP omnicanal con mensajería de WhatsApp y pasarelas de pago.</p></article></li><li class="cell c4"><article class="tile exp" aria-labelledby="x-2"><span class="spot" aria-hidden="true"></span><span class="chipx cy period">2025 – hoy</span><h3 id="x-2">Autor open source e ingeniería aplicada</h3><p class="org">Independiente</p><p class="muted">Herramientas para agentes de IA, software de ingeniería civil, modelos de tránsito e hidrología.</p></article></li>
+   <li class="cell c5"><section class="tile" aria-labelledby="ed-t"><span class="spot" aria-hidden="true"></span><p class="t-num">Formación e idiomas</p><h3 id="ed-t">Formación</h3><ul class="more-list"><li>Ingeniería Civil y Tecnologías de la Información — educación universitaria (Piura, Perú)</li></ul><h3>Idiomas</h3><ul class="more-list"><li>Español — nativo</li><li>Inglés — técnico profesional</li></ul></section></li>
+   <li class="cell c7"><section class="tile" aria-labelledby="mo-t"><span class="spot" aria-hidden="true"></span><p class="t-num">Además</p><h3 id="mo-t">Otros trabajos</h3><ul class="more-list"><li>Webhook que responde comentarios de Instagram y TikTok con verificación de firma HMAC.</li><li>Inventario fotográfico de campo con OCR y visión, convertido automáticamente en PDF y DOCX.</li><li>Diagnóstico de congelamientos de Linux hasta un bug del kernel y RAM defectuosa confirmada con Memtest86+.</li><li>Apps Android ARM en una tablet x86 con Waydroid, servidores de juego en Docker en la nube y CV en LaTeX.</li></ul></section></li>
+  </ul>
+ </div>
+</section>
+
+<section class="sec" id="contacto" aria-labelledby="ct-t" style="padding-top:0">
+ <div class="wrap">
+  <div class="bento"><div class="cell c12"><div class="tile cta on-dark"><span class="spot" aria-hidden="true"></span>
+   <svg class="cta-trace" viewBox="0 0 520 240" aria-hidden="true" focusable="false"><path class="trace" d="M520 40H400L352 88H240"/><circle class="trace-node" cx="235" cy="88" r="5"/><path class="trace" d="M520 150H430L390 190H300"/><circle class="trace-node" cx="295" cy="190" r="5"/><path class="trace-pulse" d="M520 40H400L352 88H240"/><path class="trace-pulse p2" d="M520 150H430L390 190H300"/></svg>
+   <p class="tagline">Contacto</p>
+   <h2 id="ct-t">¿Construimos algo <mark>juntos</mark>?</h2>
+   <p class="lead">Escríbeme con el contexto del proyecto: qué opera hoy, qué datos existen y qué resultado se necesita.</p>
+   <div class="cta-row"><a class="btn btn-cyan" href="mailto:rodrigopianto2005@gmail.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>rodrigopianto2005@gmail.com</a><a class="btn btn-ghost" href="https://github.com/R0DR0X" rel="me noopener"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>GitHub · R0DR0X</a></div>
+  </div></div></div>
+ </div>
+</section>
+</main>
+
+<footer class="site-footer on-dark">
+ <div class="wrap"><p>© 2026 Iván Rodrigo Pianto Antón · Actualizado 2026-11</p><p><a href="#inicio">Volver arriba</a></p></div>
+</footer>
+
+<dialog class="dlg" id="dlg" aria-labelledby="dlg-title">
+ <div class="dlg-in">
+  <div class="dlg-head"><div><p class="t-num dlg-tag"></p><h2 id="dlg-title"></h2></div><button type="button" class="ghost-btn dlg-close" aria-label="Cerrar detalles"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+  <div class="dlg-shot"></div>
+  <div class="dlg-body"></div>
+ </div>
+</dialog>
+<script>
+(function(){
+'use strict';
+var root=document.documentElement;
+var reduce=matchMedia('(prefers-reduced-motion: reduce)');
+var fine=matchMedia('(hover: hover) and (pointer: fine)');
+function paused(){return root.classList.contains('paused');}
+function motionOK(){return !reduce.matches && !paused();}
+function store(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+
+/* theme */
+var themeBtn=document.getElementById('theme-toggle');
+function syncTheme(){var d=root.dataset.theme==='dark';themeBtn.setAttribute('aria-label',d?'Cambiar a tema claro':'Cambiar a tema oscuro');}
+themeBtn.addEventListener('click',function(){var d=root.dataset.theme!=='dark';if(d)root.dataset.theme='dark';else delete root.dataset.theme;store('theme',d?'dark':'light');syncTheme();});
+syncTheme();
+
+/* motion pause */
+var motionBtn=document.getElementById('motion-toggle');
+var motionListeners=[];
+function syncMotion(){var p=paused();motionBtn.setAttribute('aria-pressed',String(p));motionBtn.setAttribute('aria-label',p?'Reanudar animaciones':'Pausar animaciones');motionBtn.querySelector('.mlabel').textContent=p?'Reanudar':'Pausar';}
+motionBtn.addEventListener('click',function(){root.classList.toggle('paused');store('motion',paused()?'paused':'on');syncMotion();motionListeners.forEach(function(f){f();});});
+syncMotion();
+
+/* mobile menu */
+var menuBtn=document.getElementById('menu-toggle'),nav=document.getElementById('nav');
+menuBtn.addEventListener('click',function(){var o=nav.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(o));menuBtn.setAttribute('aria-label',o?'Cerrar menú':'Abrir menú');});
+nav.addEventListener('click',function(e){if(e.target.closest('a')&&nav.classList.contains('open')){nav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Abrir menú');}});
+
+/* current section in nav */
+var navLinks=[].slice.call(nav.querySelectorAll('a'));
+if('IntersectionObserver' in window){
+ var secIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){navLinks.forEach(function(a){if(a.getAttribute('href')==='#'+e.target.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}});},{rootMargin:'-45% 0px -50% 0px'});
+ navLinks.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)secIO.observe(s);});
+}
+
+var cells=[].slice.call(document.querySelectorAll('.cell'));
+/* .live: loops run only while their tile is on screen */
+if('IntersectionObserver' in window){
+ var liveIO=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('live',e.isIntersecting);if(e.isIntersecting)e.target.dispatchEvent(new CustomEvent('cell:live'));});},{rootMargin:'60px 0px'});
+ cells.forEach(function(c){liveIO.observe(c);});
+}else{cells.forEach(function(c){c.classList.add('live');});}
+
+/* assembly fallback when scroll-driven animations are unsupported */
+var sda=window.CSS&&CSS.supports&&CSS.supports('animation-timeline: view()');
+if(!sda&&'IntersectionObserver' in window&&!reduce.matches){
+ root.classList.add('io');
+ [].slice.call(document.querySelectorAll('.bento')).forEach(function(b){[].slice.call(b.children).forEach(function(c,i){c.style.setProperty('--i',i%4);});});
+ var asmIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');asmIO.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+ cells.forEach(function(c){asmIO.observe(c);});
+}
+
+/* 3D tilt + pointer-following spotlight */
+function tiltOK(){return fine.matches&&motionOK()&&innerWidth>680;}
+[].slice.call(document.querySelectorAll('.tile')).forEach(function(t){
+ var raf=0,ev=null;
+ function frame(){raf=0;var r=t.getBoundingClientRect();var x=(ev.clientX-r.left)/r.width,y=(ev.clientY-r.top)/r.height;
+  t.style.setProperty('--mx',(x*100).toFixed(1)+'%');t.style.setProperty('--my',(y*100).toFixed(1)+'%');
+  if(!tiltOK()){t.style.setProperty('--rx','0deg');t.style.setProperty('--ry','0deg');return;}
+  var k=Math.min(1,460/r.width)*0.6+0.4;
+  t.classList.add('tilting');
+  t.style.setProperty('--rx',((.5-y)*9*k).toFixed(2)+'deg');t.style.setProperty('--ry',((x-.5)*11*k).toFixed(2)+'deg');}
+ t.addEventListener('pointermove',function(e){if(e.pointerType!=='mouse'&&e.pointerType!=='pen')return;ev=e;if(!raf)raf=requestAnimationFrame(frame);});
+ t.addEventListener('pointerleave',function(){if(raf){cancelAnimationFrame(raf);raf=0;}t.classList.remove('tilting');t.style.setProperty('--rx','0deg');t.style.setProperty('--ry','0deg');});
+});
+
+/* count-up stats */
+function countUp(el){
+ var fin=el.dataset.final,m=fin.match(/^([\d,.]+)(.*)$/);if(!m||!motionOK()){el.textContent=fin;return;}
+ var target=parseFloat(m[1].replace(/,/g,'')),suf=m[2],t0=performance.now(),dur=1500;
+ (function step(now){var p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,3);
+  if(p>=1||!motionOK()){el.textContent=fin;return;}
+  el.textContent=Math.round(target*e).toLocaleString('en-US')+suf;requestAnimationFrame(step);})(t0);
+}
+[].slice.call(document.querySelectorAll('.stat .num')).forEach(function(n){
+ var cell=n.closest('.cell'),done=false;
+ cell.addEventListener('cell:live',function(){if(done)return;done=true;countUp(n);});
+});
+motionListeners.push(function(){if(paused())[].slice.call(document.querySelectorAll('.stat .num')).forEach(function(n){n.textContent=n.dataset.final;});});
+
+/* terminal that types its commands */
+var pre=document.querySelector('.term-pre');
+if(pre){
+ var lines=[].slice.call(pre.querySelectorAll('.ln')).map(function(l){return{cls:l.className,text:l.textContent};});
+ var anim=document.createElement('div');anim.className='term-anim';anim.setAttribute('aria-hidden','true');
+ pre.after(anim);pre.classList.add('sr-only');
+ var token=0,started=false;
+ function line(l,txt){var s=document.createElement('span');s.className=l.cls;s.textContent=txt;anim.appendChild(s);return s;}
+ function caret(){var c=document.createElement('span');c.className='caret';anim.appendChild(c);return c;}
+ function finalState(){anim.textContent='';lines.forEach(function(l){line(l,l.text);});caret();}
+ function wait(ms,tk){return new Promise(function(res,rej){setTimeout(function(){tk===token?res():rej();},ms);});}
+ async function play(){
+  var tk=++token;
+  try{
+   while(true){
+    anim.textContent='';
+    for(var i=0;i<lines.length;i++){var l=lines[i];
+     if(l.cls.indexOf('cmd')>-1){var s=line(l,''),c=caret();
+      for(var j=1;j<=l.text.length;j++){s.textContent=l.text.slice(0,j);await wait(42+Math.random()*40,tk);}
+      await wait(260,tk);c.remove();
+     }else{line(l,l.text);await wait(120,tk);}
+    }
+    caret();await wait(9000,tk);
+   }
+  }catch(e){}
+ }
+ function startTerm(){if(motionOK()){play();}else{token++;finalState();}}
+ finalState();
+ pre.closest('.cell').addEventListener('cell:live',function(){if(started)return;started=true;startTerm();});
+ motionListeners.push(function(){if(paused()){token++;finalState();}else if(started){startTerm();}});
+}
+
+/* project filters */
+var list=document.getElementById('plist');
+if(list){
+ var pcells=[].slice.call(list.querySelectorAll('.cell')),total=pcells.length;
+ var bar=document.getElementById('filters'),chips=[].slice.call(bar.querySelectorAll('[data-area]')),feat=bar.querySelector('[data-featured]');
+ var count=document.getElementById('pcount'),empty=document.getElementById('pempty'),emptyMsg=document.getElementById('pempty-msg'),clearBtn=document.getElementById('pclear');
+ var state={area:'all',feat:false};
+ bar.hidden=false;
+ function areaName(a){var c=bar.querySelector('[data-area="'+a+'"]');return c?c.dataset.label:'';}
+ function apply(animate){
+  var shown=0;
+  pcells.forEach(function(c){var ok=(state.area==='all'||c.dataset.area===state.area)&&(!state.feat||c.dataset.featured==='true');
+   var was=!c.hidden;c.hidden=!ok;if(ok){shown++;if(animate&&!was&&motionOK()){var t=c.querySelector('.tile');t.classList.remove('pop');void t.offsetWidth;t.classList.add('pop');}}});
+  chips.forEach(function(ch){ch.setAttribute('aria-pressed',String(ch.dataset.area===state.area));
+   var a=ch.dataset.area,n=pcells.filter(function(c){return(a==='all'||c.dataset.area===a)&&(!state.feat||c.dataset.featured==='true');}).length;ch.querySelector('.n').textContent=n;});
+  feat.setAttribute('aria-pressed',String(state.feat));
+  var scope=(state.area==='all'?'todas las áreas':areaName(state.area))+(state.feat?' · solo destacados':'');
+  count.innerHTML='Mostrando <b>'+shown+'</b> de '+total+' proyectos · '+scope;
+  empty.hidden=shown>0;
+  if(!shown)emptyMsg.textContent='No hay proyectos destacados en «'+areaName(state.area)+'». Los filtros activos son: '+areaName(state.area)+' y Solo destacados.';
+  clearBtn.hidden=state.area==='all'&&!state.feat;
+ }
+ chips.forEach(function(ch){ch.addEventListener('click',function(){state.area=ch.dataset.area;apply(true);});});
+ feat.addEventListener('click',function(){state.feat=!state.feat;apply(true);});
+ function reset(){state.area='all';state.feat=false;apply(true);bar.querySelector('[data-area="all"]').focus();}
+ clearBtn.addEventListener('click',reset);
+ document.getElementById('preset').addEventListener('click',reset);
+ apply(false);
+}
+
+/* project details: dialog when JS is available, <details> otherwise */
+var dlg=document.getElementById('dlg');
+if(dlg&&typeof dlg.showModal==='function'){
+ var dTitle=document.getElementById('dlg-title'),dTag=dlg.querySelector('.dlg-tag'),dShot=dlg.querySelector('.dlg-shot'),dBody=dlg.querySelector('.dlg-body'),last=null;
+ function openFor(tile,trigger){
+  dTitle.textContent=tile.querySelector('h3').textContent;
+  dTag.textContent=tile.querySelector('.t-num').textContent+' · '+tile.querySelector('.period').textContent;
+  var shot=tile.querySelector('.shot');dShot.textContent='';if(shot){dShot.appendChild(shot.cloneNode(true));}
+  dBody.textContent='';dBody.appendChild(tile.querySelector('.det-body').cloneNode(true));
+  last=trigger;dlg.showModal();dlg.querySelector('.dlg-close').focus();
+ }
+ [].slice.call(document.querySelectorAll('.proj')).forEach(function(tile){
+  var det=tile.querySelector('.det');if(!det)return;
+  det.hidden=true;
+  var b=document.createElement('button');b.type='button';b.className='open';b.setAttribute('aria-haspopup','dialog');
+  b.innerHTML='Ver detalles<span class="sr-only"> de '+tile.querySelector('h3').textContent.replace(/[<>&]/g,'')+'</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>';
+  tile.querySelector('.t-foot').appendChild(b);
+  b.addEventListener('click',function(e){e.stopPropagation();openFor(tile,b);});
+  tile.addEventListener('click',function(e){if(e.target.closest('a,button,summary'))return;var s=window.getSelection&&String(getSelection());if(s)return;openFor(tile,b);});
+ });
+ dlg.querySelector('.dlg-close').addEventListener('click',function(){dlg.close();});
+ dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
+ dlg.addEventListener('close',function(){if(last)last.focus();});
+}
+})();
+
+</script>
+</body>
+</html>

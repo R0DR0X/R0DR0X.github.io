@@ -1,0 +1,11 @@
+{
+  "title": "Portafolio estilo Escorpia",
+  "brief": "Rediseño del portafolio personal con el lenguaje visual de escorpia.com, con 3D y animaciones de scroll; las capturas reales de los proyectos reemplazarán las maquetas",
+  "feature": "odd/tasks/portafolio-escorpia.md",
+  "artboards": [
+    { "file": "01-escorpia-fiel.html", "title": "Escorpia fiel", "tradeoff": "La más cercana a escorpia.com y la más segura; la menos sorprendente", "width": 1440, "height": 900 },
+    { "file": "02-orbita-3d.html", "title": "Órbita 3D", "tradeoff": "El mayor impacto visual y la más memorable; la más pesada para GPU y batería y la menos fácil de recorrer", "width": 1440, "height": 900 },
+    { "file": "03-historia-scroll.html", "title": "Historia en scroll", "tradeoff": "El mejor escenario para capturas reales y para contar cada proyecto; scroll largo, mitigado por el índice de capítulos", "width": 1440, "height": 900 },
+    { "file": "04-bento-vivo.html", "title": "Bento vivo", "tradeoff": "La más rápida de recorrer, todo visible de un vistazo; menos narrativa y más densa", "width": 1440, "height": 900 }
+  ]
+}
