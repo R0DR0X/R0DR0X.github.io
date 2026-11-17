@@ -19,7 +19,7 @@ import shutil
 from html import escape
 
 VARIANTS = {"laptop": (800, 1600), "phone": (400, 800)}
-SIZES = {"laptop": "(min-width: 62.5rem) 34rem, 92vw", "phone": "(min-width: 62.5rem) 10rem, 30vw"}
+SIZES = {"laptop": "(min-width: 62.5rem) 34rem, 92vw", "phone": "(min-width: 62.5rem) 10rem, (min-width: 30rem) 13.5rem, 45vw"}
 THUMB_SIZES = {"laptop": "(min-width: 62.5rem) 26rem, 92vw", "phone": "6.25rem"}
 
 

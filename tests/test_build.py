@@ -40,10 +40,18 @@ CV_HEADINGS = {
     "es": ["Perfil", "Experiencia", "Proyectos destacados", "Habilidades", "Educación", "Idiomas"],
     "en": ["Profile", "Experience", "Selected projects", "Skills", "Education", "Languages"],
 }
-# The owner's GitHub, plus the two public pages of the real projects (S5, L7).
-ALLOWED_HTTP_ANCHORS = {"https://github.com/R0DR0X", "https://escorpia.com/escorpia-traza/", "https://github.com/R0DR0X/freshia"}
-REAL_PRODUCTS = {"erp-traceability": "Escorpia Traza", "ecommerce-platform": "Win Comerce", "agent-cockpit": "freshia"}
+# The owner's GitHub, the two public pages of the real projects (S5, L7) and the
+# repository the WiinComerce CRM builds on (S18, L17).
+VOCERO_URL = "https://github.com/kevinrivm/vocero-crm"
+ALLOWED_HTTP_ANCHORS = {"https://github.com/R0DR0X", "https://escorpia.com/escorpia-traza/", "https://github.com/R0DR0X/freshia", VOCERO_URL}
+REAL_PRODUCTS = {"erp-traceability": "Escorpia Traza", "ecommerce-platform": "WiinComerce", "agent-cockpit": "freshia"}
+OLD_ECOMMERCE_NAME = "Win Comerce"
 PRODUCT_LINKS = {"erp-traceability": "https://escorpia.com/escorpia-traza/", "agent-cockpit": "https://github.com/R0DR0X/freshia"}
+CREDIT_LINKS = {"ecommerce-platform": VOCERO_URL}
+CREDIT_TEXT = {
+    "es": "El CRM parte de vocero-crm de Kevin Belier (licencia MIT).",
+    "en": "The CRM builds on vocero-crm by Kevin Belier (MIT license).",
+}
 # Rioplatense voseo forms that must never appear in the neutral "tú" Spanish copy.
 VOSEO = re.compile(
     r"(?i)\b(escribime|contame|mirá|tenés|querés|podés|sabés|hacé|vení|decime|buscá|elegí|vos)\b"
@@ -56,6 +64,21 @@ def run(args, env=None):
         [sys.executable, *map(str, args)],
         capture_output=True, text=True, env=env, timeout=600,
     )
+
+
+def media_blocks(css, head):
+    """Every `head{...}` block of css, braces balanced."""
+    blocks, start = [], css.find(head)
+    while start != -1:
+        i, depth = start + len(head), 0
+        while True:
+            depth += {"{": 1, "}": -1}.get(css[i], 0)
+            i += 1
+            if depth == 0 and css[i - 1] == "}":
+                break
+        blocks.append(css[start:i])
+        start = css.find(head, i)
+    return blocks
 
 
 def run_build(out, content=CONTENT, *extra, env=None):
@@ -484,7 +507,11 @@ class SiteBuildTest(unittest.TestCase):
     def test_device_layout_keeps_laptop_and_phone_apart(self):
         # S11/S14: the layout variables that place the devices: --sh moves the laptop
         # left and shrinks it beside the phone; --fr (freshia) sets the laptop back.
+        # These are the wide-screen rules (outside the narrow media query).
         css = "".join(re.findall(r"<style>(.*?)</style>", self.source(PAGES["es"]), re.S))
+        narrow = media_blocks(css, "@media (max-width:62.49rem)")
+        for block in narrow:
+            css = css.replace(block, "")
         for rule in (".has-phone{--ph:1;--sh:1}", ".ph-lead{--fr:1}"):
             self.assertTrue(rule in css, rule)
         lap = re.search(r"\.lap\{([^}]*)\}", css).group(1)
@@ -494,6 +521,65 @@ class SiteBuildTest(unittest.TestCase):
         phone = re.search(r"\.phone\{([^}]*)\}", css).group(1)
         self.assertIn("left:555px", phone)
         self.assertIn("scale(calc(1 + var(--fr,0) * .45))", phone)
+
+    def test_narrow_screens_stack_the_phone_above_a_full_laptop(self):
+        # S19 (L17): below the mobile breakpoint a chapter with a phone stacks it above
+        # the laptop, centered and larger; the laptop hinge moves down by the phone height
+        # plus a gap and keeps its full size (no --sh shrink, no --fr set-back), freshia too.
+        css = "".join(re.findall(r"<style>(.*?)</style>", self.source(PAGES["es"]), re.S))
+        narrow = "".join(media_blocks(css, "@media (max-width:62.49rem)"))
+        self.assertIn(".dev{--ps:min(2.5,calc(1.3 / var(--k)))}", narrow)
+        self.assertIn(".dev-cell:has(.has-phone){width:100%;max-width:36rem;margin-inline:auto}", narrow)
+        self.assertIn(".has-phone{--pt:32px;--gap:50px;--lt:calc(var(--pt) + 290px * var(--ps) + var(--gap) + 396px)}", narrow)
+        phone = re.search(r"\.has-phone \.phone\{([^}]*)\}", narrow).group(1)
+        # Centered on the 760 px design box (380 = half), sized by --ps, never shifted sideways.
+        for part in ("left:calc(380px - 71px * var(--ps))", "top:var(--pt)", "width:calc(142px * var(--ps))",
+                     "height:calc(290px * var(--ps))", "visibility:visible", "transform-origin:50% 0"):
+            self.assertIn(part, phone)
+        self.assertNotIn("translate", phone)
+        self.assertNotIn("scale", phone)
+        lap = re.search(r"\.has-phone \.lap\{([^}]*)\}", narrow).group(1)
+        self.assertIn("top:var(--lt)", lap)
+        self.assertIn("transform:rotateX(var(--pitch,-20deg)) rotateY(var(--yaw,-10deg))", lap)
+        for var in ("--sh", "--fr", "--ls"):
+            self.assertNotIn(var, lap)
+        self.assertIn(".dev.has-phone{height:calc((var(--lt) + 196px) * var(--k))}", narrow)
+        self.assertIn(".has-phone .dev-in{height:calc(var(--lt) + 196px)}", narrow)
+        # Chapters without a phone keep today's single laptop: no narrow rule targets a bare .lap or .phone.
+        self.assertIsNone(re.search(r"[{}]\.(lap|phone)\{", narrow))
+
+    def test_crm_module_credits_vocero_crm(self):
+        # S18 (L17): one credit line per page, in the WiinComerce WhatsApp CRM module.
+        for lang in ("es", "en"):
+            root = self.tree(lang)
+            links = [a for a in root.find_all("a") if a.attrs.get("href") == VOCERO_URL]
+            self.assertEqual(len(links), 1, lang)
+            link = links[0]
+            self.assertEqual(link.all_text(), "vocero-crm")
+            self.assertIn("noopener", (link.attrs.get("rel") or "").split())
+            node, path = link, []
+            while node is not None:
+                path.append(node)
+                node = node.parent
+            mods = [n for n in path if n.tag == "li" and "mod" in n.classes]
+            self.assertEqual(len(mods), 1, lang)
+            self.assertEqual(mods[0].attrs.get("data-area"), "crm")
+            self.assertTrue(any(n.tag == "article" and n.attrs.get("id") == "case-ecommerce-platform" for n in path))
+            credit = link.parent
+            self.assertIn("mod-credit", credit.classes)
+            self.assertEqual(" ".join(credit.all_text().split()), CREDIT_TEXT[lang])
+
+    def test_ecommerce_product_is_named_wiincomerce(self):
+        # S17 (L17): the old spelling is gone from the pages, the content and the screenshot manifest.
+        for lang in ("es", "en"):
+            source = self.source(PAGES[lang])
+            self.assertNotIn(OLD_ECOMMERCE_NAME, source)
+            self.assertIn("WiinComerce", source)
+        self.assertNotIn(OLD_ECOMMERCE_NAME, CONTENT.read_text(encoding="utf-8"))
+        for kind in ("real", "mock"):
+            path = ROOT / "assets" / "img" / kind / "manifest.json"
+            if path.is_file():
+                self.assertNotIn(OLD_ECOMMERCE_NAME, path.read_text(encoding="utf-8"), kind)
 
     def test_freshia_laptop_shows_only_a_terminal(self):
         # S14: the phone leads; the laptop screen is an HTML terminal, never an image.
@@ -594,7 +680,8 @@ class SiteBuildTest(unittest.TestCase):
                 else:
                     self.assertEqual(article.find_all(cls="prod"), [], project["id"])
                 external = [h for h in links if h and h.startswith("https://")]
-                self.assertEqual(external, [PRODUCT_LINKS[project["id"]]] if project["id"] in PRODUCT_LINKS else [], project["id"])
+                expected = [m[project["id"]] for m in (PRODUCT_LINKS, CREDIT_LINKS) if project["id"] in m]
+                self.assertEqual(external, expected, project["id"])
             cards = root.find_all("section", id="projects")[0]
             for pid, name in REAL_PRODUCTS.items():
                 card = [c for c in cards.find_all("li") if c.find_all("a", href=f"#case-{pid}")][0]

@@ -80,11 +80,11 @@
       "width": 1600,
       "height": 1000,
       "alt": {
-        "es": "Investigar en Win Comerce: buscador de anuncios de Meta por producto o problema, novedades de los competidores que se siguen y la carpeta de anuncios guardados.",
-        "en": "Research in Win Comerce: Meta ad search by product or problem, news from followed competitors and the saved-ads folder."
+        "es": "Investigar en WiinComerce: buscador de anuncios de Meta por producto o problema, novedades de los competidores que se siguen y la carpeta de anuncios guardados.",
+        "en": "Research in WiinComerce: Meta ad search by product or problem, news from followed competitors and the saved-ads folder."
       },
       "area": "anuncios",
-      "source": "Win Comerce: video-pipeline/compositor/public/motion/investigar/inicio.png"
+      "source": "WiinComerce: video-pipeline/compositor/public/motion/investigar/inicio.png"
     },
     {
       "file": "ecommerce-platform-02-carpeta",
@@ -92,11 +92,11 @@
       "width": 1600,
       "height": 1000,
       "alt": {
-        "es": "Mi carpeta en Win Comerce: anuncios guardados y ordenados en columnas Para probar, Probando, Ganador y Descartado, con notas y selección para un brief.",
-        "en": "My folder in Win Comerce: saved ads organized in To test, Testing, Winner and Discarded columns, with notes and selection for a brief."
+        "es": "Mi carpeta en WiinComerce: anuncios guardados y ordenados en columnas Para probar, Probando, Ganador y Descartado, con notas y selección para un brief.",
+        "en": "My folder in WiinComerce: saved ads organized in To test, Testing, Winner and Discarded columns, with notes and selection for a brief."
       },
       "area": "anuncios",
-      "source": "Win Comerce: video-pipeline/compositor/public/motion/investigar/carpeta.png"
+      "source": "WiinComerce: video-pipeline/compositor/public/motion/investigar/carpeta.png"
     },
     {
       "file": "ecommerce-platform-03-replicar",
@@ -104,11 +104,11 @@
       "width": 1600,
       "height": 1000,
       "alt": {
-        "es": "Usar en Anuncios en Win Comerce: toma el argumento y el gancho de un anuncio ganador, los adapta a un producto propio y muestra los pedidos atribuidos a anuncios.",
-        "en": "Use in Ads in Win Comerce: takes the angle and hook of a winning ad, adapts them to one of your products and shows the orders attributed to ads."
+        "es": "Usar en Anuncios en WiinComerce: toma el argumento y el gancho de un anuncio ganador, los adapta a un producto propio y muestra los pedidos atribuidos a anuncios.",
+        "en": "Use in Ads in WiinComerce: takes the angle and hook of a winning ad, adapts them to one of your products and shows the orders attributed to ads."
       },
       "area": "videos",
-      "source": "Win Comerce: video-pipeline/compositor/public/motion/investigar/usar.png"
+      "source": "WiinComerce: video-pipeline/compositor/public/motion/investigar/usar.png"
     },
     {
       "file": "ecommerce-platform-04-meta",
@@ -116,11 +116,11 @@
       "width": 1600,
       "height": 1000,
       "alt": {
-        "es": "Anuncios en Win Comerce: asistente de carga a Meta Ads en ocho pasos (cuenta, campaña, ad set, producto, copies, creativos, destino y lanzamiento) con copies por IA, campañas y reglas.",
-        "en": "Ads in Win Comerce: an eight-step Meta Ads upload wizard (account, campaign, ad set, product, copies, creatives, destination and launch) with AI copies, campaigns and rules."
+        "es": "Anuncios en WiinComerce: asistente de carga a Meta Ads en ocho pasos (cuenta, campaña, ad set, producto, copies, creativos, destino y lanzamiento) con copies por IA, campañas y reglas.",
+        "en": "Ads in WiinComerce: an eight-step Meta Ads upload wizard (account, campaign, ad set, product, copies, creatives, destination and launch) with AI copies, campaigns and rules."
       },
       "area": "meta",
-      "source": "Win Comerce: task-11-anuncios-precargado.png"
+      "source": "WiinComerce: task-11-anuncios-precargado.png"
     },
     {
       "file": "ecommerce-platform-05-crm",
@@ -128,11 +128,11 @@
       "width": 1600,
       "height": 1000,
       "alt": {
-        "es": "CRM de WhatsApp de Win Comerce: bandeja con conversaciones etiquetadas por temperatura del lead, respuesta del agente de IA y panel de seguimiento del contacto (datos de prueba).",
-        "en": "Win Comerce WhatsApp CRM: inbox with conversations tagged by lead temperature, the AI agent's reply and the contact follow-up panel (test data)."
+        "es": "CRM de WhatsApp de WiinComerce: bandeja con conversaciones etiquetadas por temperatura del lead, respuesta del agente de IA y panel de seguimiento del contacto (datos de prueba).",
+        "en": "WiinComerce WhatsApp CRM: inbox with conversations tagged by lead temperature, the AI agent's reply and the contact follow-up panel (test data)."
       },
       "area": "crm",
-      "source": "Win Comerce: WhatsApp CRM composer capture"
+      "source": "WiinComerce: WhatsApp CRM composer capture"
     },
     {
       "file": "ecommerce-platform-06-asistente",
@@ -140,11 +140,11 @@
       "width": 800,
       "height": 1600,
       "alt": {
-        "es": "Asistente de IA de Meta Ads de Win Comerce en el teléfono: espiar anuncios ganadores, analizar ángulos de la competencia y validar productos contra entrega.",
-        "en": "Win Comerce Meta Ads AI assistant on a phone: spy on winning ads, analyze competitor angles and validate cash-on-delivery products."
+        "es": "Asistente de IA de Meta Ads de WiinComerce en el teléfono: espiar anuncios ganadores, analizar ángulos de la competencia y validar productos contra entrega.",
+        "en": "WiinComerce Meta Ads AI assistant on a phone: spy on winning ads, analyze competitor angles and validate cash-on-delivery products."
       },
       "area": "meta",
-      "source": "Win Comerce: movil-390.png"
+      "source": "WiinComerce: movil-390.png"
     }
   ],
   "agent-cockpit": [

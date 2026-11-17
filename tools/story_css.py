@@ -65,6 +65,7 @@ STORY_CSS = """
 .mod .sv{padding:.5rem .75rem;border-left:3px solid var(--primary);border-radius:0 8px 8px 0;background:rgba(0,212,255,.08)}
 .mod .sv dt{color:var(--primary-light)}
 .mod .sv dd{color:var(--white);font-weight:600}
+.mod-credit{margin:.75rem 0 0;font-size:.8125rem;line-height:1.5;color:var(--text-soft)}
 .mod-shot{margin:0 0 .75rem;overflow:hidden;border:1px solid var(--hair-dark);border-radius:10px;background:#02050b}
 .mod-shot img{width:100%;height:auto}
 .mod-shot.ph{float:right;width:6.25rem;margin:0 0 .5rem .75rem;border-radius:14px}
@@ -153,6 +154,27 @@ STORY_CSS = """
 @media (max-width:23.75rem){.dev{--k:.42}}
 @media (max-width:62.49rem){.chapter{grid-template-columns:minmax(0,1fr);gap:1.75rem}.dev-cell{order:-1;position:static}}
 @media (max-width:40rem){.chapter{padding:3rem 0}}
+/* S19: narrow screens stack each chapter's phone above its laptop, centered and larger (--ps). The phone gets a
+   real width and height instead of scale() so its screenshot rasterizes sharp; on tablets the phone and the cell
+   width are capped so the stack stays compact. The laptop hinge (--lt) moves down by the phone height plus a gap
+   and the laptop keeps its full size, freshia too. Design units: phone 142x290, laptop lid 396 above its hinge,
+   base 196 below it. */
+@media (max-width:62.49rem){
+ .dev{--ps:min(2.5,calc(1.3 / var(--k)))}
+ .dev-cell:has(.has-phone){width:100%;max-width:36rem;margin-inline:auto}
+ .has-phone{--pt:32px;--gap:50px;--lt:calc(var(--pt) + 290px * var(--ps) + var(--gap) + 396px)}
+ .dev.has-phone{height:calc((var(--lt) + 196px) * var(--k))}
+ .has-phone .dev-in{height:calc(var(--lt) + 196px)}
+ .has-phone .scene{perspective-origin:50% calc(var(--lt) - 296px)}
+ .has-phone .floor{top:calc(var(--lt) - 54px)}
+ .has-phone .lap{top:var(--lt);transform:rotateX(var(--pitch,-20deg)) rotateY(var(--yaw,-10deg))}
+ .has-phone .phone{left:calc(380px - 71px * var(--ps));top:var(--pt);width:calc(142px * var(--ps));height:calc(290px * var(--ps));visibility:visible;transform-origin:50% 0;transform:rotateY(calc(-6deg + (1 - var(--ph,0)) * -14deg))}
+ .has-phone .ph-front,.has-phone .ph-back{border-radius:calc(24px * var(--ps))}
+ .has-phone .ph-edge{height:calc(100% - 28px)}
+ .has-phone .ph-edge.r{left:100%}
+ .has-phone .phone .screen{border-radius:calc(18px * var(--ps))}
+ .has-phone .phone .slot{padding:calc(3px * var(--ps)) calc(5px * var(--ps));font-size:calc(6px * var(--ps))}
+}
 /* enhanced (JS + motion allowed): narrow keeps one device per chapter, index becomes a sticky chip bar */
 html.fx .chap-index{position:sticky;top:var(--hh);z-index:6;margin:0 -1.25rem .5rem;padding:.625rem 1.25rem;background:rgba(4,8,18,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--hair-dark)}
 html.fx .chap-index .ci-title{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}

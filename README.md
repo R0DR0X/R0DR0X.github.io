@@ -36,11 +36,14 @@ A single page in the escorpia.com design language: light by default with dark `.
   inside a chapter) and the phone joins for the projects that have one, beside the laptop with a clear gap (the
   laptop moves left and shrinks; a chapter without a phone centers the laptop alone). A project with a `terminal`
   in the content (freshia) puts the phone in front and the laptop smaller and set back, its screen an HTML terminal
-  that the phone never covers. On narrow screens every chapter has its own device above the text, with the same
-  layout. Each chapter is `article#case-<id>`.
-- Real projects (`erp-traceability` → Escorpia Traza, `ecommerce-platform` → Win Comerce, `agent-cockpit` →
+  that the phone never covers. On narrow screens every chapter has its own device above the text; a chapter with a
+  phone stacks it above the laptop, centered and larger, with a gap and the laptop at full size (freshia too: phone
+  above, terminal laptop below). Each chapter is `article#case-<id>`.
+- Real projects (`erp-traceability` → Escorpia Traza, `ecommerce-platform` → WiinComerce, `agent-cockpit` →
   freshia) carry a `product` entry in the content (name and optional public link), a one-line `impact` and
-  `modules`: one problem → solution → saving block per module. Every other project keeps its referential artwork
+  `modules`: one problem → solution → saving block per module. A module may carry a `credit`
+  (`text` with a `{link}` placeholder, `link`, `url`): the WiinComerce WhatsApp CRM credits vocero-crm by Kevin
+  Belier (MIT), the repository it builds on. Every other project keeps its referential artwork
   and anonymized wording.
 - Count-up figures, a stack marquee, project cards with the project's image (real screenshot, else mock screen,
   else the animated SVG cover) and an area filter (View Transitions

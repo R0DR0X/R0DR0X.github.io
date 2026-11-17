@@ -102,6 +102,16 @@ def screens(project, lang, prefix, manifest, shots, eager, s, assigned):
     return f'<div class="shots">{lap}</div>', (None if phone is None else f'<div class="shots">{phone}</div>')
 
 
+def credit(module, lang):
+    """Optional credit line of a module (S18): text with a {link} to the credited repository."""
+    c = module.get("credit")
+    if not c:
+        return ""
+    before, _, after = t(c["text"], lang).partition("{link}")
+    link = f'<a href="{e(c["url"])}" rel="noopener">{e(c["link"])}</a>'
+    return f'<p class="mod-credit">{e(before)}{link}{e(after)}</p>'
+
+
 def modules(project, lang, prefix, shots, eager, s, picks):
     if not project.get("modules"):
         return ""
@@ -115,7 +125,7 @@ def modules(project, lang, prefix, shots, eager, s, picks):
         rows = "".join(f'<div class="{cls}"><dt>{e(s[key])}</dt><dd>{e(t(module[key], lang))}</dd></div>'
                        for key, cls in (("problem", "pb"), ("solution", "so"), ("saving", "sv")))
         items.append(f'<li class="mod" data-area="{e(module.get("area", ""))}"><div class="mod-top"><span class="mod-n" aria-hidden="true">{i + 1:02d}</span>'
-                     f'<h4>{e(t(module["title"], lang))}</h4></div>{thumb}<dl>{rows}</dl></li>')
+                     f'<h4>{e(t(module["title"], lang))}</h4></div>{thumb}<dl>{rows}</dl>{credit(module, lang)}</li>')
     head_id = f'mods-{project["id"]}'
     return (f'<section class="mods" aria-labelledby="{head_id}"><p class="mods-h" id="{head_id}"><span class="dot"></span>{e(s["modules"])}</p>'
             f'<ol class="plain mod-list">{"".join(items)}</ol></section>')

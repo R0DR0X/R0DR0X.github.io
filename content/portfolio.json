@@ -138,8 +138,8 @@
         { "es": "Suites de hasta 2,120 pruebas más E2E con Playwright, y revisión adversarial doble antes de cada merge.", "en": "Suites of up to 2,120 tests plus Playwright E2E, and a blind dual review before every merge." }
       ],
       "stack": ["Next.js 16", "React 19", "TypeScript", "PostgreSQL", "Cloudflare Workers", "D1", "R2", "OpenRouter", "Anthropic API", "Whisper", "Remotion", "Playwright", "Vitest", "Mercado Pago"],
-      "short": { "es": "Win Comerce", "en": "Win Comerce" },
-      "product": { "name": "Win Comerce" },
+      "short": { "es": "WiinComerce", "en": "WiinComerce" },
+      "product": { "name": "WiinComerce" },
       "impact": {
         "es": "De un producto a su avatar, branding, creativos y landing en ~30–45 min, con un pipeline de 11 agentes de IA y 2 revisiones humanas.",
         "en": "From a product to its avatar, branding, creatives and landing page in ~30–45 min, with an 11-agent AI pipeline and 2 human checkpoints."
@@ -178,7 +178,12 @@
           "title": { "es": "CRM por WhatsApp", "en": "WhatsApp CRM" },
           "problem": { "es": "Responder a cada cliente por WhatsApp y hacerle seguimiento a mano limita cuántas ventas se cierran.", "en": "Answering every customer on WhatsApp and following up by hand limits how many sales get closed." },
           "solution": { "es": "Un CRM con la API de WhatsApp: una vendedora de IA contesta, entiende audios y fotos, hace seguimientos, cierra ventas y clasifica los leads.", "en": "A CRM on the WhatsApp API: an AI sales agent replies, understands voice notes and photos, follows up, closes sales and scores leads." },
-          "saving": { "es": "Los clientes reciben respuesta sin esperar a una persona, y los leads clasificados ayudan a que Meta envíe más clientes.", "en": "Customers get answers without waiting for a person, and scored leads help Meta send more customers." }
+          "saving": { "es": "Los clientes reciben respuesta sin esperar a una persona, y los leads clasificados ayudan a que Meta envíe más clientes.", "en": "Customers get answers without waiting for a person, and scored leads help Meta send more customers." },
+          "credit": {
+            "text": { "es": "El CRM parte de {link} de Kevin Belier (licencia MIT).", "en": "The CRM builds on {link} by Kevin Belier (MIT license)." },
+            "link": "vocero-crm",
+            "url": "https://github.com/kevinrivm/vocero-crm"
+          }
         },
         {
           "area": "logistica",
