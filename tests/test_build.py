@@ -1179,5 +1179,24 @@ class PublishedSiteTest(unittest.TestCase):
                 self.assertLessEqual({h for h in hrefs if h.startswith("http")}, ALLOWED_HTTP_ANCHORS, rel)
 
 
+class PublishedPrivacyTest(unittest.TestCase):
+    """The mock manifest and the published pages leak no third-party data."""
+
+    SOURCES = {"01-escorpia-fiel.html", "02-orbita-3d.html", "03-historia-scroll.html", "04-bento-vivo.html", "generated"}
+
+    @unittest.skipUnless((ROOT / "assets" / "img" / "mock" / "manifest.json").is_file(), "no mock screens")
+    def test_mock_manifest_sources_are_artboards_or_generated(self):
+        manifest = json.loads((ROOT / "assets" / "img" / "mock" / "manifest.json").read_text(encoding="utf-8"))
+        for pid, shots in manifest.items():
+            for shot in shots:
+                self.assertIn(shot["source"], self.SOURCES, (pid, shot["file"]))
+
+    def test_published_pages_carry_only_the_owner_email_and_no_ip(self):
+        for rel in PAGES.values():
+            html = (ROOT / "site" / rel).read_text(encoding="utf-8")
+            self.assertEqual(set(re.findall(r"[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,}", html)), {"rodrigopianto2005@gmail.com"}, rel)
+            self.assertEqual(re.findall(r"\b(?:\d{1,3}\.){3}\d{1,3}\b", html), [], rel)
+
+
 if __name__ == "__main__":
     unittest.main()
