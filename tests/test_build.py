@@ -40,7 +40,10 @@ CV_HEADINGS = {
     "es": ["Perfil", "Experiencia", "Proyectos destacados", "Habilidades", "Educación", "Idiomas"],
     "en": ["Profile", "Experience", "Selected projects", "Skills", "Education", "Languages"],
 }
-ALLOWED_HTTP_ANCHORS = {"https://github.com/R0DR0X"}
+# The owner's GitHub, plus the two public pages of the real projects (S5, L7).
+ALLOWED_HTTP_ANCHORS = {"https://github.com/R0DR0X", "https://escorpia.com/escorpia-traza/", "https://github.com/R0DR0X/freshia"}
+REAL_PRODUCTS = {"erp-traceability": "Escorpia Traza", "ecommerce-platform": "Win Comerce", "agent-cockpit": "freshia"}
+PRODUCT_LINKS = {"erp-traceability": "https://escorpia.com/escorpia-traza/", "agent-cockpit": "https://github.com/R0DR0X/freshia"}
 # Rioplatense voseo forms that must never appear in the neutral "tú" Spanish copy.
 VOSEO = re.compile(
     r"(?i)\b(escribime|contame|mirá|tenés|querés|podés|sabés|hacé|vení|decime|buscá|elegí|vos)\b"
@@ -188,7 +191,8 @@ class SiteBuildTest(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp = tempfile.mkdtemp(prefix="portfolio-test-")
         cls.out = Path(cls.tmp) / "site"
-        cls.result = run_build(cls.out)
+        # No real screenshots here: every chapter shows its referential artwork.
+        cls.result = run_build(cls.out, CONTENT, "--real-images", Path(cls.tmp) / "no-real")
         cls.data = load_content()
 
     @classmethod
@@ -379,32 +383,40 @@ class SiteBuildTest(unittest.TestCase):
                     self.assertTrue(node.attrs.get("width") and node.attrs.get("height"), rel)
             self.assertGreater(seen, 0, rel)
 
-    def test_hero_picture_is_the_eager_lcp_image(self):
+    def test_hero_is_the_canvas_sphere_of_skills(self):
+        # S4: the hero is the D2 sphere drawn on a canvas, not a raster picture.
         for lang in ("es", "en"):
             root = self.tree(lang)
             heroes = root.find_all("section", id="top")
             self.assertEqual(len(heroes), 1)
-            pictures = heroes[0].find_all("picture")
-            self.assertEqual(len(pictures), 1)
-            sources = pictures[0].find_all("source")
-            self.assertEqual(len(sources), 2)
-            self.assertIn("hero-mobile-", sources[0].attrs.get("srcset", ""))
-            self.assertIn("media", sources[0].attrs)
-            self.assertRegex(sources[1].attrs.get("srcset", ""), r"hero-\d+\.webp")
-            for source in sources:
-                self.assertIn("sizes", source.attrs)
-            img = pictures[0].find_all("img")
-            self.assertEqual(len(img), 1)
-            self.assertEqual(img[0].attrs.get("fetchpriority"), "high")
-            self.assertNotIn("loading", img[0].attrs)
-            eager = [n for n in root.find_all("img") if n.attrs.get("fetchpriority") == "high"]
-            self.assertEqual(eager, img)
-            canvas = heroes[0].find_all("canvas")
+            hero = heroes[0]
+            self.assertIn("on-dark", hero.classes)
+            self.assertEqual(hero.find_all("picture"), [])
+            self.assertEqual(hero.find_all("img"), [])
+            canvas = hero.find_all("canvas")
             self.assertEqual(len(canvas), 1)
+            self.assertEqual(canvas[0].attrs.get("id"), "orbit")
             self.assertEqual(canvas[0].attrs.get("aria-hidden"), "true")
-            h1 = heroes[0].find_all("h1")
+            # The labels come from the skill chips rendered in #skills.
+            self.assertEqual(canvas[0].attrs.get("data-labels"), "#skills .chips li")
+            skills = root.find_all("section", id="skills")[0]
+            chips = [" ".join(li.all_text().split()) for ul in skills.find_all("ul", cls="chips") for li in ul.find_all("li")]
+            expected = [item[lang] if isinstance(item, dict) else item for g in self.data["skills"] for item in g["items"]]
+            self.assertEqual(chips, expected)
+            h1 = hero.find_all("h1")
             self.assertEqual(len(h1), 1)
             self.assertEqual(" ".join(h1[0].all_text().split()), self.data["meta"]["name"])
+            self.assertEqual([n for n in root.find_all("img") if n.attrs.get("fetchpriority")], [])
+
+    def test_theme_toggle_starts_hidden_and_unpressed(self):
+        labels = {"es": "Tema oscuro", "en": "Dark theme"}
+        for lang in ("es", "en"):
+            buttons = self.tree(lang).find_all("button", id="theme-toggle")
+            self.assertEqual(len(buttons), 1)
+            attrs = buttons[0].attrs
+            self.assertIn("hidden", attrs)
+            self.assertEqual(attrs.get("aria-pressed"), "false")
+            self.assertEqual(attrs.get("aria-label"), labels[lang])
 
     def test_every_project_card_has_an_animated_cover(self):
         for lang in ("es", "en"):
@@ -436,6 +448,91 @@ class SiteBuildTest(unittest.TestCase):
                 self.assertIn("sizes", img)
                 self.assertEqual(img.get("loading"), "lazy")
                 self.assertEqual(img.get("decoding"), "async")
+
+    # S4: pinned laptop + phone story for the featured projects.
+    def test_story_has_index_stage_and_a_device_per_chapter(self):
+        featured = [p for p in self.data["projects"] if p["featured"]]
+        for lang in ("es", "en"):
+            work = self.tree(lang).find_all("section", id="work")[0]
+            self.assertIn("on-dark", work.classes)
+            index = work.find_all("nav", cls="chap-index")
+            self.assertEqual(len(index), 1)
+            hrefs = [a.attrs["href"] for a in index[0].find_all("a")]
+            self.assertEqual(hrefs, [f"#case-{p['id']}" for p in featured] + ["#projects"])
+            stages = work.find_all(cls="stage")
+            self.assertEqual(len(stages), 1)
+            self.assertEqual(stages[0].attrs.get("aria-hidden"), "true")
+            self.assertEqual(len(stages[0].find_all(id="stage-dev")), 1)
+            for project in featured:
+                article = work.find_all("article", id=f"case-{project['id']}")[0]
+                cells = article.find_all(cls="dev-cell")
+                self.assertEqual(len(cells), 1, project["id"])
+                self.assertEqual(cells[0].attrs.get("aria-hidden"), "true")
+                self.assertEqual(len(cells[0].find_all(cls="lid")), 1)
+                phones = cells[0].find_all(cls="phone")
+                self.assertEqual(len(phones), 1 if project["id"] in REAL_PRODUCTS else 0, project["id"])
+
+    # S5: real product names and their public links.
+    def test_real_projects_carry_product_names_and_links(self):
+        for lang in ("es", "en"):
+            root = self.tree(lang)
+            for project in self.data["projects"]:
+                if not project["featured"]:
+                    continue
+                article = root.find_all("article", id=f"case-{project['id']}")[0]
+                heading = " ".join(article.find_all("h3")[0].all_text().split())
+                links = [a.attrs.get("href") for a in article.find_all("a")]
+                name = REAL_PRODUCTS.get(project["id"])
+                if name:
+                    self.assertTrue(heading.startswith(name), heading)
+                    self.assertIn(project["title"][lang], heading)
+                else:
+                    self.assertEqual(article.find_all(cls="prod"), [], project["id"])
+                external = [h for h in links if h and h.startswith("https://")]
+                self.assertEqual(external, [PRODUCT_LINKS[project["id"]]] if project["id"] in PRODUCT_LINKS else [], project["id"])
+            cards = root.find_all("section", id="projects")[0]
+            for pid, name in REAL_PRODUCTS.items():
+                card = [c for c in cards.find_all("li") if c.find_all("a", href=f"#case-{pid}")][0]
+                self.assertIn(name, card.find_all("h3")[0].all_text())
+
+    # S7-S10: problem -> solution -> saving, one block per module, from the content.
+    def test_real_projects_show_problem_solution_saving(self):
+        labels = {"es": ["Problema", "Solución", "Ahorro"], "en": ["Problem", "Solution", "Saving"]}
+        counts = {"erp-traceability": 8, "ecommerce-platform": 6, "agent-cockpit": 4}
+        for lang in ("es", "en"):
+            root = self.tree(lang)
+            for project in self.data["projects"]:
+                article = root.find_all("article", id=f"case-{project['id']}")
+                if not article:
+                    continue
+                blocks = article[0].find_all("section", cls="mods")
+                if project["id"] not in counts:
+                    self.assertEqual(blocks, [], project["id"])
+                    continue
+                self.assertEqual(len(project["modules"]), counts[project["id"]])
+                self.assertEqual(len(blocks), 1, project["id"])
+                items = blocks[0].find_all("li", cls="mod")
+                self.assertEqual(len(items), len(project["modules"]))
+                for item, module in zip(items, project["modules"]):
+                    self.assertEqual(" ".join(item.find_all("h4")[0].all_text().split()), module["title"][lang])
+                    self.assertEqual([" ".join(dt.all_text().split()) for dt in item.find_all("dt")], labels[lang])
+                    self.assertEqual([" ".join(dd.all_text().split()) for dd in item.find_all("dd")],
+                                     [module[k][lang] for k in ("problem", "solution", "saving")])
+
+    def test_without_real_screenshots_real_chapters_show_reference_art(self):
+        slot = {"es": "Imagen referencial", "en": "Reference image"}
+        for lang in ("es", "en"):
+            root = self.tree(lang)
+            self.assertFalse(any("assets/img/real/" in (n.attrs.get("src") or "") for n in root.find_all("img")))
+            for pid in REAL_PRODUCTS:
+                article = root.find_all("article", id=f"case-{pid}")[0]
+                phone = article.find_all(cls="phone")[0]
+                imgs = phone.find_all("img")
+                self.assertEqual(len(imgs), 1, pid)
+                self.assertIn(f"case-{pid}-640", imgs[0].attrs.get("src", ""))
+                self.assertEqual(imgs[0].attrs.get("alt"), "")
+                self.assertEqual(" ".join(phone.find_all(cls="slot")[0].all_text().split()), slot[lang])
+                self.assertEqual(article.find_all(cls="mod-shot"), [])
 
     def test_svg_ids_are_unique_per_page(self):
         for lang in ("es", "en"):
@@ -538,6 +635,154 @@ class SiteBuildTest(unittest.TestCase):
                 self.assertIn(job["period"][lang], cv.text)
             for tag, _ in cv.tags:
                 self.assertNotIn(tag, ("table", "img", "aside", "svg"))
+
+
+def make_real_fixture(directory, spec):
+    """assets/img/real-style folder: manifest.json plus placeholder variant files.
+
+    spec: {project id: [(device, area), ...]}; returns the manifest.
+    """
+    directory = Path(directory)
+    directory.mkdir(parents=True, exist_ok=True)
+    manifest = {}
+    for pid, shots in spec.items():
+        manifest[pid] = []
+        for i, (device, area) in enumerate(shots):
+            name = f"{pid}-{i + 1:02d}-{area}"
+            widths, size = ((800, 1600), (1600, 1000)) if device == "laptop" else ((400, 800), (800, 1600))
+            for w in widths:
+                (directory / f"{name}-{w}.webp").write_bytes(b"RIFF\x00\x00\x00\x00WEBP")
+            manifest[pid].append({"file": name, "device": device, "width": size[0], "height": size[1],
+                                  "alt": {"es": f"Pantalla {area} de {pid}", "en": f"{area} screen of {pid}"},
+                                  "area": area, "source": "test fixture"})
+    (directory / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False), encoding="utf-8")
+    return manifest
+
+
+class RealScreenshotsTest(unittest.TestCase):
+    """S5 + L7: the three real projects show the screenshots from assets/img/real/."""
+
+    SPEC = {
+        "erp-traceability": [("laptop", "llegadas"), ("laptop", "produccion"), ("laptop", "otro"), ("phone", "llegadas")],
+        "ecommerce-platform": [("laptop", "anuncios"), ("phone", "crm")],
+        "agent-cockpit": [("phone", "notificaciones"), ("phone", "chat")],
+    }
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.mkdtemp(prefix="portfolio-real-test-")
+        cls.real = Path(cls.tmp) / "real"
+        cls.manifest = make_real_fixture(cls.real, cls.SPEC)
+        cls.out = Path(cls.tmp) / "site"
+        cls.result = run_build(cls.out, CONTENT, "--real-images", cls.real)
+
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(cls.tmp, ignore_errors=True)
+
+    def tree(self, lang):
+        return Tree((self.out / PAGES[lang]).read_text(encoding="utf-8")).root
+
+    def test_build_copies_every_screenshot(self):
+        self.assertEqual(self.result.returncode, 0, self.result.stderr)
+        self.assertEqual(self.result.stderr, "")
+        for shots in self.manifest.values():
+            for shot in shots:
+                widths = (800, 1600) if shot["device"] == "laptop" else (400, 800)
+                for w in widths:
+                    self.assertTrue((self.out / "assets" / "img" / "real" / f"{shot['file']}-{w}.webp").is_file())
+
+    def test_real_images_are_responsive_described_and_lazy_after_the_first(self):
+        for lang, rel in PAGES.items():
+            real = [n for n in self.tree(lang).walk() if n.tag == "img" and "assets/img/real/" in (n.attrs.get("src") or "")]
+            self.assertTrue(real)
+            # Only the first screenshot of the first chapter's device loads eagerly.
+            eager = [img for img in real if "loading" not in img.attrs]
+            self.assertEqual(len(eager), 1)
+            first_device = self.tree(lang).find_all("article", id="case-erp-traceability")[0].find_all(cls="lid")[0].find_all("img")[0]
+            self.assertEqual(eager[0].attrs, first_device.attrs)
+            self.assertIn("erp-traceability-01-llegadas-800.webp", eager[0].attrs["src"])
+            for img in real:
+                if img is not eager[0]:
+                    self.assertEqual(img.attrs.get("loading"), "lazy")
+            shots = {s["file"]: s for group in self.manifest.values() for s in group}
+            seen = set()
+            for img in real:
+                base = img.attrs["src"].split("/")[-1].rsplit("-", 1)[0]
+                shot = shots[base]
+                seen.add(base)
+                small, large = (800, 1600) if shot["device"] == "laptop" else (400, 800)
+                urls = srcset_urls(img.attrs.get("srcset", ""))
+                self.assertEqual([u.split("/")[-1] for u in urls], [f"{base}-{small}.webp", f"{base}-{large}.webp"])
+                self.assertIn(f"{small}w", img.attrs["srcset"])
+                self.assertIn(f"{large}w", img.attrs["srcset"])
+                self.assertIn("sizes", img.attrs)
+                self.assertEqual((img.attrs.get("width"), img.attrs.get("height")), (str(shot["width"]), str(shot["height"])))
+                self.assertEqual(img.attrs.get("alt"), shot["alt"][lang])
+                for url in urls:
+                    target = os.path.normpath(os.path.join(os.path.dirname(rel), url))
+                    self.assertTrue((self.out / target).is_file(), url)
+            self.assertEqual(seen, set(shots), "every screenshot appears on the page")
+
+    def test_real_chapters_drop_the_reference_art_and_keep_it_elsewhere(self):
+        for lang in ("es", "en"):
+            root = self.tree(lang)
+            for pid in self.SPEC:
+                article = root.find_all("article", id=f"case-{pid}")[0]
+                lid = article.find_all(cls="lid")[0]
+                if any(s["device"] == "laptop" for s in self.manifest[pid]):
+                    self.assertEqual(article.find_all(cls="cover-host"), [], pid)
+                    self.assertFalse(any("assets/img/case-" in (n.attrs.get("src") or "") for n in article.find_all("img")), pid)
+                else:
+                    # Phone-only screenshots: the laptop keeps its referential artwork.
+                    self.assertEqual(len(lid.find_all(cls="cover-host")), 1, pid)
+                    self.assertFalse(any("assets/img/case-" in (n.attrs.get("src") or "") for n in article.find_all(cls="phone")[0].find_all("img")), pid)
+                phone = article.find_all(cls="phone")[0]
+                devices = {"laptop": lid, "phone": phone}
+                for shot in self.manifest[pid][:1]:
+                    imgs = devices[shot["device"]].find_all("img")
+                    self.assertIn(f"{shot['file']}-", imgs[0].attrs["src"])
+            erp = root.find_all("article", id="case-erp-traceability")[0]
+            lid_files = [n.attrs["src"].split("/")[-1] for n in erp.find_all(cls="lid")[0].find_all("img")]
+            self.assertEqual(lid_files, ["erp-traceability-01-llegadas-800.webp", "erp-traceability-03-otro-800.webp"])
+            thumbs = [n.attrs["src"].split("/")[-1] for n in erp.find_all(cls="mod-shot") for n in n.find_all("img")]
+            self.assertEqual(thumbs, ["erp-traceability-01-llegadas-800.webp", "erp-traceability-02-produccion-800.webp"])
+            radar = root.find_all("article", id="case-ad-intelligence")[0]
+            hosts = radar.find_all(cls="cover-host")
+            self.assertEqual(len(hosts), 1)
+            self.assertIn("case-ad-intelligence-", hosts[0].find_all("img")[0].attrs["src"])
+
+    def test_pages_stay_under_budget_with_many_screenshots(self):
+        areas = ["llegadas", "produccion", "almacen", "calidad", "comex", "notificaciones", "comex", "comex"]
+        spec = {pid: [("laptop", a) for a in areas] + [("phone", a) for a in areas] for pid in self.SPEC}
+        with tempfile.TemporaryDirectory() as tmp:
+            make_real_fixture(Path(tmp) / "real", spec)
+            out = Path(tmp) / "out"
+            result = run_build(out, CONTENT, "--real-images", Path(tmp) / "real")
+            self.assertEqual(result.returncode, 0, result.stderr)
+            for rel in PAGES.values():
+                self.assertLessEqual((out / rel).stat().st_size, PAGE_LIMIT, rel)
+
+    def test_missing_screenshot_file_stops_the_build(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            make_real_fixture(Path(tmp) / "real", {"agent-cockpit": [("phone", "chat")]})
+            (Path(tmp) / "real" / "agent-cockpit-01-chat-800.webp").unlink()
+            out = Path(tmp) / "out"
+            result = run_build(out, CONTENT, "--real-images", Path(tmp) / "real")
+            self.assertEqual(result.returncode, 1)
+            self.assertEqual(result.stderr, "content error: real image 'agent-cockpit' file missing: agent-cockpit-01-chat-800.webp\n")
+            self.assertEqual(result.stdout, "")
+            self.assertFalse(out.exists())
+
+    @unittest.skipUnless((ROOT / "assets" / "img" / "real" / "manifest.json").is_file(), "no real screenshots yet")
+    def test_repository_screenshots_build(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "out"
+            result = run_build(out, CONTENT)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            for rel in PAGES.values():
+                self.assertLessEqual((out / rel).stat().st_size, PAGE_LIMIT, rel)
+                self.assertIn("assets/img/real/", (out / rel).read_text(encoding="utf-8"))
 
 
 class ContentValidationTest(unittest.TestCase):
