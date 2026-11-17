@@ -569,6 +569,11 @@ class SiteBuildTest(unittest.TestCase):
             self.assertIn("mod-credit", credit.classes)
             self.assertEqual(" ".join(credit.all_text().split()), CREDIT_TEXT[lang])
 
+    def test_old_ecommerce_name_gone_from_readme_and_tools(self):
+        # S17 (L17): no old spelling left in the README or the build tools.
+        for path in [ROOT / "README.md", *sorted((ROOT / "tools").glob("*.py"))]:
+            self.assertNotIn(OLD_ECOMMERCE_NAME.lower(), path.read_text(encoding="utf-8").lower(), path.name)
+
     def test_ecommerce_product_is_named_wiincomerce(self):
         # S17 (L17): the old spelling is gone from the pages, the content and the screenshot manifest.
         for lang in ("es", "en"):
