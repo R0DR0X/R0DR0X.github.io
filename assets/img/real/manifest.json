@@ -1,0 +1,212 @@
+{
+  "erp-traceability": [
+    {
+      "file": "erp-traceability-01-llegadas",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Panel de Acopio de Escorpia Traza: kilos programados, por llegar, en planta y descargados, con la tabla de llegadas del día por proveedor, embarcación y estado.",
+        "en": "Escorpia Traza intake dashboard: scheduled, incoming, on-site and unloaded kilos, with the day's arrivals table by supplier, vessel and status."
+      },
+      "area": "llegadas",
+      "source": "escorpia.com: design/_assets/shot-acopio-dashboard.webp"
+    },
+    {
+      "file": "erp-traceability-02-calidad",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Documentos de una llegada en Escorpia Traza: certificados sanitarios SANIPES de la cámara frigorífica y permisos de pesca de cada embarcación, con su vigencia y datos extraídos.",
+        "en": "Documents for an arrival in Escorpia Traza: SANIPES sanitary certificates for the refrigerated truck and fishing permits for each vessel, with expiry dates and extracted data."
+      },
+      "area": "calidad",
+      "source": "escorpia.com: design/_assets/shot-acopio-llegada-documentos.webp"
+    },
+    {
+      "file": "erp-traceability-03-produccion",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Dashboard ejecutivo de Producción en Escorpia Traza: producto terminado, materia prima, aprovechamiento, rendimiento y merma del período, con alerta automática y gráfico por día.",
+        "en": "Escorpia Traza production executive dashboard: finished product, raw material, yield, efficiency and waste for the period, with an automatic alert and a daily chart."
+      },
+      "area": "produccion",
+      "source": "escorpia.com: design/_assets/shot-produccion-dashboard.webp"
+    },
+    {
+      "file": "erp-traceability-04-almacen",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Stock trazable en Escorpia Traza: cada bulto con su código de trazabilidad, material, fecha de producción y estado, listo para armar el packing list desde el stock.",
+        "en": "Traceable stock in Escorpia Traza: every package with its traceability code, material, production date and status, ready to build the packing list from stock."
+      },
+      "area": "almacen",
+      "source": "escorpia.com: design/_assets/shot-comex-packing.webp"
+    },
+    {
+      "file": "erp-traceability-05-comex",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Expediente de exportación en Escorpia Traza: estado de cobro, embarque y documentación, archivos del expediente (certificados, facturas, packing list) y tarjetas por documento del embarque.",
+        "en": "Export file in Escorpia Traza: payment, shipment and documentation status, the file's documents (certificates, invoices, packing list) and one card per shipment document."
+      },
+      "area": "comex",
+      "source": "escorpia.com: design/_assets/shot-comex-expediente.webp"
+    },
+    {
+      "file": "erp-traceability-06-movil",
+      "device": "phone",
+      "width": 800,
+      "height": 1600,
+      "alt": {
+        "es": "Escorpia Traza en el teléfono: el panel de Acopio con los kilos programados, por llegar, en planta y descargados del día.",
+        "en": "Escorpia Traza on a phone: the intake dashboard with the day's scheduled, incoming, on-site and unloaded kilos."
+      },
+      "area": "llegadas",
+      "source": "escorpia.com: images/traza/shot-acopio-movil.webp"
+    }
+  ],
+  "ecommerce-platform": [
+    {
+      "file": "ecommerce-platform-01-radar",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Investigar en Win Comerce: buscador de anuncios de Meta por producto o problema, novedades de los competidores que se siguen y la carpeta de anuncios guardados.",
+        "en": "Research in Win Comerce: Meta ad search by product or problem, news from followed competitors and the saved-ads folder."
+      },
+      "area": "anuncios",
+      "source": "Win Comerce: video-pipeline/compositor/public/motion/investigar/inicio.png"
+    },
+    {
+      "file": "ecommerce-platform-02-carpeta",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Mi carpeta en Win Comerce: anuncios guardados y ordenados en columnas Para probar, Probando, Ganador y Descartado, con notas y selección para un brief.",
+        "en": "My folder in Win Comerce: saved ads organized in To test, Testing, Winner and Discarded columns, with notes and selection for a brief."
+      },
+      "area": "anuncios",
+      "source": "Win Comerce: video-pipeline/compositor/public/motion/investigar/carpeta.png"
+    },
+    {
+      "file": "ecommerce-platform-03-replicar",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Usar en Anuncios en Win Comerce: toma el argumento y el gancho de un anuncio ganador, los adapta a un producto propio y muestra los pedidos atribuidos a anuncios.",
+        "en": "Use in Ads in Win Comerce: takes the angle and hook of a winning ad, adapts them to one of your products and shows the orders attributed to ads."
+      },
+      "area": "videos",
+      "source": "Win Comerce: video-pipeline/compositor/public/motion/investigar/usar.png"
+    },
+    {
+      "file": "ecommerce-platform-04-meta",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "Anuncios en Win Comerce: asistente de carga a Meta Ads en ocho pasos (cuenta, campaña, ad set, producto, copies, creativos, destino y lanzamiento) con copies por IA, campañas y reglas.",
+        "en": "Ads in Win Comerce: an eight-step Meta Ads upload wizard (account, campaign, ad set, product, copies, creatives, destination and launch) with AI copies, campaigns and rules."
+      },
+      "area": "meta",
+      "source": "Win Comerce: task-11-anuncios-precargado.png"
+    },
+    {
+      "file": "ecommerce-platform-05-crm",
+      "device": "laptop",
+      "width": 1600,
+      "height": 1000,
+      "alt": {
+        "es": "CRM de WhatsApp de Win Comerce: bandeja con conversaciones etiquetadas por temperatura del lead, respuesta del agente de IA y panel de seguimiento del contacto (datos de prueba).",
+        "en": "Win Comerce WhatsApp CRM: inbox with conversations tagged by lead temperature, the AI agent's reply and the contact follow-up panel (test data)."
+      },
+      "area": "crm",
+      "source": "Win Comerce: WhatsApp CRM composer capture"
+    },
+    {
+      "file": "ecommerce-platform-06-asistente",
+      "device": "phone",
+      "width": 800,
+      "height": 1600,
+      "alt": {
+        "es": "Asistente de IA de Meta Ads de Win Comerce en el teléfono: espiar anuncios ganadores, analizar ángulos de la competencia y validar productos contra entrega.",
+        "en": "Win Comerce Meta Ads AI assistant on a phone: spy on winning ads, analyze competitor angles and validate cash-on-delivery products."
+      },
+      "area": "meta",
+      "source": "Win Comerce: movil-390.png"
+    }
+  ],
+  "agent-cockpit": [
+    {
+      "file": "agent-cockpit-01-sesiones",
+      "device": "phone",
+      "width": 800,
+      "height": 1600,
+      "alt": {
+        "es": "Inicio de freshia: las sesiones de agentes de la computadora (Codex trabajando, Claude Code terminado) agrupadas por estado, con su última respuesta.",
+        "en": "freshia home: the agent sessions on the computer (Codex working, Claude Code finished) grouped by state, with their last reply."
+      },
+      "area": "harness",
+      "source": "freshia repository: docs/images/screens/02-home-dark.png"
+    },
+    {
+      "file": "agent-cockpit-02-chat",
+      "device": "phone",
+      "width": 800,
+      "height": 1600,
+      "alt": {
+        "es": "Chat de freshia con un agente: la conversación terminada con una tarjeta de edición y su diff, y el compositor con adjuntos y dictado por voz.",
+        "en": "freshia chat with an agent: the finished conversation with an edit card and its diff, and the composer with attachments and voice dictation."
+      },
+      "area": "chat",
+      "source": "freshia repository: docs/images/screens/05-chat-light.png"
+    },
+    {
+      "file": "agent-cockpit-03-bandeja",
+      "device": "phone",
+      "width": 800,
+      "height": 1600,
+      "alt": {
+        "es": "Bandeja de freshia: turnos terminados, preguntas y permisos de todas las sesiones, aprobados o rechazados desde el teléfono.",
+        "en": "freshia inbox: finished turns, questions and permission requests from every session, approved or denied from the phone."
+      },
+      "area": "notificaciones",
+      "source": "freshia repository: docs/images/screens/10-inbox-dark.png"
+    },
+    {
+      "file": "agent-cockpit-04-nueva-sesion",
+      "device": "phone",
+      "width": 800,
+      "height": 1600,
+      "alt": {
+        "es": "Nueva sesión en freshia: elegir dónde corre (tmux o Herdr), el espacio, la carpeta y el agente: Claude Code, Codex, Gentle Shell o una terminal.",
+        "en": "New session in freshia: choose where it runs (tmux or Herdr), the space, the folder and the agent: Claude Code, Codex, Gentle Shell or a plain terminal."
+      },
+      "area": "harness",
+      "source": "freshia repository: docs/images/screens/08-new-session-light.png"
+    },
+    {
+      "file": "agent-cockpit-05-notificaciones",
+      "device": "phone",
+      "width": 800,
+      "height": 1600,
+      "alt": {
+        "es": "Notificaciones push de freshia en la barra del teléfono a través de un servidor ntfy propio: tareas terminadas, permisos urgentes y preguntas del agente.",
+        "en": "freshia push notifications in the phone's notification shade through your own ntfy server: finished tasks, urgent permission requests and agent questions."
+      },
+      "area": "notificaciones",
+      "source": "freshia repository: docs/images/screens/11-notification-dark.png"
+    }
+  ]
+}
